@@ -64,7 +64,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #0678e3;
+  background: #7A3F3D;
   color: #fff;
 }
 
@@ -299,7 +299,7 @@ h6 {
 }
 
 #hero .container {
-  padding-top: 80px;
+  padding-top:15px;
 }
 
 #hero h1 {
@@ -338,6 +338,8 @@ h6 {
 #hero .icon-boxes {
   margin-top: 100px;
 }
+
+
 
 #hero .icon-box {
   padding: 50px 30px;
@@ -863,6 +865,7 @@ section {
 # Services
 --------------------------------------------------------------*/
 .services .icon-box {
+  margin-bottom:20px;
   text-align: center;
   padding: 70px 20px 80px 20px;
   transition: all ease-in-out 0.3s;
@@ -872,8 +875,8 @@ section {
 
 .services .icon-box .icon {
   margin: 0 auto;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -921,7 +924,7 @@ section {
 }
 
 .services .iconbox-blue i {
-  color: #47aeff;
+  color: #CC0700;
 }
 
 .services .iconbox-blue:hover .icon i {
@@ -929,7 +932,7 @@ section {
 }
 
 .services .iconbox-blue:hover .icon path {
-  fill: #47aeff;
+  fill: #CC0700;
 }
 
 .services .iconbox-orange i {
