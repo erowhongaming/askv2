@@ -21,6 +21,40 @@ body {
 .card-services{
   text-align:center;
 }
+.resume-item {
+  margin-top: 20px;
+}
+.resume-item-content {
+  display: none; /* Initially hidden */
+}
+.resume-item .container-header h4 {
+  cursor: pointer; /* Indicate that h4 is clickable */
+}
+ .header-date {
+  color:#45505b;
+  display: flex;
+  justify-content: flex-start;
+}
+.subtotal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color:#45505b;
+}
+.container-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-running-total{
+  text-align: right;
+}
+.card-running-bill{
+  text-align: left;
+}
+.resume-title{
+  text-align: center;
+}
 a {
   color: #CC0700;
   text-decoration: none;
@@ -592,7 +626,7 @@ section {
 .resume .resume-item {
   padding: 0 0 20px 20px;
   margin-top: -2px;
-  border-left: 2px solid #CC0700;
+  border-left: 2px solid #45505b;
   position: relative;
 }
 
@@ -602,7 +636,7 @@ section {
   font-weight: 600;
   text-transform: uppercase;
   font-family: "Poppins", sans-serif;
-  color: #CC0700;
+  color: #45505b;
   margin-bottom: 10px;
 }
 
@@ -636,7 +670,7 @@ section {
   left: -9px;
   top: 0;
   background: #fff;
-  border: 2px solid #CC0700;
+  border: 2px solid #45505b;
 }
 
 /*--------------------------------------------------------------
@@ -1203,7 +1237,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: #0678e3;
+  background: #913936;
 }
 
 @keyframes animate-loading {
