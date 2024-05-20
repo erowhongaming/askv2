@@ -108,6 +108,20 @@
     onscroll(document, toggleBacktotop)
   }
 
+
+  let menutotop = select('.menu-to-top')
+  if (menutotop) {
+    const toggleMenutotop = () => {
+      if (window.scrollY > 100) {
+        menutotop.classList.add('active')
+      } else {
+        menutotop.classList.remove('active')
+      }
+    }
+    window.addEventListener('load', toggleMenutotop)
+    onscroll(document, toggleMenutotop)
+  }
+
   /**
    * Mobile nav toggle
    */
