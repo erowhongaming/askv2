@@ -18,10 +18,7 @@ body {
   transform: scale(0.9);
  
 }
-/* .card-services:hover .icon-box {
-  color:#fff;
-  background-color: #a31e22; /* Darken background color on hover */
-} */
+
 .card-services{
   text-align:center;
   
@@ -54,6 +51,13 @@ body {
   align-items: center; /* Vertical centering */
 }
 
+.schedule, .secretary-info {
+  margin-bottom: 1px; /* Adjust as needed */
+}
+
+.schedule p, .secretary-info p {
+  margin-bottom: 1px; /* Adjust as needed */
+}
 
 .inputs input {
   width: 40px;
@@ -204,17 +208,29 @@ h6 {
 
 .menu-to-top {
 
+  top: 100;
   position: fixed;
   visibility: hidden;
   opacity: 0;
   transition: all 0.4s;
-
+  z-index: 1000; /* Ensure the menu is on top of other elements */
 }
 .menu-to-top.active {
   visibility: visible;
   opacity: 1;
 }
 
+
+@media (max-width: 768px) {
+  .menu-to-top {
+    display: block; /* Ensure the menu is displayed in mobile view */
+    background-color: #fff; /* Optional: set background color for better visibility */
+  }
+  
+  .nav-link {
+    font-size: 1.2em; /* Adjust font size for mobile */
+  }
+}
 .docs .doc-member .member-img {
   position: relative;
   overflow: hidden;
@@ -251,6 +267,58 @@ h6 {
 .docs .doc-member:hover {
   transform: scale(1.08);
   box-shadow: 0px 0 30px rgba(55, 55, 63, 0.15);
+}
+
+
+.affiliated-payors-wrapper {
+  overflow: hidden; /* Hide the overflow */
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.affiliated-payors {
+  display: inline-block; /* Keep the images in a single line */
+  animation: marquee 10s linear infinite; /* Apply the marquee animation */
+}
+
+.affiliated-payors img {
+  width: 30px; /* Adjust the size as needed */
+  height: 30px; /* Adjust the size as needed */
+  margin-right: 5px; /* Spacing between images */
+}
+
+/* Keyframes for marquee animation */
+@keyframes marquee {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+.doc-filter {
+  margin-left: 20px;
+}
+@media (max-width: 768px) {
+.doc-filter {
+  margin-left: 0;
+  margin-top: 10px; /* Add some top margin for spacing */
+}
+}
+.filter-container {
+display: flex;
+align-items: center;
+}
+
+.filter-list {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.filter-item {
+display: inline-block;
+margin-right: 10px;
 }
 
 

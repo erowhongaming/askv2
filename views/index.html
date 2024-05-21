@@ -43,43 +43,25 @@
 </head>
 
 <body>
-  <!-- ======= Mobile nav toggle button ======= -->
-  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
-  <!-- <i class="bi bi-list mobile-nav-toggle d-lg-none"></i> -->
-  <!-- ======= Header ======= -->
-   
+ 
   <header id="header" class="d-flex flex-column justify-content-center">
     <nav id="navbar" class="navbar nav-menu menu-to-top">
-      
       <ul>
-        <li><a  href="#landingPage" class="nav-link scrollto" active><i class="ri-home-2-line"></i> <span>Home</span></a></li>
-        <li><a  id="sidebar-runningbill" class="nav-link scrollto"><i class="ri-list-check"></i>  <span>Running Bill</span></a></li>
-        <li><a  id="sidebar-doctorsDir" class="nav-link scrollto"><i class="ri-team-line"></i><span>Doctor's Directory</span></a></li>
-        <li><a id="sidebar-wafinder" class="nav-link scrollto"><i class="ri-map-2-fill"></i><span>Wayfinder</span></a></li>
-        <li><a  class="nav-link scrollto"><i class="ri-feedback-fill"></i> <span>Feedback</span></a></li>
-        <li><a  class="nav-link scrollto"><i class="ri-service-fill"></i> <span>Products and Services</span></a></li>
+        <li><a href="#landingPage" class="nav-link scrollto active"><i class="ri-home-2-line"></i> <span>Home</span></a></li>
+        <li><a id="sidebar-runningbill" class="nav-link scrollto"><i class="ri-list-check"></i> <span>Running Bill</span></a></li>
+        <li><a id="sidebar-doctorsDir" class="nav-link scrollto"><i class="ri-team-line"></i><span>Doctor's Directory</span></a></li>
+        <li><a id="sidebar-wayfinder" class="nav-link scrollto"><i class="ri-map-2-fill"></i><span>Wayfinder</span></a></li>
+        <li><a id="sidebar-feedback" class="nav-link scrollto"><i class="ri-feedback-fill"></i> <span>Feedback</span></a></li>
+        <li><a id="sidebar-productServices"  class="nav-link scrollto"><i class="ri-service-fill"></i> <span>Products and Services</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
- <!-- Logo -->
+    <!-- Logo -->
     <img src="/assets/img/csmc_logo.png" style="width:15%;position:fixed;top:0;left:0;z-index: 0;">
   </header><!-- End Header -->
-
-  <!-- ======= Header ======= -->
-  <!-- <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <h1 class="logo"><a href="index.html"><strong>A</strong>ssistance <strong>S</strong>ervices <strong>K</strong>iosk</a></h1>
-      <-- Uncomment below if you prefer to use an image logo -
-      <-- <a href="index.html" class="logo"><img src="/assets/img/logo.png" alt="" class="img-fluid"></a>--
-
-   
-
-    </div>
-  </header> -->
-  <!-- End Header -->
-<style>
   
-</style>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+
   <!-- ======= Hero Section ======= -->
   <section id="landingPage" class="align-items-center" style='background: url("/assets/img/bg-blur.png") top center;'>
    
@@ -191,7 +173,30 @@
       </div>
     </div>
   </section><!-- End Hero -->
+  <style>
+.filter-container {
+  width: 100%;
+  padding: 0 15px; /* Adds padding to ensure responsiveness */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
 
+.search-bar {
+  width: 100%;
+  padding: 10px 15px; /* Adds inner padding for better appearance */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Makes the search bar curved */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+  outline: none; /* Removes default outline on focus */
+  transition: border-color 0.3s ease; /* Smooth transition for border color on focus */
+  margin:10px;
+}
+
+.search-bar:focus {
+  border-color: #007bff; /* Changes border color on focus */
+}
+    
+  </style>
  <!-- ======= Doctors Directory Section ======= -->
  <section id="portfolio" class="portfolio">
   <div class="container" data-aos="fade-up">
@@ -200,24 +205,92 @@
       <h2>Doctor's Directory</h2>
       <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
     </div>
-
-    <div class="row" data-aos="fade-up" data-aos-delay="150">
+    <div class="row" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
-        <ul id="portfolio-flters">
-          <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-app">Specialty 1</li>
-          <li data-filter=".filter-card">Specialty 2</li>
-          <li data-filter=".filter-web">Specialty 3</li>
-        </ul>
-
-       
+        <div class="filter-container" style="width: 100%;">
+          <input type="text" class="search-bar" placeholder="Search...">
+        </div>
       </div>
-     
     </div>
+    
+    <div class="row" data-aos="fade-up">
+        <div class="col-lg-12 d-flex justify-content-center">
+       
+          <div class="doc-filter">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Specialties
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+                  <li>
+                      <input class="form-check-input" type="checkbox" id="select-all">
+                      <label class="form-check-label" for="select-all">All</label>
+                  </li>
+                  <li>
+                      <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                      <input class="form-check-input" type="checkbox" id="specialty1">
+                      <label class="form-check-label" for="specialty1">Specialty 1</label>
+                  </li>
+                  <li>
+                      <input class="form-check-input" type="checkbox" id="specialty2">
+                      <label class="form-check-label" for="specialty2">Specialty 2</label>
+                  </li>
+                  <li>
+                      <input class="form-check-input" type="checkbox" id="specialty3">
+                      <label class="form-check-label" for="specialty3">Specialty 3</label>
+                  </li>
+              </ul>
+          </div> 
+          <div class="doc-filter">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Select Sub Specialties
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown">
+              <li>
+                  <input class="form-check-input" type="checkbox" id="select-all">
+                  <label class="form-check-label" for="select-all">All</label>
+              </li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>
+              <li>
+                  <input class="form-check-input" type="checkbox" id="specialty1">
+                  <label class="form-check-label" for="specialty1">Specialty 1</label>
+              </li>
+              <li>
+                  <input class="form-check-input" type="checkbox" id="specialty2">
+                  <label class="form-check-label" for="specialty2">Specialty 2</label>
+              </li>
+              <li>
+                  <input class="form-check-input" type="checkbox" id="specialty3">
+                  <label class="form-check-label" for="specialty3">Specialty 3</label>
+              </li>
+          </ul>
+          </div> 
+        
+        </div>
+    </div>
+  
+    <div class="row" data-aos="fade-up">
+      <div class="col-lg-12 d-flex justify-content-center">
+        <div class="filter-container">
+       
+          <ul id="portfolio-flters" class="filter-list">
+            <li  class="filter-item filter-active">Filters:</li>
+            <li data-filter="*" class="filter-item filter-active">All</li>
+            <li data-filter=".filter-app" class="filter-item">Specialty 1</li>
+            <li data-filter=".filter-card" class="filter-item">Specialty 2</li>
+            <li data-filter=".filter-web" class="filter-item">Specialty 3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
 
-    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
+    <div class="row portfolio-container" >
 
-      <div class="docs col-lg-4 col-md-6 portfolio-item align-items-stretch filter-app" data-aos="fade-up" data-aos-delay="100">
+      <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
         <div class="doc-member"> 
           <div class="member-img  portfolio-wrap">
             <img src="/assets/img/photos/4572.jpg" class="img-fluid" alt="">
@@ -230,24 +303,50 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h6>
-            <div class="card-text">
-              Clinic Schedule: Tuesday, Thursday 8:00 am - 10:00 PM
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
             </div>
-            <div class="card-text">
-              Secretary: Secretary 1 Contact-number: 09999
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
             </div>
-            <div class="card-text">
-              Affiliated Payors: payors, payors 2
-            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors: 
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
           </div>
+          </div>
+        
         </div>
       </div><!-- End docs Member -->
 
   
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-card" >
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-card" >
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4806.jpg" class="img-fluid" alt="">
@@ -260,17 +359,50 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+          </div>
           </div>
         </div>
       </div><!-- End docs Member -->
     
  
       
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-card">
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-card">
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4551.jpg" class="img-fluid" alt="">
@@ -283,17 +415,47 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                 
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
 
 
        
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-web" data-aos-delay="100">
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-web" data-aos-delay="100">
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4544.jpg" class="img-fluid" alt="">
@@ -306,17 +468,50 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
 
       
        
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-web">
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-web">
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/5103.jpg" class="img-fluid" alt="">
@@ -329,15 +524,48 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
     
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-card" >
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-card" >
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4534.jpg" class="img-fluid" alt="">
@@ -350,16 +578,49 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
     
     
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-app">
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-app">
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4626.jpg" class="img-fluid" alt="">
@@ -372,17 +633,50 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
       
 
       
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-web" >
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-web" >
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/5127.jpg" class="img-fluid" alt="">
@@ -395,20 +689,49 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
 
-
-
       
-
-      
-      <div class="docs col-lg-4 col-md-6 align-items-stretch portfolio-item filter-app">
+      <div class="docs col-lg-3 col-md-6 align-items-stretch portfolio-item filter-app">
         <div class="doc-member">
           <div class="member-img portfolio-wrap">
             <img src="/assets/img/photos/4671.jpg" class="img-fluid" alt="">
@@ -421,10 +744,43 @@
               </div>
             </div>
           </div>
-          <div class="member-info">
-            <h4>Doctor's Name</h4>
-            <span>Specialty - Subspecialty </span>
-            <p></p>
+          <div class="member-info border p-3 mb-3">
+            <h3>Doctor's Name</h3>
+            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+            <hr> <!-- Horizontal line for visual separation -->
+            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+            <div class="schedule">
+                <p>Tuesday, Thursday</p>
+                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+            </div>
+            <hr class="my-4"> <!-- Horizontal line for visual separation -->
+            <h6>Secretary</h6> <!-- Header for Secretary -->
+            <div class="secretary-info">
+                <p>Secretary: Secretary 1</p>
+                <p>Contact-number: 09999</p> <!-- Secretary Information -->
+            </div>
+            <hr> <!-- Horizontal line for visual separation -->
+            <div class="card-text mt-3">
+              Affiliated Payors:
+              <div class="affiliated-payors-wrapper">
+                  <div class="affiliated-payors">
+                      <!-- Add images or text here -->
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div><!-- End docs Member -->
@@ -479,7 +835,7 @@
                       </div>
                       
                       <!-- Step 2: Enter OTP -->
-                      <div class="col-12 step" id="step-2" style="display: none;">
+                      <div class="co l-12 step" id="step-2" style="display: none;">
                           <div class="text-center">
                               <h6>Your account</h6>
                               <div>
@@ -1027,6 +1383,76 @@
           appendTo: document.getElementById('runningBill')
         });
       });
+        
+
+      // affiliated payors animation
+     
+      document.addEventListener('DOMContentLoaded', () => {
+
+      const slider = document.querySelector('.affiliated-payors-wrapper');
+      const marqueeContent = document.querySelector('.affiliated-payors');
+      const itemsWidth = slider.scrollWidth - slider.clientWidth;
+      const randomPosition = Math.floor(Math.random() * itemsWidth);
+
+      // Set initial scroll position
+      slider.scrollLeft = randomPosition;
+
+
+      let isDragging = false;
+      let startX;
+      let scrollLeft;
+
+      // Start dragging
+      const startDrag = (e) => {
+          isDragging = true;
+          startX = (e.type === 'mousedown') ? e.pageX : e.touches[0].pageX;
+          scrollLeft = slider.scrollLeft;
+          slider.classList.add('active');
+          pauseMarquee();
+      };
+
+      // End dragging
+      const endDrag = () => {
+          isDragging = false;
+          slider.classList.remove('active');
+          resumeMarquee();
+      };
+
+      // Dragging
+      const drag = (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+          const x = (e.type === 'mousemove') ? e.pageX : e.touches[0].pageX;
+          const walk = (x - startX) * 2; // Adjust the multiplier for faster/slower scrolling
+          slider.scrollLeft = scrollLeft - walk;
+      };
+
+      // Mouse events
+      slider.addEventListener('mousedown', startDrag);
+      slider.addEventListener('mouseup', endDrag);
+      slider.addEventListener('mousemove', drag);
+
+      // Touch events
+      slider.addEventListener('touchstart', startDrag);
+      slider.addEventListener('touchend', endDrag);
+      slider.addEventListener('touchmove', drag);
+
+      // Function to pause the marquee animation
+      const pauseMarquee = () => {
+          const marquee = document.querySelector('.affiliated-payors');
+          marquee.style.animationPlayState = 'paused';
+      };
+
+      // Function to resume the marquee animation
+      const resumeMarquee = () => {
+          const marquee = document.querySelector('.affiliated-payors');
+          marquee.style.animationPlayState = 'running';
+      };
+  });
+
+
+
+
 
 
       $(document).ready(function(){
@@ -1039,15 +1465,27 @@
            });
 
 
-           $('#multiselect').multiselect({
-              buttonWidth : '160px',
-              includeSelectAllOption : true,
-              nonSelectedText: 'Select an Option'
-            });
+          
       });
 
       
   </script>
+<script>
+
+  $(document).ready(function () {
+      $('#multiSelectDropdown').on('click', function (event) {
+          event.stopPropagation();
+      });
+
+      $('#multiSelectDropdown').on('change', function () {
+          var selectedValues = [];
+          $('input[type="checkbox"]:checked').each(function () {
+              selectedValues.push($(this).next('label').text());
+          });
+          console.log(selectedValues); // You can use this array of selected values as per your requirement
+      });
+  });
+</script>
 </body>
 
 </html>
