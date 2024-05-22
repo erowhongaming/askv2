@@ -19,7 +19,7 @@ const Doctor = {
                 console.error("Error executing query:", err);
                 return callback(err, null);
             } else {
-              
+               // console.error("Success executing query:", results);
                 return callback(null, results);
             }
         });
