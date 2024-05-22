@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
+const routes = require('./src/routes/route');
 
-
+app.use(routes);
 
 // Serve static assets from the 'assets' directory
+
 app.use('/assets', express.static(path.join(__dirname, 'public','/assets')));
 
 // Your other routes and middleware
@@ -20,5 +22,5 @@ app.get('/ask', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://srv-dashboard01:${PORT}`);
 });
