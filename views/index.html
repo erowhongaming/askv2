@@ -208,7 +208,7 @@
     <div class="row" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
         <div class="filter-container" style="width: 100%;">
-          <input type="text" class="search-bar" placeholder="Search...">
+          <input type="text" id="searchDoctor" class="search-bar" placeholder="Search...">
         </div>
       </div>
     </div>
@@ -1300,6 +1300,7 @@
   <script src="/assets/vendor/php-email-form/validate.js"></script>
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/assets.js"></script>
  
    
   <script>
@@ -1348,128 +1349,117 @@
       
       
 
-      
       document.addEventListener("DOMContentLoaded", function(event) {
-
-      function OTPInput() {
-      const inputs = document.querySelectorAll('#otp > *[id]');
-      for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+        function OTPInput() {
+            const inputs = document.querySelectorAll('#otp > *[id]');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].addEventListener('keydown', function(event) {
+                    if (event.key === "Backspace") {
+                        inputs[i].value = '';
+                        if (i !== 0) inputs[i - 1].focus();
+                    } else {
+                        if (i === inputs.length - 1 && inputs[i].value !== '') {
+                            return true;
+                        } else if (event.keyCode > 47 && event.keyCode < 58) {
+                            inputs[i].value = event.key;
+                            if (i !== inputs.length - 1) inputs[i + 1].focus();
+                            event.preventDefault();
+                        } else if (event.keyCode > 64 && event.keyCode < 91) {
+                            inputs[i].value = String.fromCharCode(event.keyCode);
+                            if (i !== inputs.length - 1) inputs[i + 1].focus();
+                            event.preventDefault();
+                        }
+                    }
+                });
+            }
+        }
         
+        OTPInput();
+    });
 
-      function showStep(step) {
-          // Hide all steps
-          document.querySelectorAll('.step').forEach(function(stepElement) {
-              stepElement.style.display = 'none';
-              stepElement.classList.remove('step-active');
-          });
 
-          // Show the current step with slide-in effect
-          const currentStep = document.getElementById('step-' + step);
-          currentStep.style.display = 'block';
-          setTimeout(() => {
-              currentStep.classList.add('step-active');
-          }, 10);  // Small delay to trigger CSS transition
+  // Function to group data by specialization
+    function groupDataBySpecialization(data) {
+        const groupedData = {};
+
+        // Iterate over each object in the data array
+        data.forEach(doctor => {
+            const specialization = doctor.specialization;
+
+            // Check if the specialization key exists in the groupedData object
+            if (!groupedData[specialization]) {
+                // If the specialization key does not exist, create a new array for it
+                groupedData[specialization] = [];
+            }
+
+            // Add the current doctor object to the array corresponding to its specialization
+            groupedData[specialization].push(doctor);
+        });
+
+        return groupedData;
+    }
+    
+// Function to group data by specialization
+function groupDataBySubSpecialization(data) {
+    const groupedData = {};
+
+    // Iterate over each object in the data array
+    data.forEach(doctor => {
+        const subSpecialization = doctor.subSpecialization;
+
+        // Check if the specialization key exists in the groupedData object
+        if (!groupedData[subSpecialization]) {
+            // If the specialization key does not exist, create a new array for it
+            groupedData[subSpecialization] = [];
         }
 
+        // Add the current doctor object to the array corresponding to its specialization
+        groupedData[subSpecialization].push(doctor);
+    });
 
+    return groupedData;
+}
+    $('#searchDoctor').keyup(function(){
+      const query = $('#searchDoctor').val();
+      $.ajax({
+        url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
+        method: 'GET',
+        success: function(data) {
+          
+          const groupedBySpecialization = groupDataBySpecialization(data);
+          const groupBySubSpecialization = groupDataBySubSpecialization(data);
+          console.log(groupedBySpecialization);
+          console.log(groupBySubSpecialization);
+          
+        }
+      })
+    });
 
-      $('#showAlertBtn').click(function(){
-        Swal.fire({
-          title: 'SweetAlert in Section',
-          text: 'This is a SweetAlert inside the section!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-          // Specify the element to which the modal should be appended
-          appendTo: document.getElementById('runningBill')
-        });
-      });
-        
-
-      // affiliated payors animation
      
-      document.addEventListener('DOMContentLoaded', () => {
-
-      const slider = document.querySelector('.affiliated-payors-wrapper');
-      const marqueeContent = document.querySelector('.affiliated-payors');
-      const itemsWidth = slider.scrollWidth - slider.clientWidth;
-      const randomPosition = Math.floor(Math.random() * itemsWidth);
-
-      // Set initial scroll position
-      slider.scrollLeft = randomPosition;
-
-
-      let isDragging = false;
-      let startX;
-      let scrollLeft;
-
-      // Start dragging
-      const startDrag = (e) => {
-          isDragging = true;
-          startX = (e.type === 'mousedown') ? e.pageX : e.touches[0].pageX;
-          scrollLeft = slider.scrollLeft;
-          slider.classList.add('active');
-          pauseMarquee();
-      };
-
-      // End dragging
-      const endDrag = () => {
-          isDragging = false;
-          slider.classList.remove('active');
-          resumeMarquee();
-      };
-
-      // Dragging
-      const drag = (e) => {
-          if (!isDragging) return;
-          e.preventDefault();
-          const x = (e.type === 'mousemove') ? e.pageX : e.touches[0].pageX;
-          const walk = (x - startX) * 2; // Adjust the multiplier for faster/slower scrolling
-          slider.scrollLeft = scrollLeft - walk;
-      };
-
-      // Mouse events
-      slider.addEventListener('mousedown', startDrag);
-      slider.addEventListener('mouseup', endDrag);
-      slider.addEventListener('mousemove', drag);
-
-      // Touch events
-      slider.addEventListener('touchstart', startDrag);
-      slider.addEventListener('touchend', endDrag);
-      slider.addEventListener('touchmove', drag);
-
-      // Function to pause the marquee animation
-      const pauseMarquee = () => {
-          const marquee = document.querySelector('.affiliated-payors');
-          marquee.style.animationPlayState = 'paused';
-      };
-
-      // Function to resume the marquee animation
-      const resumeMarquee = () => {
-          const marquee = document.querySelector('.affiliated-payors');
-          marquee.style.animationPlayState = 'running';
-      };
-  });
-
-
-
-
-
-
       $(document).ready(function(){
           $('html, body').animate({
               scrollTop: $('#landingPage').offset().top
           }, 200, 'easeInOutCubic');
 
           $('.resume-item .container-header h4').click(function() {
-          $(this).parent().siblings('.resume-item-content').toggle();
-           });
+            $(this).parent().siblings('.resume-item-content').toggle();
+          });
 
+          // Initial load 
+          $.ajax({
+            url: `/api/doctors`,
+            method: 'GET',
+            success: function() {
+              console.log('Initial Load Success');
+            }
+          })
 
-          
+       
       });
 
       
   </script>
+  
 <script>
 
   $(document).ready(function () {
