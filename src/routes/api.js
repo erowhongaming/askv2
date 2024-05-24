@@ -18,7 +18,7 @@ router.get('/api/doctors/search', async (req, res) => {
         if (!query) {
             return res.status(400).json({ error: "Query parameter 'q' is required." });
         }
-        // Search the indexed data using wildcard search
+        // Search the indexed data using wildcard search for multiple terms
         const results = await Doctor.search(query);
         res.json(results);
     } catch (err) {
