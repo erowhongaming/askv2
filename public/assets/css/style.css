@@ -233,7 +233,7 @@ h6 {
 }
 .docs .doc-member .member-img {
   position: relative;
-  overflow: hidden;
+  overflow: -moz-hidden-unscrollable;
 }
 
 
@@ -792,7 +792,107 @@ section {
   font-family: "Raleway", sans-serif;
   font-size: 14px;
 }
+/* KEYBOARD */
 
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px 0;
+  background: #004134;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  transition: bottom 0.4s;
+  opacity:1;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__key {
+  height: 45px;
+  width: 6%;
+  max-width: 90px;
+  margin: 3px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 1.05rem;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+ 
+}
+
+.keyboard__key:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.keyboard__key--wide {
+  width: 12%;
+}
+
+.keyboard__key--extra-wide {
+  width: 36%;
+  max-width: 300px;
+}
+
+.keyboard__key--activatable::after {
+  content: '';
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+
+.keyboard__key--active::after {
+  background: #08ff00;
+}
+
+.keyboard__key--dark {
+  background: rgba(179, 1, 1, 0.25);
+}
+
+/* SEARCH */
+
+
+.filter-container {
+  width: 100%;
+  padding: 0 15px; /* Adds padding to ensure responsiveness */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 15px; /* Adds inner padding for better appearance */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Makes the search bar curved */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+  outline: none; /* Removes default outline on focus */
+  transition: border-color 0.3s ease; /* Smooth transition for border color on focus */
+  margin:10px;
+}
+
+.search-bar:focus {
+  border-color: #007bff; /* Changes border color on focus */
+}
+    
 /*--------------------------------------------------------------
 # Akills
 --------------------------------------------------------------*/
@@ -933,7 +1033,7 @@ section {
   transition: 0.3s;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 0;
   background: rgba(69, 80, 91, 0.8);
 }
 

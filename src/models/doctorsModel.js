@@ -36,7 +36,8 @@ const Doctor = {
                     return reject(err);
                 } else {
                     // Index doctor details in FlexSearch
-                    console.log("Fetched data:", results); // Log fetched data
+                    //console.log("Fetched data:", results); // Log fetched data
+                    console.log('Initial Data Fetched successfully');
                     results.forEach(doctor => {
                         const searchableFields = [
                             doctor.firstname?.toLowerCase() || '',
@@ -47,14 +48,16 @@ const Doctor = {
                             doctor.room?.toLowerCase() || ''
                         ];
 
-                        console.log(searchableFields);
+                        //console.log(searchableFields);
                         // Concatenate all searchable fields into a single string
                         const dataToIndex = searchableFields.join(' ');
 
                         index.add(doctor.person_id, dataToIndex); // Index the combined fields
                         doctorData[doctor.person_id] = doctor; // Store the actual doctor data
-                        console.log("Added to index:", doctor.person_id, dataToIndex); //
+                        //console.log("Added to index:", doctor.person_id, dataToIndex); //
                     });
+
+                   
                     return resolve(results);
                 }
             });

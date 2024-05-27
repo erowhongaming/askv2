@@ -173,30 +173,7 @@
       </div>
     </div>
   </section><!-- End Hero -->
-  <style>
-.filter-container {
-  width: 100%;
-  padding: 0 15px; /* Adds padding to ensure responsiveness */
-  box-sizing: border-box; /* Ensures padding is included in the width */
-}
-
-.search-bar {
-  width: 100%;
-  padding: 10px 15px; /* Adds inner padding for better appearance */
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 25px; /* Makes the search bar curved */
-  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
-  outline: none; /* Removes default outline on focus */
-  transition: border-color 0.3s ease; /* Smooth transition for border color on focus */
-  margin:10px;
-}
-
-.search-bar:focus {
-  border-color: #007bff; /* Changes border color on focus */
-}
-    
-  </style>
+  
  <!-- ======= Doctors Directory Section ======= -->
  <section id="portfolio" class="portfolio">
   <div class="container" data-aos="fade-up" style="overflow:auto">
@@ -208,7 +185,7 @@
     <div class="row" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
         <div class="filter-container" style="width: 100%;">
-          <input type="text" id="searchDoctor" class="search-bar" placeholder="Search...">
+          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for...Doctor's Name or Specialty or Subspecialty or Secretary or Room">
         </div>
       </div>
     </div>
@@ -254,12 +231,12 @@
       <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
         <div class="doc-member"> 
           <div class="member-img  portfolio-wrap">
-            <img src="/assets/img/photos/4572.jpg" class="img-fluid" alt="">
+            <img src="/assets/img/doctor.png" class="img-fluid" alt="" loading="lazy">
             <div class="portfolio-info">
               <h4>Doctor's Name</h4>            
               <span>Specialty - Subspecialty </span>
               <div class="portfolio-links">
-                <a href="/assets/img/photos/4572.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Doctor's Name Specialy - Sub Specialty"><i class="bx bx-plus"></i></a>
+                <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Doctor's Name Specialy - Sub Specialty"><i class="bx bx-plus"></i></a>
               
               </div>
             </div>
@@ -962,77 +939,81 @@
     
     
       $('#searchDoctor').keyup(function(){
-        const query = $('#searchDoctor').val();
-            $.ajax({
-            url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
-            method: 'GET',
-            success: function(data) {
-              $('#physicians-container').html('');
-                for (const doctor in data) {
-                    const doctorInfo = data[doctor];
-                    var img = '';
-                    if(doctorInfo.gender ==1){
-                      img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
-                    }else{
-                      img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
-                    }
-                    $('#physicians-container').append(`
-                        <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
-                          <div class="doc-member"> 
-                            <div class="member-img  portfolio-wrap">
-                              `+img+`
-                              <div class="portfolio-info">
-                                <h4>${doctorInfo.fullname}</h4>            
-                                <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
-                                <div class="portfolio-links">
-                                  <a href="/assets/img/photos/4572.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
-                                
+          const query = $('#searchDoctor').val();
+          if(query != ''){
+              $.ajax({
+                url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
+                method: 'GET',
+                success: function(data) {
+                  $('#physicians-container').html('');
+                    for (const doctor in data) {
+                        const doctorInfo = data[doctor];
+                        var img = '';
+                        if(doctorInfo.gender ==1){
+                          img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
+                        }else{
+                          img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
+                        }
+                        $('#physicians-container').append(`
+                            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
+                              <div class="doc-member"> 
+                                <div class="member-img  portfolio-wrap">
+                                  `+img+`
+                                  <div class="portfolio-info">
+                                    <h4>${doctorInfo.fullname}</h4>            
+                                    <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
+                                    <div class="portfolio-links">
+                                      <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
+                                    
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div class="member-info border p-3 mb-3">
-                              <h3>${doctorInfo.fullname}</h3>
-                              <h4 class="card-subtitle mb-2 text-muted">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</h4>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-                              <div class="schedule">
-                                  <p>Tuesday, Thursday</p>
-                                  <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-                              </div>
-                              <hr class="my-4"> <!-- Horizontal line for visual separation -->
-                              <h6>Secretary</h6> <!-- Header for Secretary -->
-                              <div class="secretary-info">
-                                  <p>Secretary: Secretary 1</p>
-                                  <p>Contact-number: 09999</p> <!-- Secretary Information -->
-                              </div>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <div class="card-text mt-3">
-                                Affiliated Payors: 
-                                <div class="affiliated-payors-wrapper">
-                                    <div class="affiliated-payors">
-                                        <!-- Add images or text here -->
-                                        <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                                        <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                                      
-                                        <!-- Add more images as needed -->
+                                <div class="member-info border p-3 mb-3">
+                                  <h3>${doctorInfo.fullname}</h3>
+                                  <h4 class="card-subtitle mb-2 text-muted">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</h4>
+                                  <hr> <!-- Horizontal line for visual separation -->
+                                  <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+                                  <div class="schedule">
+                                      <p>Tuesday, Thursday</p>
+                                      <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+                                  </div>
+                                  <hr class="my-4"> <!-- Horizontal line for visual separation -->
+                                  <h6>Secretary</h6> <!-- Header for Secretary -->
+                                  <div class="secretary-info">
+                                      <p>Secretary: Secretary 1</p>
+                                      <p>Contact-number: 09999</p> <!-- Secretary Information -->
+                                  </div>
+                                  <hr> <!-- Horizontal line for visual separation -->
+                                  <div class="card-text mt-3">
+                                    Affiliated Payors: 
+                                    <div class="affiliated-payors-wrapper">
+                                        <div class="affiliated-payors">
+                                            <!-- Add images or text here -->
+                                            <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
+                                            <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
+                                          
+                                            <!-- Add more images as needed -->
+                                        </div>
                                     </div>
                                 </div>
+                                </div>
+                              
+                              </div>
                             </div>
-                            </div>
-                          
-                          </div>
-                        </div>
-                    `);
+                        `);
+                    }
+                },  
+                error: function() {
+                    console.error('Failed to load doctor data');
                 }
-            },  
-            error: function() {
-                console.error('Failed to load doctor data');
-            }
 
-        
+            
+            });
+          }else{
+            $('#physicians-container').html('');
+          }
         });
 
-      });
       $(document).ready(function(){
           $('html, body').animate({
               scrollTop: $('#landingPage').offset().top
@@ -1112,19 +1093,19 @@
                         var img = '';
                         if (doctorInfo.gender !== 0 && doctorInfo.gender !== null) {
                             img = doctorInfo.gender == 1 
-                                ? `<img src="/assets/img/doctor.png" class="img-fluid" alt="">` 
-                                : `<img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
+                                ? `<img src="/assets/img/doctor.png" class="img-fluid"  loading="lazy">` 
+                                : `<img src="/assets/img/doctora.png" class="img-fluid" loading="lazy">`;
                         }
                         $('#physicians-container').append(`
-                            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
+                            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-center ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
                               <div class="doc-member"> 
                                 <div class="member-img  portfolio-wrap">
-                                  `+img+`
+                                      `+img+`
                                   <div class="portfolio-info">
                                     <h4>${doctorInfo.fullname}</h4>            
                                     <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
                                     <div class="portfolio-links">
-                                      <a href="/assets/img/photos/4572.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
+                                      <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
                                     
                                     </div>
                                   </div>
@@ -1165,8 +1146,9 @@
                     }
                 
             },
-            error: function() {
-                console.error('Failed to load doctor data');
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.error('Error:', textStatus, errorThrown);
+              // Handle the error here, such as displaying an error message to the user
             }
           })
 
