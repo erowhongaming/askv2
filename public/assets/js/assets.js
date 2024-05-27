@@ -175,7 +175,7 @@
                         keyElement.innerHTML = 'ENTER'
 
                         keyElement.addEventListener("click", () => {
-                            this.properties.value += "\n";
+                          
                             this._triggerEvent("oninput");  
                             search(this.properties.value);
                         });

@@ -173,7 +173,7 @@
       </div>
     </div>
   </section><!-- End Hero -->
-  
+
  <!-- ======= Doctors Directory Section ======= -->
  <section id="portfolio" class="portfolio">
   <div class="container" data-aos="fade-up" style="overflow:auto">
@@ -191,25 +191,42 @@
     </div>
     
     <div class="row" data-aos="fade-up">
-        <div class="col-lg-12 d-flex justify-content-center">
-       
-          <div class="doc-filter">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="SpmultiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Select Specialties
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown" id="SpecialtymultiSelectDropdown">
-                 
-                </ul>
-          </div> 
-          <div class="doc-filter">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="multiSelectDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Sub Specialties
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="multiSelectDropdown" id="SubSpecialtymultiSelectDropdown">
-             
-          </ul>
-          </div> 
-        
+        <div class="col-lg-12">
+          <div class="middle-filter">
+            <label>
+              <input type="radio" name="radio" checked />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Front-end</span>
+              </div>
+            </label>
+          
+            <label>
+              <input type="radio" name="radio" />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Back-end</span>
+              </div>
+            </label><label>
+              <input type="radio" name="radio" />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Back-end</span>
+              </div>
+            </label><label>
+              <input type="radio" name="radio" />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Back-end</span>
+              </div>
+            </label><label>
+              <input type="radio" name="radio" />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Back-end</span>
+              </div>
+            </label><label>
+              <input type="radio" name="radio" />
+              <div class="specialty-filter box">
+                <span class="specialtyh1">Back-end</span>
+              </div>
+            </label>
+          </div>
         </div>
     </div>
   
@@ -225,7 +242,7 @@
     </div>
     
 
-    <div class="row portfolio-container" id="physicians-container" style="overflow:auto">
+    <div class="row" id="physicians-container" style="overflow:auto;height:100vh">
 
    
       <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
@@ -943,7 +960,10 @@
                 url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
                 method: 'GET',
                 success: function(data) {
+                  console.log("HERE");
                   $('#physicians-container').html('');
+                
+                 
                     for (const doctor in data) {
                         const doctorInfo = data[doctor];
                         var img = '';
@@ -1000,6 +1020,7 @@
                             </div>
                         `);
                     }
+                  
                 },  
                 error: function() {
                     console.error('Failed to load doctor data');
@@ -1008,7 +1029,54 @@
             
             });
           }else{
-            $('#physicians-container').html('');
+            $('#physicians-container').html(`
+            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
+            <div class="doc-member"> 
+              <div class="member-img  portfolio-wrap">
+                <img src="/assets/img/doctor.png" class="img-fluid" alt="" loading="lazy">
+                <div class="portfolio-info">
+                  <h4>Doctor's Name</h4>            
+                  <span></span>
+                  <div class="portfolio-links">
+                    <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Doctor's Name Specialy - Sub Specialty"><i class="bx bx-plus"></i></a>
+                  
+                  </div>
+                </div>
+              </div>
+              <div class="member-info border p-3 mb-3">
+                <h3>Doctor's Name</h3>
+                <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+                <hr> <!-- Horizontal line for visual separation -->
+                <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+                <div class="schedule">
+                    <p>Tuesday, Thursday</p>
+                    <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+                </div>
+                <hr class="my-4"> <!-- Horizontal line for visual separation -->
+                <h6>Secretary</h6> <!-- Header for Secretary -->
+                <div class="secretary-info">
+                    <p>Secretary: Secretary 1</p>
+                    <p>Contact-number: 09999</p> <!-- Secretary Information -->
+                </div>
+                <hr> <!-- Horizontal line for visual separation -->
+                <div class="card-text mt-3">
+                  Affiliated Payors: 
+                  <div class="affiliated-payors-wrapper">
+                      <div class="affiliated-payors">
+                          <!-- Add images or text here -->
+                          <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                          <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                          <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                        
+                          <!-- Add more images as needed -->
+                      </div>
+                  </div>
+              </div>
+              </div>
+            
+            </div>
+          </div><!-- End docs Member -->
+            `);
           }
     }
       $('#searchDoctor').keyup(function(){

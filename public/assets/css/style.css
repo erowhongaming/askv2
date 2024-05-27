@@ -296,16 +296,6 @@ h6 {
   }
 }
 
-.doc-filter {
-  margin-left: 20px;
- 
-}
-@media (max-width: 768px) {
-.doc-filter {
-  margin-left: 0;
-  margin-top: 10px; /* Add some top margin for spacing */
-}
-}
 .filter-container {
 display: flex;
 align-items: center;
@@ -358,6 +348,84 @@ margin-right: 10px;
 
   100% {
     transform: rotate(360deg);
+  }
+}
+/* Doctors Dir Buttons */
+
+.middle-filter {
+  width: 100%;
+  text-align: center;
+ 
+  input[type="radio"] {
+    display: none;
+    &:checked {
+      + .box {
+        background-color: #6c757d;
+        .specialtyh1 {
+          color: white;
+          transform: translateY(10px);
+          &:before {
+            transform: translateY(0px);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  .box {
+      width: 150px;
+      height: 80px;
+      margin: 8px; /* Adjusted for smaller size */
+      background-color: #fff;
+      border-radius: 35px; /* Proportional to the smaller size */
+      transition: all 250ms ease;
+      will-change: transition;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      border: 1px solid #cccccc;
+      &:active {
+          transform: translateY(8px); /* Adjusted for smaller size */
+      }
+          /* Subtle emboss effect */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      .specialtyh1 {
+          position: absolute;
+          transform: translate(0, 0px); /* Adjusted for smaller size */
+          left: 0;
+          right: 0;
+          transition: all 300ms ease;
+          font-size: 1.2em; /* Adjusted for smaller size */
+          user-select: none;
+          color: #6c757d;
+          
+          &:before {
+              font-size: 1em; /* Adjusted for smaller size */
+              font-family: FontAwesome;
+              display: block;
+              transform: translateY(-64px); /* Adjusted for smaller size */
+              opacity: 0;
+              transition: all 300ms ease-in-out;
+              font-weight: normal;
+              color: white;
+          }
+      }
+  }
+
+
+  .specialty-filter {
+    .specialtyh1 {
+     
+      
+        &:before {
+            font-family: 'RemixIcon'; /* Ensure this matches the font-family used by Remix Icon */
+            content: "\EAE2"; /* Use the Unicode value directly */
+          
+        }
+    }
   }
 }
 

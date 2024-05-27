@@ -18,7 +18,20 @@ Express.js: Node.js framework used for backend development.
 **Archi**
 project-name
 ├── assets
-├── public
-│   └── index.html
+├── public|   
+|   └── Assets
+│       └── css
+|──src
+|   └── Controllers
+|   └── Models
+|   └── Routes
+|   └── Views
+|       └──index.html
 └── server.js
 
+**Reference **
+Virtual Keyboard
+https://codepen.io/jwingo/pen/yLywXKg
+
+**Radio Button** 
+https://codepen.io/gabrielferreira/pen/oYxNVy
