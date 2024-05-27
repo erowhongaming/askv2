@@ -233,7 +233,7 @@ h6 {
 }
 .docs .doc-member .member-img {
   position: relative;
-  overflow: -moz-hidden-unscrollable;
+  overflow: hidden;
 }
 
 
@@ -803,8 +803,8 @@ section {
   background: #004134;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   user-select: none;
-  transition: bottom 0.4s;
-  opacity:1;
+  transition: bottom 0.2s;
+  
 }
 
 .keyboard--hidden {
@@ -833,7 +833,7 @@ section {
   vertical-align: top;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
- 
+  position: relative;
 }
 
 .keyboard__key:active {
@@ -846,7 +846,7 @@ section {
 
 .keyboard__key--extra-wide {
   width: 36%;
-  max-width: 300px;
+  max-width: 500px;
 }
 
 .keyboard__key--activatable::after {
@@ -865,7 +865,7 @@ section {
 }
 
 .keyboard__key--dark {
-  background: rgba(179, 1, 1, 0.25);
+  background:  rgba(0, 0, 0, 0.4);
 }
 
 /* SEARCH */

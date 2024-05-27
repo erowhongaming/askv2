@@ -937,10 +937,8 @@
     }
     
     
-    
-      $('#searchDoctor').keyup(function(){
-          const query = $('#searchDoctor').val();
-          if(query != ''){
+    function search(query){
+      if(query != ''){
               $.ajax({
                 url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
                 method: 'GET',
@@ -1012,6 +1010,10 @@
           }else{
             $('#physicians-container').html('');
           }
+    }
+      $('#searchDoctor').keyup(function(){
+          const query = $('#searchDoctor').val();
+          search(query);
         });
 
       $(document).ready(function(){
@@ -1182,6 +1184,10 @@
           console.log(selectedValues); // You can use this array of selected values as per your requirement
       });
   });
+
+  
+
+  
 </script>
 </body>
 

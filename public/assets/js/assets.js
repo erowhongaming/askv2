@@ -80,8 +80,6 @@
         marquee.style.animationPlayState = 'running';
     };
 
-
-
     const Keyboard = {
         elements: {
             main: null,
@@ -155,7 +153,8 @@
 
                         keyElement.addEventListener("click", () => {
                             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                            this._triggerEvent("oninput");
+                            this._triggerEvent("oninput"); 
+                            search(this.properties.value);
                         });
 
                         break;
@@ -166,7 +165,7 @@
 
                         keyElement.addEventListener("click", () => {
                             this._toggleCapsLock();
-                            keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                            keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock); 
                         });
 
                         break;
@@ -177,7 +176,8 @@
 
                         keyElement.addEventListener("click", () => {
                             this.properties.value += "\n";
-                            this._triggerEvent("oninput");
+                            this._triggerEvent("oninput");  
+                            search(this.properties.value);
                         });
 
                         break;
@@ -187,8 +187,10 @@
                         keyElement.innerHTML = 'SPACE BAR';
 
                         keyElement.addEventListener("click", () => {
+                        
                             this.properties.value += " ";
-                            this._triggerEvent("oninput");
+                            this._triggerEvent("oninput");  
+                            search(this.properties.value);
                         });
 
                         break;
@@ -208,8 +210,10 @@
                         keyElement.textContent = key.toLowerCase();
 
                         keyElement.addEventListener("click", () => {
+                         
                             this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
-                            this._triggerEvent("oninput");
+                            this._triggerEvent("oninput"); 
+                            search(this.properties.value);
                         });
 
                         break;
