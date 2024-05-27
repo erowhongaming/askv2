@@ -180,7 +180,8 @@
 
     <div class="section-title">
       <h2>Doctor's Directory</h2>
-      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+     -->
     </div>
     <div class="row" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
@@ -190,56 +191,14 @@
       </div>
     </div>
     
-    <div class="row" data-aos="fade-up">
+    <div class="row" data-aos="fade-up" >
         <div class="col-lg-12">
-          <div class="middle-filter">
-            <label>
-              <input type="radio" name="radio" checked />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Front-end</span>
-              </div>
-            </label>
-          
-            <label>
-              <input type="radio" name="radio" />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Back-end</span>
-              </div>
-            </label><label>
-              <input type="radio" name="radio" />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Back-end</span>
-              </div>
-            </label><label>
-              <input type="radio" name="radio" />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Back-end</span>
-              </div>
-            </label><label>
-              <input type="radio" name="radio" />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Back-end</span>
-              </div>
-            </label><label>
-              <input type="radio" name="radio" />
-              <div class="specialty-filter box">
-                <span class="specialtyh1">Back-end</span>
-              </div>
-            </label>
+          <div class="middle-filter" id="filterSpecialty">
+            
           </div>
         </div>
     </div>
   
-    <div class="row" data-aos="fade-up">
-      <div class="col-lg-12 d-flex justify-content-center">
-        <div class="filter-container">
-       
-          <ul id="portfolio-flters" class="filter-list">
-           
-          </ul>
-        </div>
-      </div>
-    </div>
     
 
     <div class="row" id="physicians-container" style="overflow:auto;height:100vh">
@@ -1029,54 +988,7 @@
             
             });
           }else{
-            $('#physicians-container').html(`
-            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
-            <div class="doc-member"> 
-              <div class="member-img  portfolio-wrap">
-                <img src="/assets/img/doctor.png" class="img-fluid" alt="" loading="lazy">
-                <div class="portfolio-info">
-                  <h4>Doctor's Name</h4>            
-                  <span></span>
-                  <div class="portfolio-links">
-                    <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Doctor's Name Specialy - Sub Specialty"><i class="bx bx-plus"></i></a>
-                  
-                  </div>
-                </div>
-              </div>
-              <div class="member-info border p-3 mb-3">
-                <h3>Doctor's Name</h3>
-                <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
-                <hr> <!-- Horizontal line for visual separation -->
-                <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-                <div class="schedule">
-                    <p>Tuesday, Thursday</p>
-                    <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-                </div>
-                <hr class="my-4"> <!-- Horizontal line for visual separation -->
-                <h6>Secretary</h6> <!-- Header for Secretary -->
-                <div class="secretary-info">
-                    <p>Secretary: Secretary 1</p>
-                    <p>Contact-number: 09999</p> <!-- Secretary Information -->
-                </div>
-                <hr> <!-- Horizontal line for visual separation -->
-                <div class="card-text mt-3">
-                  Affiliated Payors: 
-                  <div class="affiliated-payors-wrapper">
-                      <div class="affiliated-payors">
-                          <!-- Add images or text here -->
-                          <img src="payor1.jpg" alt="Payor 1" class="payor-img">
-                          <img src="payor2.jpg" alt="Payor 2" class="payor-img">
-                          <img src="payor3.jpg" alt="Payor 3" class="payor-img">
-                        
-                          <!-- Add more images as needed -->
-                      </div>
-                  </div>
-              </div>
-              </div>
-            
-            </div>
-          </div><!-- End docs Member -->
-            `);
+            $('#physicians-container').html(``);
           }
     }
       $('#searchDoctor').keyup(function(){
@@ -1107,10 +1019,7 @@
                 const groupedBySpecialization = groupDataBySpecialization(data);                
                 const groupBySubSpecialization = groupDataBySubSpecialization(data);
 
-                 // Append the "All" filter item
-                 $('#portfolio-flters').append(
-                      `<li data-filter="*" class="filter-item filter-active">All</li>`
-                  );
+               
 
                   $('#SpecialtymultiSelectDropdown').append(
                     `<li>
@@ -1131,29 +1040,29 @@
                     </li>`
                   );
                 
-                  
-                 
+                  $('#filterSpecialty').html('');
+                 $('#filterSpecialty').html( `<label>
+                            <input type="radio" name="radioSpecialty" value="ALL" checked />
+                            <div class="specialty-filter box">
+                              <span class="specialtyh1">ALL</span>
+                            </div>
+                          </label>`);
                   // Append filter items for each specialization
                   for (const specialization in groupedBySpecialization) {
-                      $('#portfolio-flters').append(
-                          `<li data-filter=".${specialization.toLowerCase().replace(/\s+/g, '_')}" class="filter-item">${specialization}</li>`
-                      );
+                      $('#filterSpecialty').append(
 
-                      $('#SpecialtymultiSelectDropdown').append(
-                        `<li>
-                              <input class="form-check-input" type="checkbox">
-                              <label class="form-check-label" for="specialty1">${specialization}</label>
-                          </li>`
+                        `<label>
+                            <input type="radio" name="radioSpecialty" value="${specialization}"  />
+                            <div class="specialty-filter box">
+                              <span class="specialtyh1">${specialization}</span>
+                            </div>
+                          </label>`
+                       
                       );
                   }
 
                   for (const subspecialization in groupBySubSpecialization) {
-                     $('#SubSpecialtymultiSelectDropdown').append(
-                        `<li>
-                              <input class="form-check-input" type="checkbox">
-                              <label class="form-check-label" for="specialty1">${subspecialization}</label>
-                          </li>`
-                      );
+                  
                   }
 
                   $('#physicians-container').html('');
