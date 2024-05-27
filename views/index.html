@@ -1049,10 +1049,12 @@
             success: function(data) {
                 console.log('Initial Load Success');
                 
+                // Limit data to the first 100 doctors
+                const limitedData = data.slice(0, 100);
+                
                 // Group data by specialization and subspecialization
                 const groupedBySpecialization = groupDataBySpecialization(data);                
                 const groupBySubSpecialization = groupDataBySubSpecialization(data);
-
 
                  // Append the "All" filter item
                  $('#portfolio-flters').append(
@@ -1104,13 +1106,14 @@
                   }
 
                   $('#physicians-container').html('');
-                    for (const doctor in data) {
+                    for (const doctor in limitedData) {
                         const doctorInfo = data[doctor];
+                       
                         var img = '';
-                        if(doctorInfo.gender ==1){
-                          img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
-                        }else{
-                          img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
+                        if (doctorInfo.gender !== 0 && doctorInfo.gender !== null) {
+                            img = doctorInfo.gender == 1 
+                                ? `<img src="/assets/img/doctor.png" class="img-fluid" alt="">` 
+                                : `<img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
                         }
                         $('#physicians-container').append(`
                             <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
