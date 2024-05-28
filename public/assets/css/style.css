@@ -12,6 +12,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
+
 }
 .cards:hover > .card-services:not(:hover) {
   filter: blur(10px);
@@ -376,7 +377,7 @@ margin-right: 10px;
       width: 300px;
       height: 80px;
       margin: 15px; /* Adjusted for smaller size 802e42 */
-      background-color: #f5f5f5; 
+      background-color: #fff; 
      
       border-radius: 15px; /* Proportional to the smaller size */
       transition: all 250ms ease;

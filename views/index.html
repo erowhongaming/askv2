@@ -193,9 +193,11 @@
     
     <div class="row" data-aos="fade-up" >
         <div class="col-lg-12">
-          <div class="middle-filter" id="filterSpecialty">
-            
-          </div>
+          <form id="myForm">
+            <div class="middle-filter" id="filterSpecialty">
+              
+            </div>
+          </form>
         </div>
     </div>
   
@@ -1134,9 +1136,19 @@
        
       });
 
-      
   </script>
-  
+  <script>
+        $('#myForm').on('change', 'input[type="radio"][name="radioSpecialty"]', function() {
+          var selectedValue = $('input[name="radioSpecialty"]:checked').val();
+          if (selectedValue) {
+              console.log("Selected value: " + selectedValue);
+              $('#selectedValue').text(selectedValue);
+          } else {
+              console.log("No radio button selected.");
+              $('#selectedValue').text('None');
+          }
+      });
+  </script>
 <script>
 
   $(document).ready(function () {

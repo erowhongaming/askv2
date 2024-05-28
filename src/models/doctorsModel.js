@@ -10,7 +10,7 @@ const index = new FlexSearch.Index({
 
 // Store the actual doctor data separately
 const doctorData = {};
-
+let groupedSpecializations =[];
 const Doctor = {
     getDetails: () => {
         const query = `
@@ -81,6 +81,57 @@ const Doctor = {
         // Fetch the details of the matching doctors from the stored data
         const matchingDoctors = matchingIds.map(id => doctorData[id]);
         return matchingDoctors;
+    },
+
+    searchBySpecialization: async (specialization) => {
+        const matchingDoctors = Object.values(doctorData).filter(doctor => 
+            doctor.specialization.toLowerCase() === specialization.toLowerCase()
+        );
+        return matchingDoctors;
+    },
+
+    searchBySpecializationWithSubspecialization: async (specialization, subSpecialization) => {
+        const matchingDoctors = Object.values(doctorData).filter(doctor => 
+            doctor.specialization.toLowerCase() === specialization.toLowerCase() &&
+            doctor.subSpecialization.toLowerCase() === subSpecialization.toLowerCase()
+        );
+        return matchingDoctors;
+    },
+    getDoctorsGroupedBySpecialization: () => {
+        const query = `
+            SELECT 
+                spec as specialization,               
+                GROUP_CONCAT(DISTINCT sub_spec) as subSpecializations
+            FROM 
+                proc_doctors_schedule_final_2
+            GROUP BY 
+                spec;
+        `;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, results) => {
+                if (err) {
+                    console.error("Error executing query:", err);
+                    return reject(err);
+                } else {
+                    console.log('Doctors grouped by specialization fetched successfully');
+                    groupedSpecializations = results.map(row => ({
+                        specialization: row.specialization,
+                        subSpecializations: row.subSpecializations ? row.subSpecializations.split(',') : []
+                    }));
+                   
+                    return resolve(groupedSpecializations);
+                }
+            });
+        });
+    },
+
+    searchGroupedSpecializations: (specialization) => {
+        const foundSpecialization = groupedSpecializations.find(spec => spec.specialization === specialization);
+        if (foundSpecialization) {
+            return foundSpecialization.subSpecializations;
+        } else {
+            return []; // Return an empty array if no match found
+        }
     }
 };
 
