@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="zoom: 100%;">
 
 <head>
   <meta charset="utf-8">
@@ -263,7 +263,7 @@
  <section id="portfolio" class="portfolio">
   <div class="sidebar-wrapper" >
     <div class="sidebar">
-        <h4 class="sidebar-title"></h4>
+        <h6 class="sidebar-title"></h6>
         
         <div class="col-lg-12 dedication ">
           <form id="subForm">
@@ -276,17 +276,17 @@
   </div>
 
 
-  <div class="container" data-aos="fade-up" style="overflow:auto">
+  <div class="container-fluid" data-aos="fade-up" style="overflow:auto">
 
     <div class="section-title">
       <h2>Doctor's Directory</h2>
       <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
      -->
     </div>
-    <div class="row" data-aos="fade-up">
+    <div class="container" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
         <div class="filter-container" style="width: 100%;">
-          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for...Doctor's Name or Specialty or Subspecialty or Secretary or Room">
+          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for... Name, Specialty, Subspecialty, Secretary, or Room">
         </div>
       </div>
     </div>
@@ -306,7 +306,7 @@
     <div class="row" id="physicians-container" style="overflow:auto;height:100vh">
 
    
-      <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch filter-app" >
+      <div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch filter-app" >
         <div class="doc-member"> 
           <div class="member-img  portfolio-wrap">
             <img src="/assets/img/doctor.png" class="img-fluid" alt="" loading="lazy">
@@ -329,12 +329,8 @@
                 <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
             </div>
             <hr class="my-4"> <!-- Horizontal line for visual separation -->
-            <h6>Secretary</h6> <!-- Header for Secretary -->
-            <div class="secretary-info">
-                <p>Secretary: Secretary 1</p>
-                <p>Contact-number: 09999</p> <!-- Secretary Information -->
-            </div>
-            <hr> <!-- Horizontal line for visual separation -->
+         
+           
             <div class="card-text mt-3">
               Affiliated Payors: 
               <div class="affiliated-payors-wrapper">
@@ -362,7 +358,7 @@
   
   <!-- ======= Running Bill Section ======= -->
   <section  id="runningBill" class="services" style="margin-top: 20px;">
-    <div class="container" data-aos="fade-up" >
+    <div class="container-fluid" data-aos="fade-up" >
       <div class="section-title">
         <h2>Running bill</h2>
         <p>Magnam dolores commodi suscipit. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
@@ -740,7 +736,7 @@
   
   <!-- ======= Products and Services ======= -->
   <section id="productAndServices" class="services">
-    <div class="container" data-aos="fade-up">
+    <div class="container-fluid" data-aos="fade-up">
   
       <div class="section-title">
         <h2>Products and Services</h2>
@@ -873,77 +869,32 @@
    
   <script>
     
-      function goTo(target) {
-       if(target == '#portfolio'){
+    function goTo(target) {
+      if(target == '#portfolio'){
           doctorsDir(target);
-       }else if(target == '#runningBill'){
+      }else if(target == '#runningBill'){
           runnginBill(target);
-       }else{
+      }else{
           $('html, body').animate({
               scrollTop: $(target).offset().top
           }, 200, 'easeInOutCubic');
-       }
-       
-      } 
-    
-      function doctorsDir(target){
-        $('html, body').animate({
-            scrollTop: $(target).offset().top
-        }, 200, 'easeInOutCubic');
       }
-
-      function runnginBill(target){
-        $('html, body').animate({
-            scrollTop: $(target).offset().top
-        }, 200, 'easeInOutCubic');
-      }
-
-
-      $('#runnginBill-link').click(function() {
-     
-          goTo('#runningBill');
-      });
-      $('#sidebar-runningbill').click(function() {
-          goTo('#runningBill');
-      });
       
-      $('#doctorDir-link').click(function() {
-          goTo('#portfolio');
-      });
-      
-      $('#sidebar-doctorsDir').click(function() {
-          goTo('#portfolio');
-      });
-      
-      
+    } 
+  
+    function doctorsDir(target){
+      $('html, body').animate({
+          scrollTop: $(target).offset().top
+      }, 200, 'easeInOutCubic');
+    }
 
-      document.addEventListener("DOMContentLoaded", function(event) {
-        function OTPInput() {
-            const inputs = document.querySelectorAll('#otp > *[id]');
-            for (let i = 0; i < inputs.length; i++) {
-                inputs[i].addEventListener('keydown', function(event) {
-                    if (event.key === "Backspace") {
-                        inputs[i].value = '';
-                        if (i !== 0) inputs[i - 1].focus();
-                    } else {
-                        if (i === inputs.length - 1 && inputs[i].value !== '') {
-                            return true;
-                        } else if (event.keyCode > 47 && event.keyCode < 58) {
-                            inputs[i].value = event.key;
-                            if (i !== inputs.length - 1) inputs[i + 1].focus();
-                            event.preventDefault();
-                        } else if (event.keyCode > 64 && event.keyCode < 91) {
-                            inputs[i].value = String.fromCharCode(event.keyCode);
-                            if (i !== inputs.length - 1) inputs[i + 1].focus();
-                            event.preventDefault();
-                        }
-                    }
-                });
-            }
-        }
-        
-        OTPInput();
-    });
+    function runnginBill(target){
+      $('html, body').animate({
+          scrollTop: $(target).offset().top
+      }, 200, 'easeInOutCubic');
+    }
+
+
 
     function groupDataBySpecializationAndSubSpecialization(data) {
       const groupedData = {};
@@ -970,7 +921,7 @@
       });
 
       return groupedData;
-  }
+    }
 
   // Function to group data by specialization
     function groupDataBySpecialization(data) {
@@ -1023,64 +974,8 @@
             success: function(data) {
               $('#physicians-container').html('');
             
-            
-                for (const doctor in data) {
-                    const doctorInfo = data[doctor];
-                    var img = '';
-                    if(doctorInfo.gender ==1){
-                      img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
-                    }else{
-                      img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
-                    }
-                    $('#physicians-container').append(`
-                        <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
-                          <div class="doc-member"> 
-                            <div class="member-img  portfolio-wrap">
-                              `+img+`
-                              <div class="portfolio-info">
-                                <h4>${doctorInfo.fullname}</h4>            
-                                <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
-                                <div class="portfolio-links">
-                                  <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
-                                
-                                </div>
-                              </div>
-                            </div>
-                            <div class="member-info border p-3 mb-3">
-                              <h3>${doctorInfo.fullname}</h3>
-                              <h4 class="card-subtitle mb-2 text-muted">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</h4>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-                              <div class="schedule">
-                                  <p>Tuesday, Thursday</p>
-                                  <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-                              </div>
-                              <hr class="my-4"> <!-- Horizontal line for visual separation -->
-                              <h6>Secretary</h6> <!-- Header for Secretary -->
-                              <div class="secretary-info">
-                                  <p>Secretary: Secretary 1</p>
-                                  <p>Contact-number: 09999</p> <!-- Secretary Information -->
-                              </div>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <div class="card-text mt-3">
-                                Affiliated Payors: 
-                                <div class="affiliated-payors-wrapper">
-                                    <div class="affiliated-payors">
-                                        <!-- Add images or text here -->
-                                        <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                                        <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                                      
-                                        <!-- Add more images as needed -->
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                          
-                          </div>
-                        </div>
-                    `);
-                }
-              
+              renderPhysicians(data);
+               
             },  
             error: function() {
                 console.error('Failed to load doctor data');
@@ -1090,208 +985,110 @@
         $('#physicians-container').html(``);
       }
     }
-      $('#searchDoctor').keyup(function(){
-          const query = $('#searchDoctor').val();
-          search(query);
-        });
+  
 
-      $(document).ready(function(){
-          $('html, body').animate({
-              scrollTop: $('#landingPage').offset().top
-          }, 200, 'easeInOutCubic');
+    function getInitialLoading(){
+        // Initial load 
+        $.ajax({
+          url: `/api/doctors`,
+          method: 'GET',
+          success: function(data) {              
+              
+            // Limit data to the first 100 doctors
+          
+            
+            // Group data by specialization and subspecialization
+            const groupedBySpecialization = groupDataBySpecialization(data);                
+            const groupBySubSpecialization = groupDataBySubSpecialization(data);            
 
-          $('.resume-item .container-header h4').click(function() {
-            $(this).parent().siblings('.resume-item-content').toggle();
-          });
-
-          // Initial load 
-          $.ajax({
-            url: `/api/doctors`,
-            method: 'GET',
-            success: function(data) {
-                console.log('Initial Load Success');
-                
-                // Limit data to the first 100 doctors
-                const limitedData = data.slice(0, 100);
-                
-                // Group data by specialization and subspecialization
-                const groupedBySpecialization = groupDataBySpecialization(data);                
-                const groupBySubSpecialization = groupDataBySubSpecialization(data);
-
-               
-
-                  $('#SpecialtymultiSelectDropdown').append(
-                    `<li>
-                      <input class="form-check-input" type="checkbox" id="select-all">
-                      <label class="form-check-label" for="select-all">All SPECIALIZATION</label>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>`
-                  );
-                  $('#SubSpecialtymultiSelectDropdown').append(
-                    `<li>
-                      <input class="form-check-input" type="checkbox" id="select-all">
-                      <label class="form-check-label" for="select-all">All</label>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>`
-                  );
-                
-                  $('#filterSpecialty').html('');
-                 $('#filterSpecialty').html( `<label>
-                            <input type="radio" name="radioSpecialty" value="ALL" checked />
-                            <div class="specialty-filter box">
-                              <span class="specialtyh1">ALL SPECIALIZATION</span>
-                            </div>
-                          </label>`);
-                  // Append filter items for each specialization
-                  for (const specialization in groupedBySpecialization) {
-                      $('#filterSpecialty').append(
-
-                        `<label>
-                            <input type="radio" name="radioSpecialty" value="${specialization}"  />
-                            <div class="specialty-filter box">
-                              <span class="specialtyh1">${specialization}</span>
-                            </div>
-                          </label>`
-                       
-                      );
-                  }
-
-                  for (const subspecialization in groupBySubSpecialization) {
-                  
-                  }
-
-                  $('#physicians-container').html('');
-                    for (const doctor in limitedData) {
-                        const doctorInfo = data[doctor];
-                       
-                        var img = '';
-                        if (doctorInfo.gender !== 0 && doctorInfo.gender !== null) {
-                            img = doctorInfo.gender == 1 
-                                ? `<img src="/assets/img/doctor.png" class="img-fluid"  loading="lazy">` 
-                                : `<img src="/assets/img/doctora.png" class="img-fluid" loading="lazy">`;
-                        }
-                        $('#physicians-container').append(`
-                            <div class="docs col-lg-3 col-md-6 portfolio-item align-items-center ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
-                              <div class="doc-member"> 
-                                <div class="member-img  portfolio-wrap">
-                                      `+img+`
-                                  <div class="portfolio-info">
-                                    <h4>${doctorInfo.fullname}</h4>            
-                                    <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
-                                    <div class="portfolio-links">
-                                      <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
-                                    
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="member-info border p-3 mb-3">
-                                  <h3>${doctorInfo.fullname}</h3>
-                                  <h4 class="card-subtitle mb-2 text-muted">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</h4>
-                                  <hr> <!-- Horizontal line for visual separation -->
-                                  <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-                                  <div class="schedule">
-                                      <p>Tuesday, Thursday</p>
-                                      <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-                                  </div>
-                                  <hr class="my-4"> <!-- Horizontal line for visual separation -->
-                                  <h6>Secretary</h6> <!-- Header for Secretary -->
-                                  <div class="secretary-info">
-                                      <p>Secretary: Secretary 1</p>
-                                      <p>Contact-number: 09999</p> <!-- Secretary Information -->
-                                  </div>
-                                  <hr> <!-- Horizontal line for visual separation -->
-                                  <div class="card-text mt-3">
-                                    Affiliated Payors: 
-                                    <div class="affiliated-payors-wrapper">
-                                        <div class="affiliated-payors">
-                                            <!-- Add images or text here -->
-                                            <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                                            <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                                          
-                                            <!-- Add more images as needed -->
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                              
-                              </div>
-                            </div>
-                        `);
-                    }
-                
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.error('Error:', textStatus, errorThrown);
-              // Handle the error here, such as displaying an error message to the user
+            $('#SpecialtymultiSelectDropdown').append(
+              `<li>
+                <input class="form-check-input" type="checkbox" id="select-all">
+                <label class="form-check-label" for="select-all">All SPECIALIZATION</label>
+              </li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>`
+            );
+            $('#SubSpecialtymultiSelectDropdown').append(
+              `<li>
+                <input class="form-check-input" type="checkbox" id="select-all">
+                <label class="form-check-label" for="select-all">All</label>
+              </li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>`
+            );
+          
+            $('#filterSpecialty').html('');
+            $('#filterSpecialty').html( 
+              `<label>
+                  <input type="radio" name="radioSpecialty" value="ALL" checked />
+                  <div class="specialty-filter box">
+                    <span class="specialtyh1">ALL SPECIALIZATION</span>
+                  </div>
+              </label>`);
+            // Append filter items for each specialization
+            for (const specialization in groupedBySpecialization) {
+                $('#filterSpecialty').append(
+                  `<label>
+                      <input type="radio" name="radioSpecialty" value="${specialization}"  />
+                      <div class="specialty-filter box">
+                        <span class="specialtyh1">${specialization}</span>
+                      </div>
+                    </label>`                    
+                );
             }
-          })
 
-       
-      });
+            $('#physicians-container').html('');
 
-  </script>
-  <script>
-     $('#myForm').on('change', 'input[type="radio"][name="radioSpecialty"]', function() {
-        var selectedValue = $('input[name="radioSpecialty"]:checked').val();
-        if (selectedValue != 'ALL') {
+            const limitedData = data.slice(0, 100);
 
-            $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar">X</button>');
-            getSubSpecializationGroups(selectedValue);
-            $(".side-menu > i").toggleClass("ri-close-fill", 300);
-            $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
-            $(".sidebar-wrapper").show(500); 
-        } else {
-            console.log("No radio button selected.");
-            $(".sidebar-wrapper").hide(400);
-            $('#selectedValue').text('None');
-        }
-    });
-    function close_sidebar(){
-    
+            renderPhysicians(limitedData);
+             
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error:', textStatus, errorThrown);         
+          }
+        })
+    }
+
+
+ 
+    function close_sidebar(){    
       $(".sidebar-wrapper").hide(400);
     }
-    // // Add event listener for close button
-    // $('#close-sidebar').click(function(){
-    //   alert('x');
-    //     $(".sidebar-wrapper").removeClass("show-sidebar", 500);
-    // });
-
+ 
     function getSubSpecializationGroups(specialization){
-
       $.ajax({
-              url: `api/doctors/grouped-specializations?specialization=${encodeURIComponent(specialization)}`,
-              method: 'GET',
-              success: function(data) {
-                $('#subSpecialtyFilter').html('');      
-                // Iterate over each specialization
-                $.each(data, function(index, specializationGroup) {
-                    // Iterate over each sub-specialization and add to the array
-                    $.each(specializationGroup.subSpecializations, function(subIndex, subSpecialization) {
-                        console.log(subSpecialization);
-                        $('#subSpecialtyFilter').append(
-                          ` <label>
-                              <input type="radio" name="sub-radioSpecialty" value="${subSpecialization}"  />
-                              <div class="sub-specialty-filter sub-box">
-                                <span class="sub-specialtyh1">${subSpecialization}</span>
-                              </div>
-                            </label>
-                          `);
-                    });
-                });
-              },  
-              error: function() {
-                  console.error('Failed to load subspecialization data');
-              }
-            });
-
-            return 1;
+        url: `api/doctors/grouped-specializations?specialization=${encodeURIComponent(specialization)}`,
+        method: 'GET',
+        success: function(data) {
+          $('#subSpecialtyFilter').html('');      
+          // Iterate over each specialization
+          $.each(data, function(index, specializationGroup) {
+              // Iterate over each sub-specialization and add to the array
+              $.each(specializationGroup.subSpecializations, function(subIndex, subSpecialization) {
+                  
+                  $('#subSpecialtyFilter').append(
+                    ` <label>
+                        <input type="radio" name="sub-radioSpecialty" value="${subSpecialization}"  />
+                        <div class="sub-specialty-filter sub-box">
+                          <span class="sub-specialtyh1">${subSpecialization}</span>
+                        </div>
+                      </label>
+                    `);
+              });
+          });
+        },  
+        error: function() {
+            console.error('Failed to load subspecialization data');
+        }
+      });
+      return 1;
     
     }
-
+      
 
 
     function getDoctorsBySpecializationAndSubspecialization(specialization,subspecialization) {
@@ -1300,66 +1097,7 @@
             url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${subspecialization}`,
             method: 'GET',
             success: function(data) {
-              $('#physicians-container').html('');
-            
-            
-                for (const doctor in data) {
-                    const doctorInfo = data[doctor];
-                    var img = '';
-                    if(doctorInfo.gender ==1){
-                      img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
-                    }else{
-                      img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
-                    }
-                    $('#physicians-container').append(`
-                        <div class="docs col-lg-3 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
-                          <div class="doc-member"> 
-                            <div class="member-img  portfolio-wrap">
-                              `+img+`
-                              <div class="portfolio-info">
-                                <h4>${doctorInfo.fullname}</h4>            
-                                <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
-                                <div class="portfolio-links">
-                                  <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
-                                
-                                </div>
-                              </div>
-                            </div>
-                            <div class="member-info border p-3 mb-3">
-                              <h3>${doctorInfo.fullname}</h3>
-                              <h4 class="card-subtitle mb-2 text-muted">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</h4>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-                              <div class="schedule">
-                                  <p>Tuesday, Thursday</p>
-                                  <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-                              </div>
-                              <hr class="my-4"> <!-- Horizontal line for visual separation -->
-                              <h6>Secretary</h6> <!-- Header for Secretary -->
-                              <div class="secretary-info">
-                                  <p>Secretary: Secretary 1</p>
-                                  <p>Contact-number: 09999</p> <!-- Secretary Information -->
-                              </div>
-                              <hr> <!-- Horizontal line for visual separation -->
-                              <div class="card-text mt-3">
-                                Affiliated Payors: 
-                                <div class="affiliated-payors-wrapper">
-                                    <div class="affiliated-payors">
-                                        <!-- Add images or text here -->
-                                        <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                                        <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                                      
-                                        <!-- Add more images as needed -->
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                          
-                          </div>
-                        </div>
-                    `);
-                }
-              
+              renderPhysicians(data);
             },  
             error: function() {
                 console.error('Failed to load doctor data');
@@ -1367,6 +1105,93 @@
         });
       }
     } 
+
+    
+    function renderPhysicians(data){
+      $('#physicians-container').html('');
+      for (const doctor in data) {
+          const doctorInfo = data[doctor];
+          var img = '';
+          if(doctorInfo.gender ==1){
+            img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
+          }else{
+            img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
+          }
+          
+          $('#physicians-container').append(
+            `<div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
+                <div class="doc-member"> 
+                  <div class="member-img  portfolio-wrap">
+                    `+img+`
+                    <div class="portfolio-info">
+                      <h4>${doctorInfo.fullname}</h4>            
+                      <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
+                      <div class="portfolio-links">
+                        <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
+                      
+                      </div>
+                    </div>
+                  </div>
+                  <div class="member-info  border p-3 mb-3">
+                    <strong style="font-size:15px;text-align:center">${doctorInfo.fullname}</strong><br>
+                    <i style="font-size:14px;text-align:center">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i>
+                    <hr> 
+                    <div class="row">
+                      <div class="col-sm-7">
+                        <strong style="font-size:15px;">Clinical Schedule</strong> 
+                  
+                        <span style="font-size:14px;color:black;">${doctorInfo.schedule}</span>
+                        <span style="font-size:14px;color:black;">8:00 am - 10:00 PM</span> 
+                    
+                      </div> 
+                      <div class="col-sm-5 ">
+                        <strong style="font-size:15px;">Room</strong> 
+                  
+                        <span style="font-size:14px;color:black;">${doctorInfo.room}</span>
+                      </div>
+                      <div class="col-sm-12">
+                        <strong style="font-size:15px;">Secretary</strong> 
+                  
+                        <span style="font-size:14px;color:black;">${doctorInfo.secretary}</span>
+                        <span style="font-size:14px;color:black;">${doctorInfo.secretary_contact}</span> 
+
+                      </div> 
+                     
+
+                    </div>
+
+                    
+                    <hr class="my-4"> 
+                    
+                    <div class="card-text mt-3">
+                      <strong>Affiliated Payors: </strong>
+                      <div class="affiliated-payors-wrapper">
+                          <div class="affiliated-payors">
+                              <!-- Add images or text here -->
+                              <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
+                              <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
+                            
+                              <!-- Add more images as needed -->
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+                
+                </div>
+              </div>
+          `);
+      }
+    }
+    
+
+</script>
+<script>
+    // ON EVENT JQUERY
+    $('#searchDoctor').keyup(function(){
+      const query = $('#searchDoctor').val();
+      search(query);
+    });
+
     $('#subForm').on('change', 'input[type="radio"][name="sub-radioSpecialty"]', function() {
       var specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       var selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
@@ -1374,17 +1199,88 @@
           
           getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
       } else {
-          console.log("No radio button selected.");
+         
           $('#selectedValue').text('None');
       }
+    });
+
+    $('#myForm').on('change', 'input[type="radio"][name="radioSpecialty"]', function() {
+        var selectedValue = $('input[name="radioSpecialty"]:checked').val();
+        if (selectedValue != 'ALL') {
+
+            $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-arrow-right-circle-line"></i></button>');
+            getSubSpecializationGroups(selectedValue);
+            $(".side-menu > i").toggleClass("ri-close-fill", 300);
+            $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
+            $(".sidebar-wrapper").show(500); 
+        } else {
+            
+            $(".sidebar-wrapper").hide(400);
+            getInitialLoading();
+            $('#selectedValue').text('None');
+            $('#selectedValue').text('None');
+        }
+    });
+    
+    $('#runnginBill-link').click(function() {    
+        goTo('#runningBill');
+    });
+    $('#sidebar-runningbill').click(function() {
+        goTo('#runningBill');
+    });
+    
+    $('#doctorDir-link').click(function() {
+        goTo('#portfolio');
+    });
+    
+    $('#sidebar-doctorsDir').click(function() {
+        goTo('#portfolio');
+    });
+    
+    
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      function OTPInput() {
+          const inputs = document.querySelectorAll('#otp > *[id]');
+          for (let i = 0; i < inputs.length; i++) {
+              inputs[i].addEventListener('keydown', function(event) {
+                  if (event.key === "Backspace") {
+                      inputs[i].value = '';
+                      if (i !== 0) inputs[i - 1].focus();
+                  } else {
+                      if (i === inputs.length - 1 && inputs[i].value !== '') {
+                          return true;
+                      } else if (event.keyCode > 47 && event.keyCode < 58) {
+                          inputs[i].value = event.key;
+                          if (i !== inputs.length - 1) inputs[i + 1].focus();
+                          event.preventDefault();
+                      } else if (event.keyCode > 64 && event.keyCode < 91) {
+                          inputs[i].value = String.fromCharCode(event.keyCode);
+                          if (i !== inputs.length - 1) inputs[i + 1].focus();
+                          event.preventDefault();
+                      }
+                  }
+              });
+          }
+      }
+      
+      OTPInput();
     });
   </script>
 <script>
 
   $(document).ready(function () {
     $(".sidebar-wrapper").hide();
+    getInitialLoading();
+    $('html, body').animate({
+          scrollTop: $('#landingPage').offset().top
+      }, 200, 'easeInOutCubic');
 
-    
+      $('.resume-item .container-header h4').click(function() {
+        $(this).parent().siblings('.resume-item-content').toggle();
+      });
+
+     
       $('#multiSelectDropdown').on('click', function (event) {
           event.stopPropagation();
       });
@@ -1396,14 +1292,15 @@
           $('input[type="checkbox"]:checked').each(function () {
               selectedValues.push($(this).next('label').text());
           });
-          console.log(selectedValues); // You can use this array of selected values as per your requirement
+         
       });
+
       $('#SpmultiSelectDropdown').on('change', function () {
           var selectedValues = [];
           $('input[type="checkbox"]:checked').each(function () {
               selectedValues.push($(this).next('label').text());
           });
-          console.log(selectedValues); // You can use this array of selected values as per your requirement
+          
       });
   });
 

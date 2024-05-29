@@ -29,7 +29,7 @@ project-name
 |       └──index.html
 └── server.js
 
-**Reference **
+**Reference**
 Virtual Keyboard
 https://codepen.io/jwingo/pen/yLywXKg
 
@@ -37,3 +37,6 @@ https://codepen.io/jwingo/pen/yLywXKg
 https://codepen.io/gabrielferreira/pen/oYxNVy
 **Button Design**
 https://codepen.io/ogdenstudios/pen/eYmyKJp
+
+**Scroll Bar**
+https://codepen.io/Avelin-SAMA/pen/YzqEYjo

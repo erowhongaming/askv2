@@ -18,14 +18,52 @@ const Doctor = {
             CONCAT(phySched.firstname, ' ', LEFT(phySched.middlename, 1), '. ', phySched.lastname) AS fullname,
             phySched.firstname,
             phySched.lastname,
-            phySched.spec as specialization,
+            CASE 
+                WHEN phySched.spec = 'OBSTETRICS & GYNECOLOGY'
+                THEN 'OBGYNE'
+                WHEN phySched.spec = 'REHABILITATION MEDICINE'
+                THEN 'REHAB'
+                ELSE phySched.spec
+            END AS specialization,
             phySched.sub_spec as subSpecialization,
             phySched.HMOS as affiliated_payors,
             phySched.secretary_name as secretary,
             phySched.secretary_contact,
-            CONCAT(phySched.bldg, ' ', phySched.room) as room,
+            CONCAT(phySched.bldg, ' - ', phySched.room) as room,
             phySched.is_in,
-            people.gender
+            people.gender,
+            TRIM(TRAILING ',' FROM 
+               CONCAT(
+                   CASE 
+                       WHEN phySched.MON_start IS NOT NULL AND phySched.MON_end IS NOT NULL THEN 'Monday, '
+                       ELSE ''
+                   END,
+                   CASE 
+                       WHEN phySched.TUE_start IS NOT NULL AND phySched.TUE_end IS NOT NULL THEN 'Tuesday, '
+                       ELSE ''
+                   END,
+                   CASE 
+                      WHEN phySched.WED_start IS NOT NULL AND phySched.WED_end IS NOT NULL THEN 'Wednesday, '
+                       ELSE ''
+                   END,
+                   CASE 
+                         WHEN phySched.THUR_start IS NOT NULL AND phySched.THUR_end IS NOT NULL THEN 'Thursday, '
+                       ELSE ''
+                   END,
+                   CASE  
+                       WHEN phySched.FRI_start IS NOT NULL AND phySched.FRI_end IS NOT NULL THEN 'Friday, '
+                       ELSE ''
+                   END,
+                   CASE  
+                       WHEN phySched.SAT_start IS NOT NULL AND phySched.SAT_end IS NOT NULL THEN 'Saturday, '
+                       ELSE ''
+                   END,
+                   CASE  
+                       WHEN phySched.SUN_start IS NOT NULL AND phySched.SUN_end IS NOT NULL THEN 'Sunday, '
+                       ELSE ''
+                   END
+               )
+           ) AS schedule
             FROM proc_doctors_schedule_final_2 as phySched
             LEFT JOIN people ON people.person_id = phySched.person_id;
         `;
