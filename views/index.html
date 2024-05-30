@@ -870,6 +870,11 @@
   <script>
     
     function goTo(target) {
+      function preventDefault(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
       if(target == '#portfolio'){
           doctorsDir(target);
       }else if(target == '#runningBill'){
@@ -879,7 +884,16 @@
               scrollTop: $(target).offset().top
           }, 200, 'easeInOutCubic');
       }
-      
+      // Prevent scrolling with mouse and keyboard
+      window.addEventListener('wheel', preventDefault, { passive: false });
+      window.addEventListener('keydown', function(e) {
+        if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+            preventDefault(e);
+        }
+      }, { passive: false });
+
+      // Optional: Prevent touch scrolling for mobile devices
+      window.addEventListener('touchmove', preventDefault, { passive: false });
     } 
   
     function doctorsDir(target){
@@ -1187,6 +1201,8 @@
 </script>
 <script>
     // ON EVENT JQUERY
+
+  
     $('#searchDoctor').keyup(function(){
       const query = $('#searchDoctor').val();
       search(query);
@@ -1302,6 +1318,7 @@
           });
           
       });
+
   });
 
   
