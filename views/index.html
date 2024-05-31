@@ -1040,7 +1040,7 @@
       const searchVal = $('#searchDoctor').val();
       if(specialization != null && specialization != ''){
         $.ajax({
-            url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${subspecialization}&searchVal=${searchVal}`,
+            url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${encodeURIComponent(subspecialization)}&searchVal=${encodeURIComponent(searchVal)}`,
             method: 'GET',
             success: function(data) {
               renderPhysicians(data);
