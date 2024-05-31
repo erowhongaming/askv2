@@ -38,9 +38,13 @@ router.get('/api/doctors/search-by-specialization', async (req, res) => {
 router.get('/api/doctors/search-by-specialization-with-subspecialization', async (req, res) => {
     const specialization = req.query.specialization || '';
     const subSpecialization = req.query.subSpecialization || '';
-    const results = await Doctor.searchBySpecializationWithSubspecialization(specialization, subSpecialization);
+    const searchVal = req.query.searchVal || '';
+    const results = await Doctor.searchBySpecializationWithSubspecialization(specialization, subSpecialization,searchVal);
     res.json(results);
 });
+
+
+
 
 Doctor.getDoctorsGroupedBySpecialization().then(() => {
     console.log('Grouped specializations initialized');

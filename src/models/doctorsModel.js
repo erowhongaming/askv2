@@ -128,12 +128,22 @@ const Doctor = {
         return matchingDoctors;
     },
 
-    searchBySpecializationWithSubspecialization: async (specialization, subSpecialization) => {
-        const matchingDoctors = Object.values(doctorData).filter(doctor => 
-            doctor.specialization.toLowerCase() === specialization.toLowerCase() &&
-            doctor.subSpecialization.toLowerCase() === subSpecialization.toLowerCase()
-        );
-        return matchingDoctors;
+    searchBySpecializationWithSubspecialization: async (specialization, subSpecialization , searchVal) => {
+        if(searchVal != ''){
+            const resultDataFromSearch = await Doctor.search(searchVal);
+            const matchingDoctors = resultDataFromSearch.filter(doctor => 
+                doctor.specialization.toLowerCase() === specialization.toLowerCase() &&
+                (subSpecialization === '' || doctor.subSpecialization.toLowerCase() === subSpecialization.toLowerCase())
+            );
+            return matchingDoctors;
+        }else{
+            const matchingDoctors = Object.values(doctorData).filter(doctor => 
+                doctor.specialization.toLowerCase() === specialization.toLowerCase() &&
+                (subSpecialization === '' || doctor.subSpecialization.toLowerCase() === subSpecialization.toLowerCase())
+            );
+            return matchingDoctors;
+        }
+        
     },
     getDoctorsGroupedBySpecialization: () => {
         const query = `

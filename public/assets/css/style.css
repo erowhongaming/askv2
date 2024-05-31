@@ -14,6 +14,7 @@ body {
   color: #272829;
   overflow:hidden;
 }
+
 .cards:hover > .card-services:not(:hover) {
   filter: blur(10px);
   transform: scale(0.9);
@@ -374,11 +375,12 @@ margin-right: 10px;
     }
   }
   .box {
-      width: 135px;
+      width: 150px;
       height: 65px;
       margin: 15px; /* Adjusted for smaller size 802e42 */
       background-color: #fff; 
       border: 1px solid #e8e8e8;
+      
       border-radius: 15px; /* Proportional to the smaller size */
       transition: all 250ms ease;
       will-change: transition;
@@ -462,7 +464,7 @@ margin-right: 10px;
     }
   }
   .sub-box {
-      width: 185px;
+      width: 190px;
       height: 75px;
       margin-top: 25px;
       margin-right: 10px;  /* Adjusted for smaller size 802e42 */
@@ -493,7 +495,7 @@ margin-right: 10px;
       
       .sub-specialtyh1 {
           position: absolute;
-          transform: translate(0, 12px); /* Adjusted for smaller size */
+          transform: translate(0, 10px); /* Adjusted for smaller size */
           left: 0;
           right: 0;
           transition: all 300ms ease;
@@ -831,7 +833,92 @@ margin-right: 10px;
     line-height: 24px;
   }
 }
+/* SIDEBAR */
 
+.sidebar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 300px;
+  transition: margin-right 0.3s ease;
+  z-index: 2;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  
+}
+
+.sidebar {
+  border-radius: 30px;
+  position: relative;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 20rem;
+  background-color: rgba(94, 92, 92, 0.2);
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.side-menu {
+  font-size: 1.2rem;
+}
+
+.sidebar-title {
+  text-align: center;
+  padding:10px;
+  margin-top: 50px;
+  background-color: #F5F5F5 ;
+}
+
+.dedication {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 0 3rem;
+}
+
+/* New CSS to position sidebar within the portfolio section */
+.portfolio {
+  position: relative;
+}
+
+.sidebar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0; /* Stretch the sidebar wrapper to the bottom */
+}
+
+.sidebar {
+  position: sticky;
+  top: 0; /* Stick the sidebar to the top of the section */
+}
+
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+  width: 5px; /* Adjusted width */
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+    height: 50px; /* Adjusted height */
+}
 
 /*--------------------------------------------------------------
 # Sections General
