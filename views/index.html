@@ -216,23 +216,14 @@
         </div>
     </div>
   
-    
-
     <div class="row" id="physicians-container" style="overflow:auto;height:100vh">
 
    
       <div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch filter-app" >
         <div class="doc-member"> 
           <div class="member-img  portfolio-wrap">
-            <img src="/assets/img/doctor.png" class="img-fluid" alt="" loading="lazy">
-            <div class="portfolio-info">
-              <h4>Doctor's Name</h4>            
-              <span>Specialty - Subspecialty </span>
-              <div class="portfolio-links">
-                <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Doctor's Name Specialy - Sub Specialty"><i class="bx bx-plus"></i></a>
-              
-              </div>
-            </div>
+            <img src="/assets/img/doctor.png" class="image--cover" alt="" loading="lazy" >
+          
           </div>
           <div class="member-info border p-3 mb-3">
             <h3>Doctor's Name</h3>
@@ -1064,47 +1055,40 @@
           const doctorInfo = data[doctor];
           var img = '';
           if(doctorInfo.gender ==1){
-            img =` <img src="/assets/img/doctor.png" class="img-fluid" alt="">`;
+            img =` <img src="/assets/img/doctor.png" class="image--cover" alt="">`;
           }else{
-            img =` <img src="/assets/img/doctora.png" class="img-fluid" alt="">`;
+            img =` <img src="/assets/img/doctora.png" class="image--cover"  alt="">`;
           }
           
           $('#physicians-container').append(
             `<div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
                 <div class="doc-member"> 
-                  <div class="member-img  portfolio-wrap">
+                  <div class="member-img" >
+                 
                     `+img+`
-                    <div class="portfolio-info">
-                      <h4>${doctorInfo.fullname}</h4>            
-                      <span>${doctorInfo.specialization} - ${doctorInfo.subSpecialization} </span>
-                      <div class="portfolio-links">
-                        <a href="/assets/img/doctor.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title="${doctorInfo.fullname} ${doctorInfo.specialization} - ${doctorInfo.subSpecialization}"><i class="bx bx-plus"></i></a>
-                      
-                      </div>
-                    </div>
                   </div>
                   <div class="member-info  border p-3 mb-3">
-                    <strong style="font-size:15px;text-align:center">${doctorInfo.fullname}</strong><br>
-                    <i style="font-size:14px;text-align:center">${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i>
+                    <strong style="font-size:12px;text-align:center;font-weight:800;">${doctorInfo.fullname}</strong><br>
+                    <strong style="font-size:11px;text-align:center;color:#477098"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
                     <hr> 
                     <div class="row">
-                      <div class="col-sm-7">
-                        <strong style="font-size:15px;">Clinical Schedule</strong> 
-                  
-                        <span style="font-size:14px;color:black;">${doctorInfo.schedule}</span>
-                        <span style="font-size:14px;color:black;">8:00 am - 10:00 PM</span> 
-                    
+                      <div class="col-sm-12 border p-3 " >
+                        <strong style="font-size:12px;color:#969393">Clinical Schedule</strong> 
+                        <br>
+                        <strong style="font-size:12px;color:black;">${doctorInfo.schedule}</strong>
+                        <br>
+                        <strong style="font-size:12px;color:black;">8:00 am - 10:00 PM</strong> 
+                        <br>
+                        <strong style="font-size:12px;color:#969393">Room</strong>      
+                                   
+                        <strong style="font-size:12px;color:black;">${doctorInfo.room}</strong>
                       </div> 
-                      <div class="col-sm-5 ">
-                        <strong style="font-size:15px;">Room</strong> 
-                  
-                        <span style="font-size:14px;color:black;">${doctorInfo.room}</span>
-                      </div>
+                    
                       <div class="col-sm-12">
-                        <strong style="font-size:15px;">Secretary</strong> 
+                        <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
-                        <span style="font-size:14px;color:black;">${doctorInfo.secretary}</span>
-                        <span style="font-size:14px;color:black;">${doctorInfo.secretary_contact}</span> 
+                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary}</strong> 
+                        <strong style="font-size:11Px;color:black;">${doctorInfo.secretary_contact}</strong> 
 
                       </div> 
                      
@@ -1114,7 +1098,7 @@
                     
                     <hr class="my-4"> 
                     
-                    <div class="card-text mt-3">
+                    <div class="card-text" style="font-size:12px;color:#969393;">
                       <strong>Affiliated Payors: </strong>
                       <div class="affiliated-payors-wrapper">
                           <div class="affiliated-payors">

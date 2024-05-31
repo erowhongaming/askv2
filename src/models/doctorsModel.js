@@ -29,7 +29,7 @@ const Doctor = {
             phySched.HMOS as affiliated_payors,
             phySched.secretary_name as secretary,
             phySched.secretary_contact,
-            CONCAT(phySched.bldg, ' - ', phySched.room) as room,
+            CONCAT( phySched.room,' - ',phySched.bldg ) as room,
             phySched.is_in,
             people.gender,
             TRIM(TRAILING ', ' FROM 

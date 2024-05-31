@@ -10,9 +10,10 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   color: #272829;
   overflow:hidden;
+  font-family: "Raleway", sans-serif;
 }
 
 .cards:hover > .card-services:not(:hover) {
@@ -20,7 +21,12 @@ body {
   transform: scale(0.9);
  
 }
-
+.image--cover{
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 20px;
+}
 .card-services{
   text-align:center;
   
@@ -233,10 +239,11 @@ h6 {
     font-size: 1.2em; /* Adjust font size for mobile */
   }
 }
-.docs .doc-member .member-img {
-  position: relative;
-  overflow: hidden;
-}
+ .docs .doc-member .member-img {
+  
+  overflow: hidden; 
+  float:center;
+} 
 
 
 
@@ -283,8 +290,8 @@ h6 {
 }
 
 .affiliated-payors img {
-  width: 30px; /* Adjust the size as needed */
-  height: 30px; /* Adjust the size as needed */
+  width: 10px; /* Adjust the size as needed */
+  height: 10px; /* Adjust the size as needed */
   margin-right: 5px; /* Spacing between images */
 }
 
