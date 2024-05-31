@@ -1036,7 +1036,7 @@
 
 
     function getDoctorsBySpecializationAndSubspecialization(specialization,subSpecialization) {
-      const subspecialization = subSpecialization == undefined ? '':subSpecialization;
+      const subspecialization = (subSpecialization == undefined || subSpecialization == '') ? '':subSpecialization;
       const searchVal = $('#searchDoctor').val();
       if(specialization != null && specialization != ''){
         $.ajax({
@@ -1141,8 +1141,8 @@
     });
 
     $('#subForm').on('change', 'input[type="radio"][name="sub-radioSpecialty"]', function() {
-      var specialtyValue = $('input[name="radioSpecialty"]:checked').val();
-      var selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
+      const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
+      const selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
       if (selectedValue) {
           
           getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
@@ -1153,11 +1153,15 @@
     });
 
     $('#myForm').on('change', 'input[type="radio"][name="radioSpecialty"]', function() {
-        var selectedValue = $('input[name="radioSpecialty"]:checked').val();
+        const  selectedValue = $('input[name="radioSpecialty"]:checked').val();  
+        const selectedSubSpecialy = $('input[name="sub-radioSpecialty"]:checked').val();
         if (selectedValue != 'ALL') {
 
             $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-arrow-right-circle-line"></i></button>');
+            
+            getDoctorsBySpecializationAndSubspecialization(selectedValue,selectedSubSpecialy);         
             getSubSpecializationGroups(selectedValue);
+            
             $(".side-menu > i").toggleClass("ri-close-fill", 300);
             $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
             $(".sidebar-wrapper").show(500); 
