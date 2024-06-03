@@ -14,7 +14,7 @@ HTML/CSS/JavaScript: Frontend development.
 
 **Backend:**
 Express.js: Node.js framework used for backend development.
-
+<pre>
 **Archi**
 project-name
 ├── assets
@@ -28,7 +28,7 @@ project-name
 |   └── Views
 |       └──index.html
 └── server.js
-
+</pre>
 **Reference**
 Virtual Keyboard
 https://codepen.io/jwingo/pen/yLywXKg
