@@ -40,3 +40,6 @@ https://codepen.io/ogdenstudios/pen/eYmyKJp
 
 **Scroll Bar**
 https://codepen.io/Avelin-SAMA/pen/YzqEYjo
+
+**discord link**
+https://discord.com/invite/EUUkU9h8
