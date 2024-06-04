@@ -1,25 +1,17 @@
-require('../config/env-load'); // Ensure environment variables are loaded
-// Require the mongodb package
-const { MongoClient } = require('mongodb');
+require('../config/env-load');
+const mongoose = require('mongoose');
 
-// Connection URI
-const uri = "mongodb://incusdba:incus%40123@10.12.0.27:45431";
+// Define the URI variable
+const uri = process.env.MONGODB_CON;
 
-// Database Name
-const dbName ="arcusairdb";
-
-// Connect to MongoDB
-MongoClient.connect(uri)
-  .then(client => {
-    // console.log(uri);
-    // const db = client.db(dbName);
-    // console.log('Connected to MongoDB');
-
-    // Perform operations here
-
-    client.close();
+// Connect to MongoDB using the promise returned by mongoose.connect()
+mongoose.connect(uri)
+  .then(() => {
+    console.log('Connected to the MongoDb.');
   })
-  .catch(error => {
-    console.log(uri);
-    console.error('Error connecting to MongoDB:', error);
+  .catch((error) => {
+    console.error('Error connecting to the database:', error.stack);
   });
+
+// Export the Mongoose instance for further use
+module.exports = mongoose;

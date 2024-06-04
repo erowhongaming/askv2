@@ -4,6 +4,7 @@
     "express": "^4.19.2",
     "flexsearch": "^0.7.43",
     "mongodb": "^6.7.0",
+    "mongoose": "^8.4.1",
     "mssql": "^10.0.2",
     "mysql2": "^3.9.7"
   }
