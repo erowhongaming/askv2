@@ -1,3 +1,8 @@
+/**
+ * Represents a module for managing doctor data and searching functionalities.
+ * Includes methods for fetching doctor details, searching by various criteria, grouping doctors by specialization,
+ * and searching within grouped specializations.
+ */
 const FlexSearch = require('flexsearch');
 const db = require('../config/mysql-db');
 
@@ -11,7 +16,20 @@ const index = new FlexSearch.Index({
 // Store the actual doctor data separately
 const doctorData = {};
 let groupedSpecializations =[];
+
+/**
+ * Doctor object containing methods to retrieve, search, and group doctor details.
+ * Methods include fetching doctor details from the database, searching for doctors based on various criteria,
+ * grouping doctors by specialization, and searching for sub-specializations within a specialization.
+ */
 const Doctor = {
+    
+     /**
+     * Retrieves details of doctors from the database including their personal information, schedule, and affiliations.
+     * 
+     * @returns {Promise<Array>} A promise that resolves with an array of doctor details objects.
+     * @throws {Error} If there is an error executing the database query.
+     */
     getDetails: () => {
         const query = `
             SELECT phySched.person_id,
@@ -102,6 +120,12 @@ const Doctor = {
         });
     },
 
+    /**
+     * Search for doctors based on the given search term.
+     * 
+     * @param {string} searchTerm - The search term to look for in doctor data.
+     * @returns {Array} An array of doctors that match the search term.
+     */
     search: async (searchTerm) => {
         // Split the search term by commas and trim whitespace
         const searchTerms = searchTerm.split(',').map(term => term.trim());
@@ -121,6 +145,12 @@ const Doctor = {
         return matchingDoctors;
     },
 
+    /**
+     * Search for doctors by specialization.
+     * 
+     * @param {string} specialization - The specialization to search for.
+     * @returns {Array} - An array of doctors matching the provided specialization.
+     */ 
     searchBySpecialization: async (specialization) => {
         const matchingDoctors = Object.values(doctorData).filter(doctor => 
             doctor.specialization.toLowerCase() === specialization.toLowerCase()
@@ -128,6 +158,14 @@ const Doctor = {
         return matchingDoctors;
     },
 
+    /**
+     * Search for doctors based on specialization and sub-specialization, with an optional search value.
+     * 
+     * @param {string} specialization - The main specialization to search for.
+     * @param {string} subSpecialization - The sub-specialization to search for.
+     * @param {string} searchVal - The optional search value to filter the results.
+     * @returns {Array} An array of matching doctors based on the provided criteria.
+     */
     searchBySpecializationWithSubspecialization: async (specialization, subSpecialization , searchVal) => {
         if(searchVal != ''){
             const resultDataFromSearch = await Doctor.search(searchVal);
@@ -145,6 +183,13 @@ const Doctor = {
         }
         
     },
+
+    /**
+     * Method: getDoctorsGroupedBySpecialization
+     * Description: Retrieves doctors grouped by specialization from the database.
+     * Returns a Promise that resolves to an array of objects, each containing a specialization and its sub-specializations.
+     * If an error occurs during the database query, the Promise is rejected with the error.
+     */
     getDoctorsGroupedBySpecialization: () => {
         const query = `
             SELECT 
@@ -155,6 +200,7 @@ const Doctor = {
             GROUP BY 
                 spec;
         `;
+        
         return new Promise((resolve, reject) => {
             db.query(query, (err, results) => {
                 if (err) {
@@ -173,6 +219,12 @@ const Doctor = {
         });
     },
 
+    /**
+     * Search for a given specialization in the groupedSpecializations array.
+     * 
+     * @param {string} specialization - The specialization to search for.
+     * @returns {Array} - An array of subSpecializations if the specialization is found, otherwise an empty array.
+     */
     searchGroupedSpecializations: (specialization) => {
         const foundSpecialization = groupedSpecializations.find(spec => spec.specialization === specialization);
         if (foundSpecialization) {

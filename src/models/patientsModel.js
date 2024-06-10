@@ -1,69 +1,51 @@
-const mongoose = require('../config/mongodb-con');
-
-// Define the schema
-const patientSchema = new mongoose.Schema({
-    // Define your patient schema fields here
-    firstname: String,
-    lastname: String,
-    contact: {
-    mobilenumber: String
-    }
-});
-const patient = {
-    aggregateVisits: async function(mobilephone) {
-      try {
-        const result = await this.aggregate([
-        {
-            $match: {
-                "contact.mobilephone": mobilephone,
-                "visits.statusflag": 'A'
-            }
-         },
-          {
-            $lookup: {
-              from: "patientvisits",
-              localField: "_id",
-              foreignField: "patientuid",
-              as: "visits"
-            }
-          },
-         
-          {
-            $project: {
-              mobilephone: "$contact.mobilephone",
-              _id: 1,
-              firstname: 1,
-              middlename: 1,
-              lastname: 1
-            }
-          }
-        ]);
-        return result;
-      } catch (error) {
-        throw new Error('Error executing aggregation:', error);
-      }
-    },
-    
-  };
-  
-  // Assuming you have a mongoose schema defined elsewhere (patientSchema)
-  const Patient = mongoose.model('Patient', patientSchema);
-  
-  // Merging the functionality from the object into the Patient model
-  Patient.aggregateVisits = patient.aggregateVisits;
-  
-module.exports = Patient;
+const { Collection } = require('../models/collections');
+const getByNum = require('../pipelines/getPatientByMobilenumber');
 
 
+/**
+ * Represents a Patients object with methods to fetch, search, and group doctor details.
+ * @type {Object}
+ */
+const patients = {
 
-
-// Testing the aggregateVisits method
-(async () => {
+  /**
+ * Asynchronous function that fetches patients by mobile number.
+ * 
+ * @param {string} mobilenumber The mobile number of the patient to fetch
+ * @returns {Promise} A Promise that resolves with the result of fetching patients by mobile number
+ * @throws {Error} If there is an error during database initialization or fetching patients
+ */
+  fetchPatientsByMobileNumber: async (mobilenumber) => {
     try {
-      const mobilephone = '09082616668';
-      const result = await Patient.aggregateVisits(mobilephone);
-      console.log('Aggregation result:', result);
+      await Collection.initializeDb(); // Ensure the database is initialized
+      const collection = await Collection.getCollection('patientvisits');
+      const pipeline = getByNum(mobilenumber); // Assuming the pipeline function doesn't need parameters
+      console.log('Pipeline:', pipeline); // Log the pipeline
+      const result = await collection.aggregate(pipeline).toArray();
+      console.log('Aggregation Result:', result); // Log the result
+      return result; // Return the result
     } catch (error) {
-      console.error('Error testing aggregateVisits:', error);
+      console.error('Error:', error); // Log any errors
+      throw error; // Throw the error for handling elsewhere if needed
     }
-  })();
+  }
+};
+
+
+/** TEST
+ * Asynchronous arrow function that initializes the database and fetches patients by mobile number.
+ * 
+ * @returns {Promise} A Promise that resolves with the result of fetching patients by mobile number.
+ * @throws {Error} If there is an error during database initialization or fetching patients.
+ */
+// // Ensure initialization is done before fetching
+// (async () => {
+//   try {
+//     await Collection.initializeDb();
+//     await patients.fetchPatientsByMobileNumber('09633245637');
+//   } catch (error) {
+//     console.error('Initialization or fetch error:', error);
+//   }
+// })();
+
+module.exports = patients;
