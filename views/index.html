@@ -264,7 +264,7 @@
   
   <!-- ======= Running Bill Section ======= -->
   <section  id="runningBill" class="services" style="margin-top: 20px;">
-    <div class="container-fluid" data-aos="fade-up" >
+    <div class="container" data-aos="fade-up" >
       <div class="section-title">
         <h2>Running bill</h2>
         <p>Magnam dolores commodi suscipit. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
@@ -293,15 +293,16 @@
                   </div>
                 </div>
                 <div class="row">
-                  <form action="#!">
+                  <form id="validateMobileNumber">
                     <div class="row gy-3 gy-md-4 overflow-hidden">
                       <!-- Step 1: Enter Mobile Number -->
                       <div class="col-12 step step-active" id="step-1">
-                          <label for="email" class="form-label">Enter your mobile number:</label>
-                          <input type="email" class="form-control" name="email" id="email" placeholder="Mobile - 11 Digits (Format: 09XXXXXXXXX)" required>
+                          <label for="mobilenumbber" class="form-label">Enter your mobile number:</label>
+                          <input type="number" maxlength="11" class="form-control" name="mobilenumbber" id="mobilenumbber" placeholder="Mobile - 11 Digits (Format: 09XXXXXXXXX)"  pattern="09\d{9}" required>
                           <div class="d-grid">
                               <button class="btn bsb-btn-xl btn-danger" type="button" onclick="showStep(2)">Send OTP</button>
                           </div>
+                          <div class="error" id="error-message" style="color: red; display: none;">Please enter a valid 11-digit mobile number starting with 09.</div>
                       </div>
                       
                       <!-- Step 2: Enter OTP -->

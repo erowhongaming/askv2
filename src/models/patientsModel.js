@@ -19,6 +19,7 @@ const patients = {
     try {
       await Collection.initializeDb(); // Ensure the database is initialized
       const collection = await Collection.getCollection('patientvisits');
+     
       const pipeline = getByNum(mobilenumber); // Assuming the pipeline function doesn't need parameters
       console.log('Pipeline:', pipeline); // Log the pipeline
       const result = await collection.aggregate(pipeline).toArray();
@@ -38,7 +39,7 @@ const patients = {
  * @returns {Promise} A Promise that resolves with the result of fetching patients by mobile number.
  * @throws {Error} If there is an error during database initialization or fetching patients.
  */
-// // Ensure initialization is done before fetching
+// // // Ensure initialization is done before fetching
 // (async () => {
 //   try {
 //     await Collection.initializeDb();
