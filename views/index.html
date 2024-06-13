@@ -27,7 +27,9 @@
 
   <!-- Template Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
- 
+  <!-- Sweetalert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    <!-- Include jQuery Easing Plugin -->
@@ -267,7 +269,7 @@
     <div class="container" data-aos="fade-up" >
       <div class="section-title">
         <h2>Running bill</h2>
-        <p>Magnam dolores commodi suscipit. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+     
       </div>
       
     
@@ -278,7 +280,7 @@
                 <div class="card-body p-3 p-md-4 p-xl-5">
                   <div class="col-10 col-xl-8 py-3">
                     <h2 class="h1 mb-4">Inpatient Portal</h2>
-                    <p class="lead m-0">Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                    <p class="lead m-0">.</p>
                   </div>
                 </div>
               </div>
@@ -297,34 +299,38 @@
                     <div class="row gy-3 gy-md-4 overflow-hidden">
                       <!-- Step 1: Enter Mobile Number -->
                       <div class="col-12 step step-active" id="step-1">
-                          <label for="mobilenumbber" class="form-label">Enter your mobile number:</label>
-                          <input type="number" maxlength="11" class="form-control" name="mobilenumbber" id="mobilenumbber" placeholder="Mobile - 11 Digits (Format: 09XXXXXXXXX)"  pattern="09\d{9}" required>
+                          <label for="mobilenumber" class="form-label">Enter your mobile number:</label>
+                          <input class ="form-control" type="text" maxlength="11"  name="mobilenumber" id="mobilenumber" placeholder="Mobile - 11 Digits (Format: 09XXXXXXXXX)"  pattern="09\d{9}" required>
                           <div class="d-grid">
-                              <button class="btn bsb-btn-xl btn-danger" type="button" onclick="showStep(2)">Send OTP</button>
+                              <button class="btn bsb-btn-xl btn-danger" type="button" id="validate-number">Submit</button>
                           </div>
+                        
                           <div class="error" id="error-message" style="color: red; display: none;">Please enter a valid 11-digit mobile number starting with 09.</div>
                       </div>
                       
                       <!-- Step 2: Enter OTP -->
                       <div class="co l-12 step" id="step-2" style="display: none;">
                           <div class="text-center">
-                              <h6>Your account</h6>
+                             
                               <div>
-                                  <span>A code has been sent to</span>
-                                  <h6>Please enter the one time password <br> to verify <small>*******9897</small></h6>
+                                <span>A 6-digit code has been sent.</span>
+                                <h6>Please enter the one-time password<br>to verify <small><span id="maskedNumber">*******9897</span></small></h6>
                               </div>
                               <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
-                                  <input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" /> 
-                                  <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" /> 
-                                  <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" /> 
-                                  <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
-                                  <input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
-                                  <input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="first" maxlength="1" /> 
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="second" maxlength="1" /> 
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="third" maxlength="1" /> 
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="fourth" maxlength="1" /> 
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="fifth" maxlength="1" />
+                                  <input class="m-2 text-center form-control rounded otp-input" type="text" id="sixth" maxlength="1" />
                               </div>
+                             
                           </div>
                           <div class="mt-auto d-grid">
-                              <button class="btn bsb-btn-xl btn-danger" type="button" onclick="showStep(3)">Verify OTP</button>
-                              <button class="btn bsb-btn-xl btn-secondary" type="button" onclick="showStep(1)">Cancel</button>
+                              <button class="btn bsb-btn-xl btn-danger btn-lg" type="button" id="verifyOTP" ">Verify</button>
+                             <br><br><br><br>
+                              <button class="btn bsb-btn-xl btn-light" type="button" id="resendOTP" onclick="showStep(1)">Resend OTP</button>
+                              <button class="btn bsb-btn-xl btn-secondary" type="button" id="cancelOTP" onclick="showStep(1)">Cancel</button>
                           </div>
                       </div>
                       
@@ -360,8 +366,7 @@
                             -->
                         
                           </div>
-                          <h2>Validated! Signing in</h2><br>
-                          <button class="btn bsb-btn-xl btn-secondary" type="button" onclick="showStep(1)">Cancel</button>
+                          <h2>Verification successful! <br> Signing in</h2><br>
                         </div>
                       </div>
                   </div>
@@ -773,7 +778,8 @@
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/assets.js"></script>
  
-   
+   <!-- Sweetelaert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     
     function goTo(target) {
@@ -1121,6 +1127,218 @@
     
 
 </script>
+<script>
+  // Running Bill
+
+
+  /*
+  """
+  - Listens for keyup events on the input field with id 'mobilenumber'
+  - Validates the input based on specific conditions:
+      - If the input does not start with '09', shows an error message and disables the button
+      - If the input length exceeds 11 digits, shows an error message and disables the button
+      - If the input is exactly 11 digits but does not match the format /^09\d{9}$/, shows an error message and disables the button
+  - Hides the error message if the input is valid
+  """
+  */
+
+  $('#mobilenumber').keyup(function() {
+    checkEntry();
+  });
+  /*
+  Function to check if a mobile number is valid.
+  Parameters:
+  - mobileInput: jQuery object representing the mobile number input field
+  - errorMessage: jQuery object representing the error message element
+  - validateNumber: jQuery object representing the validate number button
+  Returns:
+  - 1 if the mobile number is invalid, 0 if the mobile number is valid
+  */
+  function checkEntry(){
+    const mobileInput = $('#mobilenumber');
+    const errorMessage = $('#error-message');
+    const validateNumber = $('#validate-number');
+
+    const mobileValue = mobileInput.val();
+    if (mobileValue.length >= 2 && mobileValue.substring(0, 2) !== '09') {
+        errorMessage.html('Must start with 09').show();
+        validateNumber.prop('disabled', true);
+        return 1;
+    } else if (mobileValue.length != 11) {
+        errorMessage.html('Must be 11 digits').show();  
+        validateNumber.prop('disabled', true);
+        return 1;
+    } else if (mobileValue.length === 11 && !/^09\d{9}$/.test(mobileValue)) {
+        errorMessage.html('Invalid mobile number format').show();
+        validateNumber.prop('disabled', true);
+        return 1;
+    } else {
+        validateNumber.prop('disabled', false);
+        errorMessage.hide();
+        return 0;
+    }
+    
+  }
+
+/* Validate mobile number and trigger validation function when button is clicked */
+
+  $('#validate-number').click(function(){
+    const mobilenumber =  $('#mobilenumber').val();
+    if(checkEntry() == 0){
+      validateMobileNumber(mobilenumber);
+    }
+  });
+
+
+  /**
+ * Function to validate a mobile number by sending an OTP and handling the response using SweetAlert2.
+ * 
+ * @param {string} mobilenumber - The mobile number to validate
+ * @returns {void}
+ */
+  function validateMobileNumber (mobilenumber){
+      Swal.fire(
+      {
+        title: 'Validating mobile number...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        willClose: () => {
+          $.ajax(
+          {
+            url: `/api/validate/patients-is-active?mobilenumber=${encodeURIComponent(mobilenumber)}`,
+            method: 'GET',
+            success: function(data) {
+              if(data.status == 1){
+                      var testOTP ='';                           
+                  // AJAX POST request
+                  $.ajax({
+                      url: '/api/generate/otp',
+                      method: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify({ mobilenumber: mobilenumber }),
+                      success: function(response) {
+                          console.log('Response:', response);
+                          testOTP=response.otp;
+                          // Handle success response here
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('Error:', error);
+                          // Handle error here
+                      }
+                  });
+
+
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Validation Successful',
+                    html: 'Sending <b> 6 digit OTP </b> to your mobile number.',
+                    timerProgressBar: true,
+                    timer: 5000,
+                    showConfirmButton: false
+                }).then(() => {
+   
+                  // Mask the number
+                  const maskedNumber = "*******" + mobilenumber.slice(-4)+"<br> Your Test OTP is: <b>"+testOTP+'</b>'; // Append "*******" to the masked part
+                  
+                  $('#maskedNumber').html(maskedNumber).show();
+                  // This will be called after the timer ends
+                  showStep(2);
+              });
+
+              }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Mobile number not found',
+                    text: 'This portal is only for Currently Admitted Patients. Please ensure the record you are accessing is currently admitted in CSMC.',
+                    showConfirmButton: true
+                });
+
+              }
+              
+            },  
+            error: function() {
+              console.error('Failed to validate mobilenumber');
+            }
+          });
+        }
+      });
+    
+  }
+
+  /* Verifies the OTP entered by the user
+
+  This function constructs the OTP from individual input fields, checks if the OTP is exactly 6 digits long, and then verifies the OTP by making an AJAX call to the server. If the OTP is valid, it proceeds to the next step; otherwise, it displays an error message to the user.
+
+  Returns:
+  None */
+  function verifyOTP(){
+    // Construct the OTP from individual input fields
+    let otp = '';
+    $('.otp-input').each(function() {
+        otp += $(this).val();
+    });
+
+    // Check if OTP is exactly 6 digits long
+    if (otp.length === 6) {
+      Swal.fire(
+      {
+        title: 'Verifying OTP...',
+        imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQySz_Tm9dDSjAABgrk6Gk1WEdRfr6FW1lPSg&s",
+        imageWidth: 300,
+        imageHeight: 300,
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        willClose: () => {
+          const mobilenumber = $('#mobilenumber').val();
+          $.ajax({
+              url: '/api/generate/validate-otp-by-mobilenumber',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({ mobilenumber: mobilenumber,otp: otp }),
+              success: function(response) {
+                  console.log('Response:', response);
+                  if(response.status == 1){
+                    showStep(3)
+                  }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid OTP',
+                    text: 'Your OTP will expire in '+response.expires_at+'. Please complete the verification process promptly',
+                    showConfirmButton: true
+                });
+                  }
+                 
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error:', error);
+                  // Handle error here
+              }
+          });
+
+        }
+      });
+    }else {
+        // Example: Disable submit button if OTP is not complete
+        $('#submitBtn').prop('disabled', true);
+
+    }
+  }
+  $('#verifyOTP').click(function(){
+    verifyOTP();
+  });
+</script>
+
 <script>
     // ON EVENT JQUERY
 

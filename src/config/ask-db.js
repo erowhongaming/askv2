@@ -1,5 +1,5 @@
 
- require('../config/env-load'); // Ensure environment variables are loaded
+require('../config/env-load'); // Ensure environment variables are loaded
 const mysql = require('mysql2');
 /**
  * Creates a connection to a MySQL database using the provided environment variables for host, username, password, database, and port.
@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
   host: process.env.MYSQL_PROD_HOST,
   user: process.env.MYSQL_PROD_USERNAME,
   password: process.env.MYSQL_PROD_PASSWORD,
-  database: process.env.MYSQL_PROD_HRIS_DB,
+  database: process.env.ASK_DB,
   port: process.env.MSYQL_PROD_PORT
 });
 
@@ -25,7 +25,7 @@ connection.connect((err) => {
     console.error('Error connecting to the database:', err.stack);
     return;
   }
-  console.log('Connected to the HREIS database.');
+  console.log('Connected to the Ask database.');
 });
 
 module.exports = connection;

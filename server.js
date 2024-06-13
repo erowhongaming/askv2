@@ -6,6 +6,8 @@
  */
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 const PORT = process.env.PORT || 3033;
@@ -16,6 +18,14 @@ const runningBill = require('./src/routes/runningbillApi');
 app.use(runningBill);
 app.use(routes);
 app.use('/assets', express.static(path.join(__dirname, 'public','/assets')));
+
+
+// Use body-parser middleware
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 
 // Your other routes and middleware
 app.get('/', (req, res) => {
