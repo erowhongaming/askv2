@@ -1140,13 +1140,14 @@ section {
 .search-bar {
   width: 100%;
   padding: 10px 15px; /* Adds inner padding for better appearance */
-  font-size: 16px;
+  font-size: 18px;
   border: 1px solid #ccc;
   border-radius: 25px; /* Makes the search bar curved */
   box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
   outline: none; /* Removes default outline on focus */
   transition: border-color 0.3s ease; /* Smooth transition for border color on focus */
-  margin:20px;
+  margin:35px;
+  height:50px;
 
   align-self: center;
 }

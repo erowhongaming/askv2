@@ -44,7 +44,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body >
  
   <header id="header" class="d-flex flex-column justify-content-center">
     <nav id="navbar" class="navbar nav-menu menu-to-top">
@@ -65,7 +65,12 @@
   <!-- ======= Mobile nav toggle button ======= -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="landingPage" class="align-items-center" style='background: url("/assets/img/bg-blur.png") top center;'>
+  <section id="landingPage" class="align-items-center" style='  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.7)), url("/assets/img/bg12.jpg") top center;
+  background-size: cover;
+  background-blend-mode: lighten;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+           ' >
    
     <div class="container position-relative " data-aos="fade-up" data-aos-delay="100"  >
       <div class="row justify-content-center">
@@ -177,7 +182,7 @@
   </section><!-- End Hero -->
 
  <!-- ======= Doctors Directory Section ======= -->
- <section id="portfolio" class="portfolio">
+ <section id="portfolio" class="portfolio" style='background: url("/assets/img/bg-blur.png") top center;'>
   <div class="sidebar-wrapper" >
     <div class="sidebar">
         <h6 class="sidebar-title"></h6>
@@ -265,27 +270,28 @@
 
   
   <!-- ======= Running Bill Section ======= -->
-  <section  id="runningBill" class="services" style="margin-top: 20px;">
-    <div class="container" data-aos="fade-up" >
+  <section  id="runningBill" class="services" style='margin-top: 20px;'>
+    <div class="container" data-aos="fade-up" id="runningbillLogin" >
       <div class="section-title">
         <h2>Running bill</h2>
      
       </div>
-      
-    
         <!-- <div class="card border-light-subtle shadow-sm " > -->
-          <div class="row justify-content-center border-light-subtle shadow-sm" style="min-height:70vh">
-            <div class="col-12 col-md-6 text-bg-rbill">
+          <div class="row justify-content-center border-light-subtle shadow-sm" style='min-height:70vh;'>
+            <div class="col-12 col-md-6 text-bg-rbill" style='
+            background: linear-gradient(rgba(128, 0, 0, 0.8), rgba(128, 0, 0, 0.8)), url("/assets/img/bg2_pattern.jpg") top center;
+            background-blend-mode: multiply;
+            backdrop-filter: blur(10px);'>
               <div class="align-items-center justify-content-center h-100">
                 <div class="card-body p-3 p-md-4 p-xl-5">
                   <div class="col-10 col-xl-8 py-3">
                     <h2 class="h1 mb-4">Inpatient Portal</h2>
-                    <p class="lead m-0">.</p>
+                    <p class="lead m-0"></p>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-6 ">
+            <div class="col-12 col-md-6 " style='background: url("/assets/img/bg-blur.png") top center;'>
               <div class="p-3 p-md-4 p-xl-5">
                 <div class="row">
                   <div class="col-12">
@@ -382,16 +388,12 @@
           </div>
           
         <!-- </div> -->
-
     </div> <!--end fo container-->
-  </section><!-- End Running ill Section -->
- 
-<!-- Link to SweetAlert JavaScript -->
+    <br>
 
 
-  <script>
-    /*
-  <div id="runningBillTable" class="row resume">
+     
+  <div id="runningBillTable" class="container" data-aos="fade-up" style="background-color: white;height:100%;overflow:auto;">
 
     <div class="container" >
       <!-- Emergency -->
@@ -642,8 +644,15 @@
     </div>
     <!-- End Inpatient -->
   </div>
-  */
-  </script>
+
+
+
+
+
+  </section><!-- End Running ill Section -->
+ 
+<!-- Link to SweetAlert JavaScript -->
+
 
   
   <!-- ======= Products and Services ======= -->
@@ -925,6 +934,7 @@
         getDoctorsBySpecializationAndSubspecialization(selectedSpecialty,selectedSubSpecialty);
       }else{
         $('#physicians-container').html(``);
+        getInitialLoading();
       }
     }
   
@@ -1068,7 +1078,7 @@
           }
           
           $('#physicians-container').append(
-            `<div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}">
+            `<div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" style=' background-color: rgba(255, 255, 255, 0.4); '>
                 <div class="doc-member"> 
                   <div class="member-img" >
                  
@@ -1200,6 +1210,7 @@
       Swal.fire(
       {
         title: 'Validating mobile number...',
+       
         allowEscapeKey: false,
         allowOutsideClick: false,
         timer: 1500,
@@ -1289,9 +1300,7 @@
       Swal.fire(
       {
         title: 'Verifying OTP...',
-        imageUrl:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQySz_Tm9dDSjAABgrk6Gk1WEdRfr6FW1lPSg&s",
-        imageWidth: 300,
-        imageHeight: 300,
+       
         allowEscapeKey: false,
         allowOutsideClick: false,
         timer: 1500,
@@ -1309,7 +1318,13 @@
               success: function(response) {
                   console.log('Response:', response);
                   if(response.status == 1){
-                    showStep(3)
+                    showStep(3);
+
+                    setTimeout(function() {
+                      
+                        // Call showBillingTable()
+                        showBillingTable();
+                    }, 2000); // 2000 milliseconds = 2 seconds
                   }else{
                     Swal.fire({
                     icon: 'error',
@@ -1337,6 +1352,17 @@
   $('#verifyOTP').click(function(){
     verifyOTP();
   });
+
+  function showBillingTable(){
+    //hide login inpatient portal
+    $('#runningbillLogin').css('display', 'none');
+    
+    //show billing table after validation
+    $('#runningBillTable').css({
+                    display: 'block',
+                    opacity: 0
+                }).animate({ opacity: 1 }, 300); // 300ms animation duration
+  }
 </script>
 
 <script>
@@ -1438,6 +1464,10 @@
 <script>
 
   $(document).ready(function () {
+
+    // hide billing table
+    $('#runningBillTable').css('display', 'none');
+  
      $(".sidebar-wrapper").hide();
     
       getInitialLoading();

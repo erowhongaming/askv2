@@ -141,7 +141,7 @@ const patients = {
   insertMobilenumberAndOTP:  (mobilenumber, otp) => {
     try {
       const query = `INSERT INTO mobile_otp_log_ask (mobile_number, otp,expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ${process.env.OTP_EXPIRES}))`;
-
+    
       return new Promise((resolve, reject) => {
       db.query(query, [mobilenumber, otp], (err, results) => {
           if (err) {
