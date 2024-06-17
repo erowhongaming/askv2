@@ -37,7 +37,7 @@ body {
 .resume-item-content {
   display: none; /* Initially hidden */
 }
-.resume-item .container-header h4 {
+.resume-item .container-header .trigCol {
   cursor: pointer; /* Indicate that h4 is clickable */
 }
  .header-date {
@@ -160,7 +160,9 @@ transform-origin: 50% 50%;
   text-align: left;
 }
 .resume-title{
-  text-align: center;
+  text-align: left; 
+  color: #067ded;
+  font-weight:50px;
 }
 a {
   color: #CC0700;
@@ -216,7 +218,8 @@ h6 {
 
 .menu-to-top {
 
-  top: 100;
+  top: 150px;
+  right: 30px;
   position: fixed;
   visibility: hidden;
   opacity: 0;

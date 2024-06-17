@@ -87,4 +87,12 @@ router.post('/api/generate/validate-otp-by-mobilenumber',jsonParser, async (req 
     }
 });
 
+// router.get('/api/patient-running-bil', async (req , res) => {
+//     const mobilenumber = req.query.mobilenumber || '';
+
+//     console.log('uy');
+   
+//     res.json();
+// });
+
 module.exports = router;
