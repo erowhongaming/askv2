@@ -16,6 +16,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -81,6 +84,21 @@
             <div class="container services" data-aos="fade-up">   
               <div class="row icon-boxes cards">  
                     
+
+                  <div id="doctorDir-link" class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box iconbox-blue">
+                      <div class="icon">
+                        <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
+                        </svg>
+                        <i class="ri-team-line"></i>
+                      </div>
+                      <h4 class="title">Doctor's Directory</h4>
+                      <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
+                    </div>
+                  </div>
+
+
                     <div  id="runnginBill-link" class="col-lg-3 col-md-6 align-items-stretch card-services " data-aos="zoom-in" data-aos-delay="100">
                       <div class="icon-box iconbox-blue">
                         <div class="icon">
@@ -95,18 +113,7 @@
                     </div>
                 
                     
-                    <div id="doctorDir-link" class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon-box iconbox-blue">
-                        <div class="icon">
-                          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
-                          </svg>
-                          <i class="ri-team-line"></i>
-                        </div>
-                        <h4 class="title">Doctor's Directory</h4>
-                        <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                      </div>
-                    </div>
+                   
 
 
                     <div class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
@@ -178,7 +185,7 @@
 
  <!-- ======= Doctors Directory Section ======= -->
  <section id="portfolio" class="portfolio" style='background: url("/assets/img/bg-blur.png") top center;'>
-  <div class="sidebar-wrapper" >
+  <div class="sidebar-wrapper" id="sidebarDiv">
     <div class="sidebar">
         <h6 class="sidebar-title"></h6>
         
@@ -202,8 +209,8 @@
     </div>
     <div class="container" data-aos="fade-up">
       <div class="col-lg-12 d-flex justify-content-center">
-        <div class="filter-container" style="width: 100%;">
-          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for... Name, Specialty, Subspecialty, Secretary, or Room">
+        <div class="filter-container" id='searchDoctorDiv' style="width: 100%;">
+          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for... Name, Specialty, Subspecialty, Secretary, HMO's or Room">
         </div>
       </div>
     </div>
@@ -790,27 +797,7 @@
   <script>
     
     function goTo(target) {
-      // function preventDefault(e) {
-      //       if (!$(e.target).closest('#landingPage').length) {
-      //           e.preventDefault();
-      //           e.stopPropagation();
-      //           return false;
-      //       }
-      //   }
-  
-
-      // if (target !== '#landingPage') {
-      //   // Prevent scrolling with mouse and keyboard
-      //   window.addEventListener('wheel', preventDefault, { passive: false });
-      //   window.addEventListener('keydown', function(e) {
-      //     if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
-      //         preventDefault(e);
-      //     }
-      //   }, { passive: false });
-
-      //   // Optional: Prevent touch scrolling for mobile devices
-      //   window.addEventListener('touchmove', preventDefault, { passive: false });
-      // }
+     
 
       if(target == '#portfolio'){
           doctorsDir(target);
@@ -951,33 +938,16 @@
             const groupedBySpecialization = groupDataBySpecialization(data);                
             const groupBySubSpecialization = groupDataBySubSpecialization(data);            
 
-            $('#SpecialtymultiSelectDropdown').append(
-              `<li>
-                <input class="form-check-input" type="checkbox" id="select-all">
-                <label class="form-check-label" for="select-all">All SPECIALIZATIONS</label>
-              </li>
-              <li>
-                  <hr class="dropdown-divider">
-              </li>`
-            );
-            $('#SubSpecialtymultiSelectDropdown').append(
-              `<li>
-                <input class="form-check-input" type="checkbox" id="select-all">
-                <label class="form-check-label" for="select-all">All</label>
-              </li>
-              <li>
-                  <hr class="dropdown-divider">
-              </li>`
-            );
+           
           
             $('#filterSpecialty').html('');
-            $('#filterSpecialty').html( 
-              `<label>
-                  <input type="radio" name="radioSpecialty" value="ALL" checked />
-                  <div class="specialty-filter box">
-                    <span class="specialtyh1">ALL SPECIALIZATIONS</span>
-                  </div>
-              </label>`);
+            // $('#filterSpecialty').html( 
+            //   `<label>
+            //       <input type="radio" name="radioSpecialty" value="ALL" checked />
+            //       <div class="specialty-filter box">
+            //         <span class="specialtyh1">ALL SPECIALIZATIONS</span>
+            //       </div>
+            //   </label>`);
             // Append filter items for each specialization
             for (const specialization in groupedBySpecialization) {
                 $('#filterSpecialty').append(
@@ -1011,7 +981,11 @@
 
       const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       const subspecialtyValue = $('input[name="sub-radioSpecialty"]:checked').val();
-      getDoctorsBySpecializationAndSubspecialization(specialtyValue,subspecialtyValue);
+     
+  
+      if (specialtyValue != 'ALL') {
+        getDoctorsBySpecializationAndSubspecialization(specialtyValue,subspecialtyValue);
+      }
     }
  
     function getSubSpecializationGroups(specialization){
@@ -1069,14 +1043,10 @@
       for (const doctor in data) {
           const doctorInfo = data[doctor];
           var img = '';
-          // if(doctorInfo.gender ==1){
-          //   img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="">`;
-          // }else{
-          //   img =` <img src="/assets/img/doctora.png" class="image--cover"  alt="">`;
-          // }
+
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
           $('#physicians-container').append(
-            `<div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" style=' background-color: rgba(255, 255, 255, 0.4); '>
+            `<div class="docs col-lg-2 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" style=' background-color: rgba(255, 255, 255, 0.4); '>
                 <div class="doc-member"> 
                   <div class="member-img"  >
                  
@@ -1134,6 +1104,35 @@
     }
     
 
+
+
+    function selectedSpecialty(){
+      const  selectedValue = $('input[name="radioSpecialty"]:checked').val();  
+      const selectedSubSpecialy = $('input[name="sub-radioSpecialty"]:checked').val();
+
+     
+
+
+
+      if (selectedValue != 'ALL') {
+
+          $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-arrow-right-circle-line"></i></button>');
+          
+          getDoctorsBySpecializationAndSubspecialization(selectedValue,selectedSubSpecialy);         
+          getSubSpecializationGroups(selectedValue);
+          
+          $(".side-menu > i").toggleClass("ri-close-fill", 300);
+          $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
+          $(".sidebar-wrapper").show(500); 
+      } else {
+          
+          $(".sidebar-wrapper").hide(400);
+          getInitialLoading();
+          $('#selectedValue').text('None');
+          $('#selectedValue').text('None');
+      }
+    }
+    
 </script>
 <script>
   // Running Bill
@@ -1150,9 +1149,7 @@
   """
   */
 
-  $('#mobilenumber').keyup(function() {
-    checkEntry();
-  });
+  $('#mobilenumber').keyup(checkEntry);
   /*
   Function to check if a mobile number is valid.
   Parameters:
@@ -1372,12 +1369,17 @@
                     opacity: 0
                 }).animate({ opacity: 1 }, 300); // 300ms animation duration
   }
+
+
+
 </script>
 
 <script>
     // ON EVENT JQUERY
 
-  
+
+
+
     $('#searchDoctor').keyup(function(){
       const query = $('#searchDoctor').val();
       search(query);
@@ -1395,26 +1397,25 @@
       }
     });
 
-    $('#myForm').on('change', 'input[type="radio"][name="radioSpecialty"]', function() {
-        const  selectedValue = $('input[name="radioSpecialty"]:checked').val();  
-        const selectedSubSpecialy = $('input[name="sub-radioSpecialty"]:checked').val();
-        if (selectedValue != 'ALL') {
+    // $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]', function() {
+    //     // Check if the clicked radio button is currently checked
+    //     if ($(this).prop('checked')) {
+    //         // Uncheck the radio button
+    //         $(this).prop('checked', false);
+    //         checked = ''; // Reset the checked variable (if it's a global variable)
+          
+    //     } else {
+    //         // Check the radio button
+    //         $(this).prop('checked', true);
+    //         checked = $(this).val(); // Store the value of the checked radio button (if it's a global variable)
+    //     } console.log(checked);
+    // });
 
-            $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-arrow-right-circle-line"></i></button>');
-            
-            getDoctorsBySpecializationAndSubspecialization(selectedValue,selectedSubSpecialy);         
-            getSubSpecializationGroups(selectedValue);
-            
-            $(".side-menu > i").toggleClass("ri-close-fill", 300);
-            $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
-            $(".sidebar-wrapper").show(500); 
-        } else {
-            
-            $(".sidebar-wrapper").hide(400);
-            getInitialLoading();
-            $('#selectedValue').text('None');
-            $('#selectedValue').text('None');
-        }
+
+    $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]',function(event){
+    // Handle specific behavior for radio buttons if needed
+    event.stopPropagation(); // Prevent bubbling to document level
+    selectedSpecialty();
     });
     
     $('#runnginBill-link').click(function() {    
@@ -1473,6 +1474,40 @@
 <script>
 
   $(document).ready(function () {
+   
+     // Click event on the document to close all displays
+     $(document).on('click', function(event) {
+        // Check if the click was not on the radio buttons or their descendants,
+        // and not on the button or its descendants
+        if (
+            (!$(event.target).closest('input[type="radio"][name="radioSpecialty"]').length &&
+                    !$(event.target).closest('#myForm').length 
+                    &&   !$(event.target).closest('#sidebarDiv').length 
+            ) || ( !$(event.target).closest('#searchDoctorDiv') && !$(event.target).closest('#searchDoctor') )
+
+          ) 
+          {
+              
+            if($(event.target).closest('#searchDoctorDiv').length){
+               close_sidebar();
+               
+             }
+             if( (!$(event.target).closest('input[type="radio"][name="radioSpecialty"]').length &&
+                    !$(event.target).closest('#myForm').length 
+                    &&   !$(event.target).closest('#sidebarDiv').length 
+            ) ){
+             
+              close_sidebar(); 
+             }
+
+             if(!$(event.target).closest('#searchDoctorDiv').length){
+              closeKeyboard();   
+             }
+             
+         }
+         
+
+      });
 
     // hide billing table
     $('#runningBillTable').css('display', 'none');

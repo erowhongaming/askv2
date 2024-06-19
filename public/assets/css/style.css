@@ -10,10 +10,11 @@
 # General
 --------------------------------------------------------------*/
 body {
-  /* font-family: "Open Sans", sans-serif; */
+  /* font-family: "Open Sans", sans-serif; 
+  font-family: "Raleway", sans-serif; */
   color: #272829;
   overflow:hidden;
-  font-family: "Raleway", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .cards:hover > .card-services:not(:hover) {
@@ -243,14 +244,17 @@ h6 {
   }
 }
  .docs .doc-member .member-img {
-  
-  overflow: hidden; 
-  float:center;
+   display: block;
+    margin-left: 40px;
+    margin-right: auto;
+    width:50%;
 } 
 
 
 
 .docs .doc-member .member-info {
+  
+
   padding: 10px 15px 20px 15px;
 }
 
@@ -850,7 +854,7 @@ margin-right: 10px;
   top: 0;
   right: 0;
   height: 100%;
-  width: 300px;
+  width: 260px;
   transition: margin-right 0.3s ease;
   z-index: 2;
   display: flex;
@@ -1264,7 +1268,7 @@ section {
 }
 
 .portfolio #portfolio-flters {
-  padding: 0;
+  padding: 20px;
   margin: 0 auto 25px auto;
   list-style: none;
   text-align: center;

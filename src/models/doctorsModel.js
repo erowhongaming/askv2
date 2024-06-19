@@ -50,6 +50,7 @@ const Doctor = {
             CONCAT( phySched.room,' - ',phySched.bldg ) as room,
             phySched.is_in,
             people.gender,
+            HMOS as hmo,
             TRIM(TRAILING ', ' FROM 
                 CONCAT(
                     CASE 
@@ -101,7 +102,8 @@ const Doctor = {
                             doctor.specialization?.toLowerCase() || '',
                             doctor.secretary?.toLowerCase() || '',
                             doctor.subSpecialization?.toLowerCase() || '',
-                            doctor.room?.toLowerCase() || ''
+                            doctor.room?.toLowerCase() || '',
+                            doctor.hmo?.toLowerCase() || ''
                         ];
 
                         //console.log(searchableFields);
