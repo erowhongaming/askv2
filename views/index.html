@@ -208,7 +208,7 @@
       <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
      -->
     </div>
-    <div class="container-fluid" data-aos="fade-up" style="margin-bottom:25px;margin-top:-25px" >
+    <div class="container" data-aos="fade-up" style="margin-bottom:25px;margin-top:-25px" >
       <div class="col-lg-12 d-flex justify-content-center">
         <div id="searchDoctorDiv" class="search-bar__wrapper">
           <div class="search-input__wrapper">
@@ -218,7 +218,7 @@
             <i class="ri-search-2-line"></i> Search
           </button>
           <button  class="btnAll">
-            All 
+            All Specializations
          </button>
         </div>
        
@@ -235,48 +235,48 @@
           </form>
         </div>
     </div>
-  
-    <div class="row" id="physicians-container" style="overflow:auto;height:100vh">
+    <div class="container"  data-aos="fade-up">
+      <div class="row " id="physicians-container" style="overflow:auto;height:100vh;">
 
-   
-      <div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch filter-app" >
-        <div class="doc-member"> 
-          <div class="member-img  portfolio-wrap">
-            <img src="/assets/img/doctor.png" class="image--cover" alt="" loading="lazy" >
+    
+        <div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch filter-app" >
+          <div class="doc-member"> 
+            <div class="member-img  portfolio-wrap">
+              <img src="/assets/img/doctor.png" class="image--cover" alt="" loading="lazy" >
+            
+            </div>
+            <div class="member-info border p-3 mb-3">
+              <h3>Doctor's Name</h3>
+              <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
+              <hr> <!-- Horizontal line for visual separation -->
+              <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+              <div class="schedule">
+                  <p>Tuesday, Thursday</p>
+                  <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
+              </div>
+              <hr class="my-4"> <!-- Horizontal line for visual separation -->
+          
+            
+              <div class="card-text mt-3">
+                Affiliated Payors: 
+                <div class="affiliated-payors-wrapper">
+                    <div class="affiliated-payors">
+                        <!-- Add images or text here -->
+                        <img src="payor1.jpg" alt="Payor 1" class="payor-img">
+                        <img src="payor2.jpg" alt="Payor 2" class="payor-img">
+                        <img src="payor3.jpg" alt="Payor 3" class="payor-img">
+                      
+                        <!-- Add more images as needed -->
+                    </div>
+                </div>
+            </div>
+            </div>
           
           </div>
-          <div class="member-info border p-3 mb-3">
-            <h3>Doctor's Name</h3>
-            <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
-            <hr> <!-- Horizontal line for visual separation -->
-            <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
-            <div class="schedule">
-                <p>Tuesday, Thursday</p>
-                <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
-            </div>
-            <hr class="my-4"> <!-- Horizontal line for visual separation -->
-         
-           
-            <div class="card-text mt-3">
-              Affiliated Payors: 
-              <div class="affiliated-payors-wrapper">
-                  <div class="affiliated-payors">
-                      <!-- Add images or text here -->
-                      <img src="payor1.jpg" alt="Payor 1" class="payor-img">
-                      <img src="payor2.jpg" alt="Payor 2" class="payor-img">
-                      <img src="payor3.jpg" alt="Payor 3" class="payor-img">
-                     
-                      <!-- Add more images as needed -->
-                  </div>
-              </div>
-          </div>
-          </div>
-        
-        </div>
-      </div><!-- End docs Member -->
+        </div><!-- End docs Member -->
 
+      </div>
     </div>
-
   </div>
  </section><!-- End Doctors Directory Section -->
 
@@ -803,8 +803,8 @@
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/assets.js"></script>
  
-   <!-- Sweetelaert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Sweetelaert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
  
   <script>
@@ -829,18 +829,7 @@ function searchToggleALL(){
      
   }
 }
-//       const searchButtonEl = document.querySelector('.search-icon');
 
-// const toggleBar = (e) => {
-//   const searchBar = document.querySelector('.search-input__wrapper');
-//   const searchInput = document.querySelector('#searchDoctor'); // Assuming this is the search input field
-//   searchBar.classList.toggle('search-input__wrapper_active');
-
-//   // Clear the input value if the search bar is being closed
-//   if (!searchBar.classList.contains('search-input__wrapper_active')) {
-//     searchInput.value = '';
-//   }
-// }
 function toggleSearch(){
   const searchBar = document.querySelector('.search-input__wrapper');
   const searchInput = document.querySelector('#searchDoctor'); // Assuming this is the search input field
@@ -860,11 +849,6 @@ function toggleSearch(){
   }
 }
 $('#search-icon').click(toggleSearch);
-
-
-
-
-
 
 
     function goTo(target) {
@@ -1016,13 +1000,7 @@ $('#search-icon').click(toggleSearch);
            
           
             $('#filterSpecialty').html('');
-            // $('#filterSpecialty').html( 
-            //   `<label>
-            //       <input type="radio" name="radioSpecialty" value="ALL" checked />
-            //       <div class="specialty-filter box">
-            //         <span class="specialtyh1">ALL SPECIALIZATIONS</span>
-            //       </div>
-            //   </label>`);
+          
             // Append filter items for each specialization
             for (const specialization in groupedBySpecialization) {
                 $('#filterSpecialty').append(
@@ -1117,21 +1095,25 @@ $('#search-icon').click(toggleSearch);
     
     function renderPhysicians(data){
       $('#physicians-container').html('');
+      
       for (const doctor in data) {
+        
+        
           const doctorInfo = data[doctor];
           var img = '';
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
           $('#physicians-container').append(
-            `<div class="docs col-lg-2 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" style=' background-color: rgba(255, 255, 255, 0.4); '>
+            `
+            <div class="docs col-lg-3 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" >
                 <div class="doc-member"> 
                   <div class="member-img"  >
                  
                     `+img+`
                   </div>
-                  <div class="member-info  border p-3 mb-3">
-                    <strong style="font-size:19px;text-align:center;font-weight:900;">${doctorInfo.fullname}</strong><br>
-                    <strong style="font-size:12px;text-align:center;color:#477098"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
+                  <div class="member-info">
+                    <strong style="font-size:19px;color:#002e5c;text-align:center;font-weight:900;">${doctorInfo.fullname}</strong><br>
+                    <strong style="font-size:12px;text-align:center;color:#969393"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
                     <hr> 
                     <div class="row">
                       <div class="col-sm-12 border p-3 " >
@@ -1151,12 +1133,12 @@ $('#search-icon').click(toggleSearch);
                       <div class="col-sm-12  border p-3">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
-                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary}</strong> 
+                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary} - </strong> 
                         <strong style="font-size:11Px;color:black;">${doctorInfo.secretary_contact}</strong> 
 
                       </div> 
                       <div class="col-sm-12  border p-3">
-                        <strong>Affiliated Payors: </strong>
+                        <strong style="font-size:12px;color:#969393">Affiliated Payors: </strong>
                         <div class="affiliated-payors-wrapper">
                             <div class="affiliated-payors">
                                 <!-- Add images or text here -->
@@ -1175,6 +1157,7 @@ $('#search-icon').click(toggleSearch);
                 </div>
               </div>
           `);
+       
       }
     }
     

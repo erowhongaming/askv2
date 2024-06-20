@@ -185,13 +185,14 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", sans-serif;
+  /* font-family: "Raleway", sans-serif; */
+  font-family: "Lato", sans-serif;
 }
 /* -SEarch button all- */
 
 .btnAll {
 
-  width: 80px;
+  width: 180px;
   /*     box-shadow: 13px 9px 26px -7px rgba(0, 0, 0, 0.16), -2px -3px 26px -7px rgba(255, 255, 255, 1); */
   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
   background-color: transparent;
@@ -332,7 +333,16 @@ h6 {
     margin-left: 60px;
     margin-right: auto;
     width:50%;
+    object-position: center top;
+    object-fit: cover; 
 } 
+.docs .doc-member {
+  border:0.5px solid #692323;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 1) 0px 1px 3px -1px;
+  border-radius: 2%;
+  padding:20px;
+  text-align:center;
+}
 
 
 
