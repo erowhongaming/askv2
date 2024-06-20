@@ -184,7 +184,7 @@
   </section><!-- End Hero -->
 
  <!-- ======= Doctors Directory Section ======= -->
- <section id="portfolio" class="portfolio" style='background: url("/assets/img/bg-blur.png") top center;'>
+ <section id="portfolio" class="portfolio" style='background: url("/assets/img/bg14.jpg") top center;'>
   <div class="sidebar-wrapper" id="sidebarDiv">
     <div class="sidebar">
         <h6 class="sidebar-title"></h6>
@@ -198,7 +198,8 @@
         </div>
       </div>
   </div>
-
+    
+  
 
   <div class="container-fluid" data-aos="fade-up" style="overflow:auto">
 
@@ -207,11 +208,21 @@
       <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
      -->
     </div>
-    <div class="container" data-aos="fade-up">
+    <div class="container-fluid" data-aos="fade-up" style="margin-bottom:25px;margin-top:-25px" >
       <div class="col-lg-12 d-flex justify-content-center">
-        <div class="filter-container" id='searchDoctorDiv' style="width: 100%;">
-          <input type="text" id="searchDoctor" class="search-bar use-keyboard-input" placeholder="Search for... Name, Specialty, Subspecialty, Secretary, HMO's or Room">
+        <div id="searchDoctorDiv" class="search-bar__wrapper">
+          <div class="search-input__wrapper">
+            <input type="text" id="searchDoctor" class="search-input use-keyboard-input" placeholder="Search for... Name, Specialty, Subspecialty, Secretary, HMO's or Room">
+          </div>
+          <button id="search-icon" type="button">
+            <i class="ri-search-2-line"></i> Search
+          </button>
+          <button  class="btnAll">
+            All 
+         </button>
         </div>
+       
+         
       </div>
     </div>
     
@@ -272,7 +283,7 @@
 
   
   <!-- ======= Running Bill Section ======= -->
-  <section  id="runningBill" class="services" style='margin-top: 20px;margin-bottom: 30px;'>
+  <section  id="runningBill" class="services" style='margin-top: 20px;margin-bottom: 30px;background: url("/assets/img/bg14.jpg") top center;'>
     <div class="container" data-aos="fade-up" id="runningbillLogin" >
       <div class="section-title">
         <h2>Running bill</h2>
@@ -794,8 +805,68 @@
  
    <!-- Sweetelaert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
     
+ 
+  <script>
+
+$(".btnAll").click(searchToggleALL);
+
+function searchToggleALL(){
+  const query = $('#searchDoctor').val();
+  if ($(".btnAll").hasClass("active") ) {
+      // If .btnAll has the active class, remove it
+      $(".btnAll").removeClass("active");
+      
+      search(query);
+     
+  } else {
+      // If .btnAll does not have the active class, add it
+      $(".btnAll").addClass("active");
+       // Perform actions when active class is removed
+       $('input[name="radioSpecialty"]:checked').prop('checked', false);
+      $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
+      search(query);
+     
+  }
+}
+//       const searchButtonEl = document.querySelector('.search-icon');
+
+// const toggleBar = (e) => {
+//   const searchBar = document.querySelector('.search-input__wrapper');
+//   const searchInput = document.querySelector('#searchDoctor'); // Assuming this is the search input field
+//   searchBar.classList.toggle('search-input__wrapper_active');
+
+//   // Clear the input value if the search bar is being closed
+//   if (!searchBar.classList.contains('search-input__wrapper_active')) {
+//     searchInput.value = '';
+//   }
+// }
+function toggleSearch(){
+  const searchBar = document.querySelector('.search-input__wrapper');
+  const searchInput = document.querySelector('#searchDoctor'); // Assuming this is the search input field
+  searchBar.classList.toggle('search-input__wrapper_active');
+  const searchIcon = document.querySelector('#search-icon i'); 
+  // Clear the input value if the search bar is being closed
+  if (searchBar.classList.contains('search-input__wrapper_active')) {
+    searchIcon.classList.remove('ri-search-2-line');
+    searchIcon.classList.add('ri-close-line');
+    searchIcon.classList.add('ri-close-line');
+    searchInput.focus(); // Optionally, focus the input field when active
+  } else {
+    searchIcon.classList.remove('ri-close-line');
+    searchIcon.classList.add('ri-search-2-line');
+    searchInput.value = ''; // Clear the input value if the search bar is being closed
+    search(searchInput.value);
+  }
+}
+$('#search-icon').click(toggleSearch);
+
+
+
+
+
+
+
     function goTo(target) {
      
 
@@ -899,9 +970,12 @@
     
     
     function search(query){
-      const selectedSpecialty = $('input[name="radioSpecialty"]:checked').val();
+
+
+      const selectedSpecialty =  $('input[name="radioSpecialty"]:checked').val() ? $('input[name="radioSpecialty"]:checked').val() : 'ALL';
+      
       const selectedSubSpecialty = $('input[name="sub-radioSpecialty"]:checked').val();
-      if(query != '' && selectedSpecialty == 'ALL'){
+      if(query != '' && (selectedSpecialty == 'ALL' )){
           $.ajax({
             url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
             method: 'GET',
@@ -925,6 +999,7 @@
   
 
     function getInitialLoading(){
+       
         // Initial load 
         $.ajax({
           url: `/api/doctors`,
@@ -964,6 +1039,7 @@
 
             const limitedData = data.slice(0, 100);
 
+            $(".btnAll").addClass("active");
             renderPhysicians(limitedData);
              
           },
@@ -975,10 +1051,11 @@
 
 
  
-    function close_sidebar(){    
+    function close_sidebar(){  
+
       $(".sidebar-wrapper").hide(400);
       $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
-
+      $('#navbar').show();
       const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       const subspecialtyValue = $('input[name="sub-radioSpecialty"]:checked').val();
      
@@ -1053,8 +1130,8 @@
                     `+img+`
                   </div>
                   <div class="member-info  border p-3 mb-3">
-                    <strong style="font-size:12px;text-align:center;font-weight:800;">${doctorInfo.fullname}</strong><br>
-                    <strong style="font-size:11px;text-align:center;color:#477098"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
+                    <strong style="font-size:19px;text-align:center;font-weight:900;">${doctorInfo.fullname}</strong><br>
+                    <strong style="font-size:12px;text-align:center;color:#477098"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
                     <hr> 
                     <div class="row">
                       <div class="col-sm-12 border p-3 " >
@@ -1064,37 +1141,35 @@
                         <br>
                         <strong style="font-size:12px;color:black;">8:00 am - 10:00 PM</strong> 
                         <br>
+                       
+                      </div> 
+                      <div class="col-sm-12  border p-3">
                         <strong style="font-size:12px;color:#969393">Room</strong>      
-                                   
+                        <br>
                         <strong style="font-size:12px;color:black;">${doctorInfo.room}</strong>
                       </div> 
-                    
-                      <div class="col-sm-12">
+                      <div class="col-sm-12  border p-3">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
                         <strong style="font-size:11px;color:black;">${doctorInfo.secretary}</strong> 
                         <strong style="font-size:11Px;color:black;">${doctorInfo.secretary_contact}</strong> 
 
                       </div> 
-                     
-
+                      <div class="col-sm-12  border p-3">
+                        <strong>Affiliated Payors: </strong>
+                        <div class="affiliated-payors-wrapper">
+                            <div class="affiliated-payors">
+                                <!-- Add images or text here -->
+                                <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
+                                <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
+                              
+                                <!-- Add more images as needed -->
+                            </div>
+                        </div>
+                      </div>
                     </div>
 
-                    
-                    <hr class="my-4"> 
-                    
-                    <div class="card-text" style="font-size:12px;color:#969393;">
-                      <strong>Affiliated Payors: </strong>
-                      <div class="affiliated-payors-wrapper">
-                          <div class="affiliated-payors">
-                              <!-- Add images or text here -->
-                              <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                              <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                            
-                              <!-- Add more images as needed -->
-                          </div>
-                      </div>
-                  </div>
+                
                   </div>
                 
                 </div>
@@ -1116,16 +1191,19 @@
 
       if (selectedValue != 'ALL') {
 
-          $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-arrow-right-circle-line"></i></button>');
-          
+          $('.sidebar-title').html('Subspecialization(s) &nbsp;&nbsp <button type="button" onclick="close_sidebar()" id="close-sidebar"><i class="ri-close-circle-line"></i></button>');
+         
+          $(".btnAll").removeClass("active");
           getDoctorsBySpecializationAndSubspecialization(selectedValue,selectedSubSpecialy);         
           getSubSpecializationGroups(selectedValue);
           
+      
           $(".side-menu > i").toggleClass("ri-close-fill", 300);
           $(".sidebar-wrapper").toggleClass("show-sidebar", 500);
+          $('#navbar').hide();
           $(".sidebar-wrapper").show(500); 
       } else {
-          
+        $('#navbar').show();
           $(".sidebar-wrapper").hide(400);
           getInitialLoading();
           $('#selectedValue').text('None');
@@ -1382,6 +1460,7 @@
 
     $('#searchDoctor').keyup(function(){
       const query = $('#searchDoctor').val();
+  
       search(query);
     });
 
@@ -1397,19 +1476,6 @@
       }
     });
 
-    // $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]', function() {
-    //     // Check if the clicked radio button is currently checked
-    //     if ($(this).prop('checked')) {
-    //         // Uncheck the radio button
-    //         $(this).prop('checked', false);
-    //         checked = ''; // Reset the checked variable (if it's a global variable)
-          
-    //     } else {
-    //         // Check the radio button
-    //         $(this).prop('checked', true);
-    //         checked = $(this).val(); // Store the value of the checked radio button (if it's a global variable)
-    //     } console.log(checked);
-    // });
 
 
     $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]',function(event){
@@ -1471,10 +1537,10 @@
       OTPInput();
     });
   </script>
-<script>
+<script>    
 
   $(document).ready(function () {
-   
+
      // Click event on the document to close all displays
      $(document).on('click', function(event) {
         // Check if the click was not on the radio buttons or their descendants,
@@ -1489,6 +1555,7 @@
           {
               
             if($(event.target).closest('#searchDoctorDiv').length){
+
                close_sidebar();
                
              }
@@ -1500,8 +1567,9 @@
               close_sidebar(); 
              }
 
-             if(!$(event.target).closest('#searchDoctorDiv').length){
+             if(!$(event.target).closest('#searchDoctorDiv').length && !$(event.target).closest('.keyboard').length){
               closeKeyboard();   
+              //toggleSearch();
              }
              
          }

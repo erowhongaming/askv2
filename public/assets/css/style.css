@@ -23,10 +23,14 @@ body {
  
 }
 .image--cover{
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  margin: 20px;
+  border: 2px solid #353535;
+  /* width: 130px;
+  height: 130px;
+  border-radius: 50%; */
+  /* margin: 20px; */
 }
 .card-services{
   text-align:center;
@@ -183,6 +187,86 @@ h5,
 h6 {
   font-family: "Raleway", sans-serif;
 }
+/* -SEarch button all- */
+
+.btnAll {
+
+  width: 80px;
+  /*     box-shadow: 13px 9px 26px -7px rgba(0, 0, 0, 0.16), -2px -3px 26px -7px rgba(255, 255, 255, 1); */
+  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+  background-color: transparent;
+  border: 0;
+  position: relative;
+  }
+  
+  
+  
+  .btnAll:active,
+  .btnAll:focus {
+  border: 0;
+  outline: none;
+  }
+  
+  .btnAll.active {
+  /* background-color: rgba(196, 194, 194, 0.5); */
+  font-weight:600;
+  
+  /* box-shadow: inset 7px 6px 15px -7px rgba(0, 0, 0, 0.17), inset -6px -5px 26px -6px rgba(209, 21, 21, 0.6); */
+  /*    box-shadow: inset 7px 6px 15px -7px rgba(128, 0, 0, 0.17), inset -6px -5px 26px -6px rgba(196, 14, 14, 0.6); */
+  
+  }
+  .btnAll::before {
+      font-family: 'RemixIcon';
+      content: ''; /* Default empty content */
+      margin-right: 8px;
+  }
+  .btnAll.active::before {
+      content: "\eae2"; /* Unicode value of the icon */
+      color:#CC0700;
+  }
+/* -Search  Bar- */
+
+.search-bar__wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  padding: .5rem .3rem;
+  border-radius: 20px;
+  box-shadow: 0 0 5px 1px rgba(136, 133, 133, 0.4);
+}
+
+.search-bar__wrapper input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: black;
+ 
+  padding-left: .7rem;
+  width: 0;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+}
+
+.search-bar__wrapper .search-input__wrapper_active input {
+  width: 600px;
+  opacity: 1;
+}
+
+.search-bar__wrapper button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-bar__wrapper button i {
+  font-size: 20px;
+  color: inherit;
+}
+
+
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -193,7 +277,7 @@ h6 {
   opacity: 0;
   right: 15px;
   bottom: 15px;
-  z-index: 996;
+  z-index: 3;
   background: #CC0700;
   width: 40px;
   height: 40px;
@@ -225,7 +309,7 @@ h6 {
   visibility: hidden;
   opacity: 0;
   transition: all 0.4s;
-  z-index: 1000; /* Ensure the menu is on top of other elements */
+  z-index: 3; /* Ensure the menu is on top of other elements */
 }
 .menu-to-top.active {
   visibility: visible;
@@ -244,8 +328,8 @@ h6 {
   }
 }
  .docs .doc-member .member-img {
-   display: block;
-    margin-left: 40px;
+    display: block;
+    margin-left: 60px;
     margin-right: auto;
     width:50%;
 } 
@@ -281,8 +365,9 @@ h6 {
 }
 
 .docs .doc-member:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 0 30px rgba(55, 55, 63, 0.15);
+  transform: scale(1.0);
+  background-color: #ffffff;
+  box-shadow: 0px 0 30px rgba(47, 47, 53, 0.15);
 }
 
 
@@ -377,6 +462,7 @@ margin-right: 10px;
     &:checked {
       + .box {
         background-color: #cc0700;
+      
         .specialtyh1 {
           color: white;
           transform: translateY(14px);
@@ -405,14 +491,15 @@ margin-right: 10px;
       font-family: "Inter", sans-serif;
       font-weight: 700;
       /* box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.3); */
-      box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
-
+      /* box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5); */
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         transition: all ease-in-out 300ms;
       &:active {
           transform: translateY(10px); /* Adjusted for smaller size */
       }
       &:hover{
-        box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2);
+        /* box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2); */
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
         transform: translate(0px, -5px) scale(1.1);
         opacity: 1;
  
@@ -480,7 +567,7 @@ margin-right: 10px;
   .sub-box {
       width: 190px;
       height: 75px;
-      margin-top: 25px;
+      margin-top: 15px;margin-bottom: 15px;
       margin-right: 10px;  /* Adjusted for smaller size 802e42 */
       background-color: #fff; 
       border: 1px solid #c7c9cc;
@@ -494,14 +581,16 @@ margin-right: 10px;
       font-family: "Inter", sans-serif;
       font-weight: 600;
       /* box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.3); */
-      box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.541), -9px -9px 16px rgba(255, 255, 255, 0.192);
-
+      /* box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.541), -9px -9px 16px rgba(255, 255, 255, 0.192); */
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    
         transition: all ease-in-out 300ms;
       &:active {
           transform: translateY(3px); /* Adjusted for smaller size */
       }
       &:hover{
-        box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2);
+        /* box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2); */
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
         transform: translate(0px, -2px) scale(1.1);
         opacity: 1;
  
@@ -633,16 +722,16 @@ margin-right: 10px;
 
 @media (min-width: 992px) {
 
-  .nav-menu a,
+  .nav-menu a ,
   .nav-menu a:focus {
-    width: 56px;
+    width: 100%;
   }
 
-  .nav-menu a span,
+  /* .nav-menu a span,
   .nav-menu a:focus span {
     display: none;
     color: #fff;
-  }
+  } */
 }
 
 .nav-menu a:hover,
@@ -1347,7 +1436,7 @@ section {
   border-top: 3px solid #d7dce1;
   border-left: 3px solid #d7dce1;
   transition: all 0.5s ease 0s;
-  z-index: 9994;
+  z-index: 5;
 }
 
 .portfolio .portfolio-wrap .portfolio-info::after {
@@ -1361,7 +1450,7 @@ section {
   border-bottom: 3px solid #d7dce1;
   border-right: 3px solid #d7dce1;
   transition: all 0.5s ease 0s;
-  z-index: 9994;
+  z-index: 5;
 }
 
 .portfolio .portfolio-wrap .portfolio-info h4 {
