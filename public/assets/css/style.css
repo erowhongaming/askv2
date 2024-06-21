@@ -328,10 +328,12 @@ h6 {
     font-size: 1.2em; /* Adjust font size for mobile */
   }
 }
+
  .docs .doc-member .member-img {
     display: block;
     margin-left: 60px;
     margin-right: auto;
+    
     width:50%;
     object-position: center top;
     object-fit: cover; 
@@ -392,8 +394,8 @@ h6 {
 }
 
 .affiliated-payors img {
-  width: 10px; /* Adjust the size as needed */
-  height: 10px; /* Adjust the size as needed */
+  width: 90px; /* Adjust the size as needed */
+  height:50px; /* Adjust the size as needed */
   margin-right: 5px; /* Spacing between images */
 }
 

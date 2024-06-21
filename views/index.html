@@ -806,7 +806,10 @@
   <!-- Sweetelaert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
- 
+
+  <!-- MD5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+
   <script>
 
 $(".btnAll").click(searchToggleALL);
@@ -1101,6 +1104,20 @@ $('#search-icon').click(toggleSearch);
         
           const doctorInfo = data[doctor];
           var img = '';
+          var affil = '';
+      
+          // Check if doctorInfo.hmo_ids is defined and not an empty string
+          if (typeof doctorInfo.hmo_id !== 'undefined' && doctorInfo.hmo_id !== '' && doctorInfo.hmo_id !== null) {
+            const hmo_id_string = doctorInfo.hmo_id;
+            // Split the string into an array using ';' as a delimiter
+            var hmo_id_array = hmo_id_string.split(';');
+          
+            // Trim any extra spaces from each element and build the HTML string
+            $.each(hmo_id_array, function(index, value) {
+                affil += `<img src="https://hris.csmc.ph/photos/hmo/` + md5($.trim(value)) + `.jpg"  class="payor-img" alt="" loading="lazy">`;
+            });
+          
+          }
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
           $('#physicians-container').append(
@@ -1141,11 +1158,8 @@ $('#search-icon').click(toggleSearch);
                         <strong style="font-size:12px;color:#969393">Affiliated Payors: </strong>
                         <div class="affiliated-payors-wrapper">
                             <div class="affiliated-payors">
-                                <!-- Add images or text here -->
-                                <img src="/assets/img/favicon.png" alt="Payor 1" class="payor-img">
-                                <img src="/assets/img/favicon.png" alt="Payor 2" class="payor-img">
-                              
-                                <!-- Add more images as needed -->
+                                `+affil+`
+                               
                             </div>
                         </div>
                       </div>

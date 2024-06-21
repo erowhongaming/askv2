@@ -51,6 +51,7 @@ const Doctor = {
             phySched.is_in,
             people.gender,
             HMOS as hmo,
+            HMOS_ids as hmo_id,
             TRIM(TRAILING ', ' FROM 
                 CONCAT(
                     CASE 
@@ -103,7 +104,8 @@ const Doctor = {
                             doctor.secretary?.toLowerCase() || '',
                             doctor.subSpecialization?.toLowerCase() || '',
                             doctor.room?.toLowerCase() || '',
-                            doctor.hmo?.toLowerCase() || ''
+                            doctor.hmo?.toLowerCase() || '',
+                            doctor.hmo_id?.toLowerCase() || ''
                         ];
 
                         //console.log(searchableFields);
