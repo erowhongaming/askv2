@@ -249,7 +249,7 @@
               <h3>Doctor's Name</h3>
               <h4 class="card-subtitle mb-2 text-muted">Specialty - Subspecialty</h4>
               <hr> <!-- Horizontal line for visual separation -->
-              <h6 >Clinical Schedule</h6> <!-- Header for Clinical Schedule -->
+              <h6 >Clinic Schedule</h6> <!-- Header for Clinical Schedule -->
               <div class="schedule">
                   <p>Tuesday, Thursday</p>
                   <p>8:00 am - 10:00 PM</p> <!-- Clinic Schedule -->
@@ -1320,12 +1320,17 @@ $('#search-icon').click(toggleSearch);
             // Split the string into an array using ';' as a delimiter
             var hmo_id_array = hmo_id_string.split(';');
           
+            affil = ` <div class="affiliated-payors">`;
             // Trim any extra spaces from each element and build the HTML string
             $.each(hmo_id_array, function(index, value) {
                 affil += `<img src="https://hris.csmc.ph/photos/hmo/` + md5($.trim(value)) + `.jpg"  class="payor-img" alt="" loading="lazy">`;
             });
-          
+            affil +=`</div>`;
+
+          }else{
+            affil ='<i>None</i>'
           }
+
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
           $('#physicians-container').append(
@@ -1339,9 +1344,9 @@ $('#search-icon').click(toggleSearch);
                   <div class="member-info">
                     <strong style="font-size:19px;color:#002e5c;text-align:center;font-weight:900;">${doctorInfo.fullname}</strong><br>
                     <strong style="font-size:12px;text-align:center;color:#969393"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
-                    <hr> 
+                   
                     <div class="row">
-                      <div class="col-sm-12 border p-3 " >
+                      <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Clinical Schedule</strong> 
                         <br>
                         <strong style="font-size:12px;color:black;">${doctorInfo.schedule}</strong>
@@ -1350,27 +1355,28 @@ $('#search-icon').click(toggleSearch);
                         <br>
                        
                       </div> 
-                      <div class="col-sm-12  border p-3">
+                      <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Room</strong>      
                         <br>
                         <strong style="font-size:12px;color:black;">${doctorInfo.room}</strong>
                       </div> 
-                      <div class="col-sm-12  border p-3">
+                      <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
                         <strong style="font-size:11px;color:black;">${doctorInfo.secretary} - </strong> 
                         <strong style="font-size:11Px;color:black;">${doctorInfo.secretary_contact}</strong> 
 
                       </div> 
-                      <div class="col-sm-12  border p-3">
+                      <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Affiliated Payors: </strong>
                         <div class="affiliated-payors-wrapper">
-                            <div class="affiliated-payors">
+                         
                                 `+affil+`
                                
-                            </div>
+                           
                         </div>
                       </div>
+
                     </div>
 
                 
