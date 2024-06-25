@@ -1,4 +1,4 @@
-/**
+/*
 * Template Name: MyResume
 * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
 * Updated: Mar 17 2024 with Bootstrap v5.3.3
@@ -33,6 +33,17 @@ body {
   border-radius: 50%; */
   /* margin: 20px; */
 }
+
+
+/* Side-payors */
+.side-payors{
+  overflow: auto;
+  height:65vh;
+  font-size: 11px;
+  font-weight: 700px;
+
+}
+/* END Side-payors */
 .card-services{
   text-align:center;
   
@@ -189,6 +200,24 @@ h6 {
   /* font-family: "Raleway", sans-serif; */
   font-family: "Lato", sans-serif;
 }
+/* button transparent */
+.btn-transparent {
+  background-color: transparent;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  outline: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 20%;
+}
+.btn-transparent:focus {
+  outline: none;
+}
+.btn-transparent:hover{
+  background-color: #CC0700;
+  color:white;
+  transition: all .3s ease-in-out;
+}
 /* -SEarch button all- */
 
 .btnAll {
@@ -226,6 +255,11 @@ h6 {
       content: "\eae2"; /* Unicode value of the icon */
       color:#CC0700;
   }
+  /* Coming Soon */
+
+.title-coming-soon{
+  color:#bfc7c6;
+}
 /* -Search  Bar- */
 
 .search-bar__wrapper {
@@ -331,6 +365,7 @@ h6 {
 }
 
  .docs .doc-member .member-img {
+   margin-top: 10px;
     display: block;
     margin-left: 60px;
     margin-right: auto;
@@ -348,11 +383,12 @@ h6 {
   border:0.5px solid #692323;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 1) 0px 1px 3px -1px;
   border-radius: 20px;
-  padding:20px;
+  padding:30px;
   text-align:center;
   background-color: #fbfbfb;
-  height:731px;
+  height:700px;
   margin-top:5px;
+
 }
 
 
@@ -399,23 +435,23 @@ h6 {
 
 .affiliated-payors {
   display: inline-block; /* Keep the images in a single line */
-  animation: marquee 10s linear infinite; /* Apply the marquee animation */
+  animation: marquee 60s linear infinite; /* Apply the marquee animation */
+  white-space: nowrap; /* Prevent line breaks */
 }
+
+
+
 
 .affiliated-payors img {
  /*  width: 90px; Adjust the size as needed */
-  height:50px; /* Adjust the size as needed */
+  height:30px; /* Adjust the size as needed */
   margin-right: 5px; /* Spacing between images */
 }
 
 /* Keyframes for marquee animation */
 @keyframes marquee {
-  0% {
-      transform: translateX(100%);
-  }
-  100% {
-      transform: translateX(-100%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 .filter-container {
@@ -434,6 +470,45 @@ display: inline-block;
 margin-right: 10px;
 }
 
+
+/* Checkbox Input */
+  
+.checkbox-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #ddd;
+  transition: 0.3s;
+  margin-bottom:10px;
+}
+
+.checkbox-btn span::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 5px;
+  border-bottom: 3px solid #fff;
+  border-left: 3px solid #fff;
+  transform: scale(0) rotate(-45deg);
+  position: relative;
+  bottom: 1px;
+  transition: 0.3s;
+}
+
+.checkbox-btn input {
+  display: none;
+}
+
+.checkbox-btn input:checked ~ span {
+  background-color: #cc0700;
+  
+}
+
+.checkbox-btn input:checked ~ span::before {
+  transform: scale(1) rotate(-45deg);
+}
 
 /*--------------------------------------------------------------
 # Preloader
@@ -1715,7 +1790,7 @@ section {
 }
 
 .services .iconbox-teal i {
-  color: #11dbcf;
+  color: #bfc7c6;
 }
 
 .services .iconbox-teal:hover .icon i {
@@ -1723,7 +1798,7 @@ section {
 }
 
 .services .iconbox-teal:hover .icon path {
-  fill: #11dbcf;
+  fill: #bfc7c6;
 }
 
 /*--------------------------------------------------------------

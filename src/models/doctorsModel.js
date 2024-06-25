@@ -236,7 +236,32 @@ const Doctor = {
         } else {
             return []; // Return an empty array if no match found
         }
+    },
+
+    getHmos: () => {
+        const query = `SELECT id,name,has_photo
+        FROM hmos where is_active = 1`;
+
+        return new Promise((resolve, reject) => {
+            
+            db.query(query, (err, results) => {
+                if (err) {
+                    console.error("Error executing query:", err);
+                    return reject(err);
+                } else {
+                    console.log('HMOs fetched successfully');
+                    hmos = results.map(row => ({
+                        id: row.id,
+                        name: row.name
+                    }));
+                   
+                    return resolve(hmos);
+                }
+            });
+        });
     }
+
+    
 };
 
 module.exports = Doctor;

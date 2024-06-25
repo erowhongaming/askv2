@@ -118,4 +118,14 @@ router.get('/api/doctors/grouped-specializations', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch grouped specializations' });
     }
 });
+
+
+router.get('/api/hmos',async (req, res) => {
+    try {
+        const results = await Doctor.getHmos();
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to fetch hmos list" });
+    }
+})
 module.exports = router;

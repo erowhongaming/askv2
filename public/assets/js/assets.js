@@ -208,12 +208,21 @@
      
     document.addEventListener('DOMContentLoaded', () => {
 
-        const slider = document.querySelector('.affiliated-payors-wrapper');
+
+
+
         const marqueeContent = document.querySelector('.affiliated-payors');
+
+
+
+
+        const slider = document.querySelector('.affiliated-payors-wrapper');
+      //  const marqueeContent = document.querySelector('.affiliated-payors');
         const itemsWidth = slider.scrollWidth - slider.clientWidth;
         const randomPosition = Math.floor(Math.random() * itemsWidth);
 
         // Set initial scroll position
+        //slider.scrollLeft = randomPosition;
         slider.scrollLeft = randomPosition;
 
 
@@ -274,3 +283,4 @@
 
     });
   
+
