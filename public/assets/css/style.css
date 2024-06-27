@@ -218,6 +218,91 @@ h6 {
   color:white;
   transition: all .3s ease-in-out;
 }
+
+
+
+/* Running BIll Table */
+
+.table-wrapper {
+  height: 100%;
+  width: 700px;
+  margin: 200px auto;
+}
+
+.table_new {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  table-layout: fixed;
+}
+
+.table_new tr th,
+.table_new tr td {
+  padding: 3px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.table_new thead th {
+  text-align:center;
+}
+
+
+.table_new tbody tr:nth-child(odd) {
+  background-color: #f8f9fa; /* Light gray background for odd rows */
+}
+
+.table_new tbody tr:nth-child(even) {
+  background-color: #ffffff; /* White background for even rows */
+}
+.table_new tr td {
+  padding: 0;
+  border: 0;
+}
+
+.table_new tr td span {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.header_new {
+  
+  color: black;
+}
+
+.collapse_new span {
+  cursor: pointer;
+  background: #f8f8f8;
+  transition: background .5s;
+}
+
+
+
+.table_new tr.collapse_new .table__wrapper {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .5s;
+}
+
+.table_new tr.active .table__wrapper {
+  max-height: 400px;
+  transition: max-height .5s;
+}
+
+.table-inner {
+  width: 100%;
+}
+.left-content_new {
+    flex: 1; /* Takes up remaining space */
+}
+
+.right-content_new {
+    margin-left: 10px; /* Adjust margin as needed */
+}
+.table-inner tr td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 /* -SEarch button all- */
 
 .btnAll {
@@ -367,16 +452,14 @@ h6 {
  .docs .doc-member .member-img {
    margin-top: 10px;
     display: block;
-    margin-left: 60px;
-    margin-right: auto;
+    margin: 10px auto; /* This centers the element horizontally */
+    /* margin-right: auto; */
     width:135px;
     height:135px;
     overflow: hidden;
     border-radius: 50%;
     border: 2px solid #353535;
-     /* width:30%; 
-     object-position: center top; 
-     object-fit: scale-down;   */
+   
 } 
 
 .docs .doc-member {
@@ -386,9 +469,10 @@ h6 {
   padding:30px;
   text-align:center;
   background-color: #fbfbfb;
-  height:700px;
+  min-height: 700px; /* Minimum height */
+  height: auto; /* Allow it to grow as needed */
   margin-top:5px;
-
+  overflow: hidden;
 }
 
 
@@ -435,8 +519,9 @@ h6 {
 
 .affiliated-payors {
   display: inline-block; /* Keep the images in a single line */
-  animation: marquee 60s linear infinite; /* Apply the marquee animation */
+  animation: marquee 90s linear infinite; /* Apply the marquee animation */
   white-space: nowrap; /* Prevent line breaks */
+  
 }
 
 
@@ -480,10 +565,9 @@ margin-right: 10px;
   width: 24px;
   height: 24px;
   background-color: #ddd;
-  transition: 0.3s;
+  transition: 0.2s;
   margin-bottom:10px;
 }
-
 .checkbox-btn span::before {
   content: '';
   display: inline-block;
@@ -494,13 +578,49 @@ margin-right: 10px;
   transform: scale(0) rotate(-45deg);
   position: relative;
   bottom: 1px;
-  transition: 0.3s;
+  transition: 0.2s;
+}
+
+.checkbox-btn input:checked + span {
+  background-color: #cc0700;
+}
+
+.checkbox-btn input:checked + span::before {
+  transform: scale(1) rotate(-45deg);
 }
 
 .checkbox-btn input {
-  display: none;
+   display: none; /*Hide the checkbox */
 }
 
+/*
+.checkbox-btn span::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 5px;
+  border-bottom: 3px solid #fff;
+  border-left: 3px solid #fff;
+  transform: scale(0) rotate(-45deg);
+  position: relative;
+  bottom: 1px;
+  transition: 0.2s;
+}
+  */
+
+/* .checkbox-btn input { */
+ /* Display the checkbox for debugging */
+ /* display: none;
+ opacity: 1;
+ position: static; Adjust positioning if necessary */
+ /* Reset any custom styles that might hide the checkbox */
+/* } */
+
+
+.checked_checkbox{
+  color: #cc0700;
+}
+/*
 .checkbox-btn input:checked ~ span {
   background-color: #cc0700;
   
@@ -509,7 +629,8 @@ margin-right: 10px;
 .checkbox-btn input:checked ~ span::before {
   transform: scale(1) rotate(-45deg);
 }
-
+  
+*/
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/

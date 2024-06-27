@@ -43,3 +43,6 @@ https://codepen.io/Avelin-SAMA/pen/YzqEYjo
 
 **discord link**
 https://discord.com/invite/EUUkU9h8
+
+**Notion Notes**
+https://sapphire-insect-278.notion.site/ASKv2-TO-DO-LIST-2f596cabbead4a0d8fd9764d2b7f1282

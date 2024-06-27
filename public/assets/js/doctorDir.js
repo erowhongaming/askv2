@@ -282,7 +282,10 @@ $('#search-icon').click(toggleSearch);
 
     function getDoctorsBySpecializationAndSubspecialization(specialization,subSpecialization) {
       const subspecialization = (subSpecialization == undefined || subSpecialization == '') ? '':subSpecialization;
-      const searchVal = $('#searchDoctor').val();
+
+      const searchVal = getCheckedHmoValue();
+      //const searchVal = $('#searchDoctor').val();
+
       if(specialization != null && specialization != ''){
         $.ajax({
             url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${encodeURIComponent(subspecialization)}&searchVal=${encodeURIComponent(searchVal)}`,
@@ -336,29 +339,10 @@ $('#search-icon').click(toggleSearch);
             affil ='<i>None</i>'
           }
 
-            //   // Days of the week
-            // let daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
             // // Generate schedule rows
              let scheduleRows = '';
             scheduleRows = '';
-            // `<table style="font-size:10px;color:black;" class="table table-bordered">
-            //   <thead>
-            //     <tr>
-            //         <th scope="col">Day</th>
-                   
-            //         <th scope="col">Time</th>
-            //     </tr>
-            //   </thead><tbody>`;
-            // $.each(daysOfWeek, function(index, day) {
-            //     scheduleRows += `
-            //         <tr>
-            //             <td>${day}</td>
-                      
-            //             <td>8:00 AM - 10:00 PM</td>
-            //         </tr>
-            //     `;
-            // });
+           
             scheduleRows = ` <strong style="font-size:11px;color:black;">${doctorInfo.schedule}</strong>`;
 
 
@@ -446,4 +430,69 @@ $('#search-icon').click(toggleSearch);
           $('#selectedValue').text('None');
       }
     }
+
+    
+ function getHMOs(){
+  $.ajax({
+    url: `/api/hmos`,
+      method: 'GET',
+      success: function(data) {
+        
+        $('.side-payors').html('');
+        var hmos = '';
+        $.each(data, function(index, item) {
+          //  hmos += `<button type="" class='btn btn-light btn-lg btn-block'>`+item.name+`</button>`;
+            hmos += `<label class="checkbox-btn">
+                  <input type="checkbox" name="sideHMO" value="${item.name}"  />
+                    <span></span>
+                  ${item.name}
+                 
+                </label><br>`;
+          });
+
+        $('.side-payors').append(hmos);
+          
+    
+          
+      },  
+      complete:function(){
+        $('.checkbox-btn input[type="checkbox"]').on('change',eventCheckHMO);
+      },
+      error: function() {
+          console.error('Failed to load doctor data');
+      }
+
+  });
+  
+}
+function eventUnCheckHMO(){
+  $('input[name="sideHMO"]:checked').prop('checked', false);
+}
+
+function eventCheckHMO(){
+   
+  const hmos = getCheckedHmoValue();
+  // Log the imploded values
+  search(hmos);
+
+}
+
+function getCheckedHmoValue(){
+    // Get the value from the #searchDoctor input field
+    const query = $('#searchDoctor').val();
+
+    // Get all checked checkboxes with the name 'sideHMO' and collect their values
+    let checkedValues = $('input[name="sideHMO"]:checked').map(function() {
+      return this.value;
+    }).get();
+
+
+    // Add the value from the #searchDoctor input field to the array
+    checkedValues.push(query);
+
+    // Join all the collected values into a single string with " - " as the delimiter
+    let implodedValues = checkedValues.join('  -');
+    implodedValues = implodedValues.replace(/[,.]/g, '');
+    return implodedValues;
+}
     

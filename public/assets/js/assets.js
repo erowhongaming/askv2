@@ -208,13 +208,7 @@
      
     document.addEventListener('DOMContentLoaded', () => {
 
-
-
-
         const marqueeContent = document.querySelector('.affiliated-payors');
-
-
-
 
         const slider = document.querySelector('.affiliated-payors-wrapper');
       //  const marqueeContent = document.querySelector('.affiliated-payors');
