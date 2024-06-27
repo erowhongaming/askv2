@@ -469,8 +469,8 @@ h6 {
   padding:30px;
   text-align:center;
   background-color: #fbfbfb;
-  min-height: 700px; /* Minimum height */
-  height: auto; /* Allow it to grow as needed */
+  height: 700px; /* Minimum height */
+  /* height: 700px; Allow it to grow as needed */
   margin-top:5px;
   overflow: hidden;
 }

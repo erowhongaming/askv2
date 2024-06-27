@@ -209,9 +209,9 @@ $('#search-icon').click(toggleSearch);
             // Append filter items for each specialization
             for (const specialization in groupedBySpecialization) {
                 $('#filterSpecialty').append(
-                  `<label>
+                  `<label  >
                       <input type="radio" name="radioSpecialty" value="${specialization}"  />
-                      <div class="specialty-filter box">
+                      <div class="specialty-filter box" data-toggle="tooltip" data-placement="top" title="CLICK ${specialization}">
                         <span class="specialtyh1">${specialization}</span>
                       </div>
                     </label>`                    
@@ -467,6 +467,10 @@ $('#search-icon').click(toggleSearch);
 }
 function eventUnCheckHMO(){
   $('input[name="sideHMO"]:checked').prop('checked', false);
+     
+  const hmos = getCheckedHmoValue();
+  // Log the imploded values
+  search(hmos);
 }
 
 function eventCheckHMO(){

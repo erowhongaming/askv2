@@ -252,7 +252,7 @@
           </form>
           </div>
           <div class="col-md-9" >
-            <div class='row' id="physicians-container" style="overflow:auto;height:100vh;">
+            <div class='row' id="physicians-container" style="overflow:auto;height:70vh;">
 
           
               <div class="docs col-lg-2 col-md-6 portfolio-item align-items-stretch filter-app" >
@@ -954,7 +954,7 @@
 <script>    
 
   $(document).ready(function () {
- 
+
      // Click event on the document to close all displays
      $(document).on('click', function(event) {
         // Check if the click was not on the radio buttons or their descendants,
@@ -1027,6 +1027,9 @@
           
       });
 
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
   });
 
   
