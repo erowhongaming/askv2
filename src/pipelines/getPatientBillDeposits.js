@@ -25,8 +25,6 @@ const patientDeposits = (patientvisituid) => {
         ];
 };
 
-
-// const pipeline = getPatientByMobileNum('09633245637');
-console.log(patientDeposits);
+// console.log(patientDeposits);
 
 module.exports = patientDeposits;

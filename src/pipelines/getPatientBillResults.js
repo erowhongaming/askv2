@@ -11,6 +11,48 @@ const patientResults = (patientvisituid) => {
             }
         },
         {
+            '$lookup': {
+                'from': 'patients',
+                'localField': 'patientuid',
+                'foreignField': '_id',
+                'as': 'patient'
+            }
+        },
+        {
+            '$unwind': {
+                'path': '$patient',
+                'preserveNullAndEmptyArrays': true
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'patientvisits',
+                'localField': 'patientvisituid',
+                'foreignField': '_id',
+                'as': 'pv'
+            }
+        },
+        {
+            '$unwind': {
+                'path': '$pv',
+                'preserveNullAndEmptyArrays': true
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'referencevalues',
+                'localField': 'pv.entypeuid',
+                'foreignField': '_id',
+                'as': 'visitentype'
+            }
+        },
+        {
+            '$unwind': {
+                'path': '$visitentype',
+                'preserveNullAndEmptyArrays': true
+            }
+        },
+        {
             '$unwind': {
                 'path': '$chargecodes',
                 'preserveNullAndEmptyArrays': true
@@ -52,20 +94,6 @@ const patientResults = (patientvisituid) => {
         },
         {
             '$lookup': {
-                'from': 'referencevalues',
-                'localField': 'billingsubgroupdetails.billinggrouptypeuid',
-                'foreignField': '_id',
-                'as': 'billinggrouptypeuid'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$billinggrouptypeuid',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
                 'from': 'orderitems',
                 'localField': 'chargecodes.orderitemuid',
                 'foreignField': '_id',
@@ -89,20 +117,6 @@ const patientResults = (patientvisituid) => {
         {
             '$unwind': {
                 'path': '$careprovider',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'referencevalues',
-                'localField': 'careprovider.titleuid',
-                'foreignField': '_id',
-                'as': 'titleuid'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$titleuid',
                 'preserveNullAndEmptyArrays': true
             }
         },
@@ -136,48 +150,6 @@ const patientResults = (patientvisituid) => {
         },
         {
             '$lookup': {
-                'from': 'patients',
-                'localField': 'patientuid',
-                'foreignField': '_id',
-                'as': 'patient'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$patient',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'referencevalues',
-                'localField': 'patient.titleuid',
-                'foreignField': '_id',
-                'as': 'titleuid'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$titleuid',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'patientvisits',
-                'localField': 'patientvisituid',
-                'foreignField': '_id',
-                'as': 'pv'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$pv',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
                 'from': 'referencevalues',
                 'localField': 'patientorderuid.entypeuid',
                 'foreignField': '_id',
@@ -191,68 +163,10 @@ const patientResults = (patientvisituid) => {
             }
         },
         {
-            '$lookup': {
-                'from': 'referencevalues',
-                'localField': 'pv.entypeuid',
-                'foreignField': '_id',
-                'as': 'visitentype'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$visitentype',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
             '$addFields': {
-                'pv.admissionrequestuid': { '$ifNull': ['$pv.admissionrequestuid', ''] }
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'patientadditionaldetails',
-                'localField': 'patientuid',
-                'foreignField': 'patientuid',
-                'as': 'adddetail'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$adddetail',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'referencevalues',
-                'localField': 'adddetail.addlnidentifiers.idtypeuid',
-                'foreignField': '_id',
-                'as': 'idtypeuid'
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'deposits',
-                'localField': 'patientuid',
-                'foreignField': 'patientuid',
-                'as': 'totaldeposit'
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'depositrefundapprovals',
-                'localField': 'patientuid',
-                'foreignField': 'patientuid',
-                'as': 'refunddeposit'
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'patientbills',
-                'localField': 'pv._id',
-                'foreignField': 'patientvisituid',
-                'as': 'bill'
+                'pv.admissionrequestuid': {
+                    '$ifNull': ['$pv.admissionrequestuid', '']
+                }
             }
         },
         {
@@ -273,50 +187,6 @@ const patientResults = (patientvisituid) => {
         },
         {
             '$lookup': {
-                'from': 'users',
-                'localField': 'modifiedby',
-                'foreignField': '_id',
-                'as': 'useruidnew'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$useruidnew',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'diagnoses',
-                'localField': 'patientvisituid',
-                'foreignField': 'patientvisituid',
-                'as': 'diagnoses'
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'problems',
-                'localField': 'diagnoses.diagnosis.problemuid',
-                'foreignField': '_id',
-                'as': 'primarydiagnosis'
-            }
-        },
-        {
-            '$lookup': {
-                'from': 'departments',
-                'localField': 'useruidnew.defaultdepartment.uid',
-                'foreignField': '_id',
-                'as': 'userdepartmentuid'
-            }
-        },
-        {
-            '$unwind': {
-                'path': '$userdepartmentuid',
-                'preserveNullAndEmptyArrays': true
-            }
-        },
-        {
-            '$lookup': {
                 'from': 'departments',
                 'localField': 'chargecodes.ordertodepartmentuid',
                 'foreignField': '_id',
@@ -331,67 +201,163 @@ const patientResults = (patientvisituid) => {
         },
         {
             '$addFields': {
-                'PWDUID': {
-                    '$arrayElemAt': [{
-                        '$filter': {
-                            'input': '$idtypeuid',
-                            'as': 'pv',
-                            'cond': { '$eq': ['$$pv.valuecode', 'IDTYPE6'] }
-                        }
-                    }, 0]
-                },
                 'dc': {
-                    '$arrayElemAt': [{
-                        '$filter': {
-                            'input': '$dc',
-                            'as': 'pv',
-                            'cond': { '$eq': ['$$pv.statusflag', 'A'] }
-                        }
-                    }, -1]
+                    '$arrayElemAt': [
+                        {
+                            '$filter': {
+                                'input': '$dc',
+                                'as': 'pv',
+                                'cond': { '$eq': ['$$pv.statusflag', 'A'] }
+                            }
+                        },
+                        -1
+                    ]
                 },
                 'nb': {
-                    '$arrayElemAt': [{
-                        '$filter': {
-                            'input': '$nb',
-                            'as': 'pv',
-                            'cond': { '$eq': ['$$pv.statusflag', 'A'] }
-                        }
-                    }, -1]
+                    '$arrayElemAt': [
+                        {
+                            '$filter': {
+                                'input': '$nb',
+                                'as': 'pv',
+                                'cond': { '$eq': ['$$pv.statusflag', 'A'] }
+                            }
+                        },
+                        -1
+                    ]
+                },
+                'bedoccupancy': {
+                    '$arrayElemAt': ['$pv.bedoccupancy', -1]
                 }
             }
         },
         {
+            '$lookup': {
+                'from': 'wards',
+                'localField': 'bedoccupancy.warduid',
+                'foreignField': '_id',
+                'as': 'warduid'
+            }
+        },
+        {
+            '$unwind': {
+                'path': '$warduid',
+                'preserveNullAndEmptyArrays': true
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'beds',
+                'localField': 'bedoccupancy.beduid',
+                'foreignField': '_id',
+                'as': 'beduid'
+            }
+        },
+        {
+            '$unwind': {
+                'path': '$beduid',
+                'preserveNullAndEmptyArrays': true
+            }
+        },
+        {
             '$project': {
-                'PWDUID.addlnidentifiers': 1,
-                'dc': 1,
-                'nb': 1,
-                'totaldeposit.amount': 1,
-                'totaldeposit.balance': 1,
-                'refunddeposit.amount': 1,
-                'refunddeposit.balance': 1,
-                'patient': 1,
-                'pv': 1,
-                'titleuid': 1,
-                'visitentype': 1,
-                'entype': 1,
-                'adddetail.addlnidentifiers': 1,
-                'bill.balance': 1,
-                'useruidnew': 1,
-                'primarydiagnosis': 1,
-                'userdepartmentuid': 1,
-                'ordertodepartmentuid': 1,
-                'patientorderuid': 1,
-                'ordersets': 1,
-                'careprovider': 1,
-                'orderitems': 1,
-                'billinggrouptypeuid': 1,
-                'billingsubgroupdetails': 1,
-                'billinggroupdetails': 1,
-                'chargecodes': 1
+                'billinggroupname': {
+                    '$cond': {
+                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        'then': 'PACKAGE',
+                        'else': '$ordertodepartmentuid.name'
+                    }
+                },
+                'billinggroupcode_': {
+                    '$cond': {
+                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        'then': '$ordersets.code',
+                        'else': '$ordertodepartmentuid.code'
+                    }
+                },
+                'billinggroupname_': '$billinggroupdetails.name',
+                'billingsubgroupname': '$billingsubgroupdetails.name',
+                'itemname': {
+                    '$cond': {
+                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        'then': '$ordersets.name',
+                        'else': '$orderitems.name'
+                    }
+                },
+                'itemcode': {
+                    '$cond': {
+                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        'then': '$ordersets.code',
+                        'else': '$orderitems.code'
+                    }
+                },
+                'netamount_BK': {
+                    '$add': ['$chargecodes.netamount', '$chargecodes.payordiscount', '$chargecodes.specialdiscount']
+                },
+                'netamount': {
+                    '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity']
+                },
+                'netamount_hosp_charges': {
+                    '$cond': {
+                        'if': { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'HOSPITAL CHARGES'] },
+                        'then': { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
+                        'else': 0
+                    }
+                },
+                'netamount_prof_fee': {
+                    '$cond': {
+                        'if': { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'PROFESSIONAL FEE'] },
+                        'then': { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
+                        'else': 0
+                    }
+                },
+                'Philhealth_PROF': {
+                    '$ifNull': ['$philhealth.professionalcharges', 0.00]
+                },
+                'Philhealth_HOS': {
+                    '$ifNull': ['$philhealth.hospitalcharges', 0.00]
+                },
+                'payordiscount': '$chargecodes.payordiscount',
+                'specialdiscount': '$chargecodes.specialdiscount',
+                'patientdiscount': '$chargecodes.patientdiscount',
+                'patientcopayment': '$chargecodes.patientcopayment',
+                'isbilled': '$chargecodes.isbilled',
+                'billinggroupuid': '$chargecodes.billinggroupuid',
+                'billingsubgroupuid': '$chargecodes.billingsubgroupuid',
+                'billtype': '$chargecodes.billtype',
+                'careprovideruid': '$chargecodes.careprovideruid',
+                'careprovidername': {
+                    '$concat': ['$careprovider.firstname', ' ', '$careprovider.lastname']
+                },
+                'orderdate': '$chargecodes.orderdate',
+                'deptname': '$ordertodepartmentuid.name',
+                'deptcode': '$ordertodepartmentuid.code',
+                'bed': '$beduid.bedcode',
+                'ward': '$warduid.name',
+                'visitentype': '$visitentype.valuedescription',
+                'patientfirstname': '$patient.firstname',
+                'patientlastname': '$patient.lastname',
+                'patientuid': '$patient._id',
+                'patientvisituid': '$pv._id',
+                'patientid': '$patient.patientid',
+                'visitid': '$pv.visitid',
+                'dischargedate': {
+                    '$ifNull': ['$dc.dischargedate', '$pv.dischargedate']
+                },
+                'dateofbirth': '$patient.dateofbirth',
+                'entype': '$entype.valuedescription',
+                'isbaby': {
+                    '$cond': { 
+                        'if': { '$ne': ['$nb', null] },
+                        'then': true,
+                        'else': false
+                    }
+                }
             }
         }
-    ];
+    ]
+    ;
+        
 }
-console.log(patientResults);
+//console.log(patientResults);
 
 module.exports = patientResults;

@@ -1,5 +1,6 @@
 const express = require('express');
 const Patients = require('../models/patientsModel');
+const PatientBill = require('../models/runningBillModel');
 const helper = require('../services/helper');
 const router = express.Router();
 require('../config/env-load');
@@ -30,6 +31,8 @@ router.get('/api/validate/patients-is-active', async (req, res) => {
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
+
+
 /**
  * Middleware function to parse incoming JSON data from requests.
  * 
@@ -87,12 +90,16 @@ router.post('/api/generate/validate-otp-by-mobilenumber',jsonParser, async (req 
     }
 });
 
-// router.get('/api/patient-running-bil', async (req , res) => {
-//     const mobilenumber = req.query.mobilenumber || '';
 
-//     console.log('uy');
-   
-//     res.json();
-// });
+router.post('/api/runningbill/results',jsonParser, async (req, res) => {
+    const patientvisituid = req.body.patientvisituid|| '';
+    
+    try {
+        const result = await PatientBill.getResults(patientvisituid);
+        res.json({ results: result,status: 1});
+    }catch(error) {
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
 
 module.exports = router;

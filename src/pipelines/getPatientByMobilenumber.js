@@ -52,36 +52,3 @@ const getPatientByMobileNum = (mobilenumber) =>{
 console.log(getPatientByMobileNum);
 
 module.exports = getPatientByMobileNum;
-
-/*
-TSEST data
-  {
-    _id: new ObjectId('665ec6f0a4643aec93842f03'),
-    firstname: 'EVELYN',
-    fullname: 'FONTANOS, EVELYN',
-    contactno: '09633245637'
-  },
-  {
-    _id: new ObjectId('665eceeba787cc472a26a16a'),
-    firstname: 'EMILY',
-    fullname: 'TAN, EMILY',
-    contactno: '09778552288'
-  },
-  {
-    _id: new ObjectId('665ed77c888780ec747470d6'),
-    firstname: 'LUNINGNING',
-    fullname: 'CHUA SIOK ENG, LUNINGNING',
-    contactno: '09175113831'
-  },
-  {
-    _id: new ObjectId('665eda4d380bbaec7a21d069'),
-    firstname: 'ZENAIDA',
-    fullname: 'LACAP, ZENAIDA',
-    contactno: '09178210349'
-  },
-  {
-    _id: new ObjectId('665ee60ecf19bffdc699b770'),
-    firstname: 'LILY',
-    fullname: 'TAN, LILY',
-    contactno: '09051670208'
-  },*/

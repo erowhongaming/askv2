@@ -39,7 +39,7 @@ const Collection = {
       if (!db) {
         await Collection.initializeDb();
       }
-      console.log('Success getCollection');
+      console.log(`Success getCollection: ${collectionName}`);
       return db.collection(collectionName);
     } catch (error) {
       console.error(`Failed to get collection: ${collectionName}`, error);

@@ -14,7 +14,7 @@ const { MongoClient } = require('mongodb');
 require('../config/env-load');
 
 const url = process.env.MONGODB_CON;
-const client = new MongoClient(url);
+const client = new MongoClient(url, { connectTimeoutMS: 30000 });
 const dbName = 'arcusairdb';
 
 
