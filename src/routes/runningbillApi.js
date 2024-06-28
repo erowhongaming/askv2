@@ -96,10 +96,27 @@ router.post('/api/runningbill/results',jsonParser, async (req, res) => {
     
     try {
         const result = await PatientBill.getResults(patientvisituid);
-        res.json({ results: result,status: 1});
+        console.log("getResults():Get results success!");
+        res.json({ result: result,msg: 'Success'});
     }catch(error) {
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
+
+
+router.post('/api/runningbill/charges',jsonParser, async (req, res) => {
+    const patientvisituid = req.body.patientvisituid|| '';
+    
+    try {
+        const result = await PatientBill.getResults(patientvisituid);
+        const charges = await PatientBill.getCharges(result);
+        console.log("getCharges():Get charges success!");
+         res.json({ result: charges,msg: 'Success'});
+    }catch(error) {
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
+
+
 
 module.exports = router;

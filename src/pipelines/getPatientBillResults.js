@@ -261,97 +261,181 @@ const patientResults = (patientvisituid) => {
         {
             '$project': {
                 'billinggroupname': {
-                    '$cond': {
-                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
-                        'then': 'PACKAGE',
-                        'else': '$ordertodepartmentuid.name'
-                    }
+                    '$cond': [
+                        { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        'PACKAGE',
+                        '$ordertodepartmentuid.name'
+                    ]
                 },
                 'billinggroupcode_': {
-                    '$cond': {
-                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
-                        'then': '$ordersets.code',
-                        'else': '$ordertodepartmentuid.code'
-                    }
+                    '$cond': [
+                        { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        '$ordersets.code',
+                        '$ordertodepartmentuid.code'
+                    ]
                 },
                 'billinggroupname_': '$billinggroupdetails.name',
                 'billingsubgroupname': '$billingsubgroupdetails.name',
                 'itemname': {
-                    '$cond': {
-                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
-                        'then': '$ordersets.name',
-                        'else': '$orderitems.name'
-                    }
+                    '$cond': [
+                        { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        '$ordersets.name',
+                        '$orderitems.name'
+                    ]
                 },
                 'itemcode': {
-                    '$cond': {
-                        'if': { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
-                        'then': '$ordersets.code',
-                        'else': '$orderitems.code'
-                    }
+                    '$cond': [
+                        { '$eq': ['$chargecodes.chargecodetype', 'PATIENTPACKAGE'] },
+                        '$ordersets.code',
+                        '$orderitems.code'
+                    ]
                 },
                 'netamount_BK': {
                     '$add': ['$chargecodes.netamount', '$chargecodes.payordiscount', '$chargecodes.specialdiscount']
                 },
                 'netamount': {
-                    '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity']
+                    '$multiply': [
+                        { '$abs': '$chargecodes.unitprice' },
+                        '$chargecodes.quantity'
+                    ]
                 },
                 'netamount_hosp_charges': {
-                    '$cond': {
-                        'if': { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'HOSPITAL CHARGES'] },
-                        'then': { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
-                        'else': 0
-                    }
+                    '$cond': [
+                        { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'HOSPITAL CHARGES'] },
+                        { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
+                        0
+                    ]
                 },
                 'netamount_prof_fee': {
-                    '$cond': {
-                        'if': { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'PROFESSIONAL FEE'] },
-                        'then': { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
-                        'else': 0
-                    }
+                    '$cond': [
+                        { '$eq': ['$billinggrouptypeuid.locallanguagedesc', 'PROFESSIONAL FEE'] },
+                        { '$multiply': [{ '$abs': '$chargecodes.unitprice' }, '$chargecodes.quantity'] },
+                        0
+                    ]
                 },
-                'Philhealth_PROF': {
-                    '$ifNull': ['$philhealth.professionalcharges', 0.00]
-                },
-                'Philhealth_HOS': {
-                    '$ifNull': ['$philhealth.hospitalcharges', 0.00]
-                },
+                'Philhealth_PROF': { '$ifNull': ['$philhealth.professionalcharges', 0.00] },
+                'Philhealth_HOS': { '$ifNull': ['$philhealth.hospitalcharges', 0.00] },
                 'payordiscount': '$chargecodes.payordiscount',
+                'payordisc': '$chargecodes.payordiscount',
+                'unitprice': '$chargecodes.unitprice',
                 'specialdiscount': '$chargecodes.specialdiscount',
-                'patientdiscount': '$chargecodes.patientdiscount',
-                'patientcopayment': '$chargecodes.patientcopayment',
-                'isbilled': '$chargecodes.isbilled',
-                'billinggroupuid': '$chargecodes.billinggroupuid',
-                'billingsubgroupuid': '$chargecodes.billingsubgroupuid',
-                'billtype': '$chargecodes.billtype',
-                'careprovideruid': '$chargecodes.careprovideruid',
-                'careprovidername': {
-                    '$concat': ['$careprovider.firstname', ' ', '$careprovider.lastname']
+                'taxamount': '$chargecodes.taxamount',
+                'Type': '$billinggrouptypeuid.locallanguagedesc',
+                'billtypecode': '$billinggrouptypeuid.valuecode',
+                'quantity': '$chargecodes.quantity',
+                'chargedate': { '$dateToString': { 'format': "%m/%d/%Y", 'timezone': "+08:00", 'date': '$chargecodes.chargedate' } },
+                'modifiedat': '$modifiedat',
+                'userdepartment': '$userdepartmentuid.name',
+                'billedby': '$useruidnew.printname',
+                'visitpyors': '$visitpyors.name',
+                'visitpyorscode': '$visitpyors.code',
+                'billinggroupcode': '$billinggroupdetails.code',
+                'billingsubgroupcode': '$billingsubgroupdetails.code',
+                'careprovidername': '$careprovider.printname',
+                'careprovidercode': '$careprovider.code',
+                'ordernumber': '$patientorderuid.ordernumber',
+                'mrn': '$patient.mrn',
+                'isanonymous': { '$ifNull': ['$patient.isanonymous', false] },
+                'private': {
+                    '$cond': [
+                        { '$eq': ['$visitpyors.code', 'IND'] },
+                        '$chargecodes.netamount',
+                        0.00
+                    ]
                 },
-                'orderdate': '$chargecodes.orderdate',
-                'deptname': '$ordertodepartmentuid.name',
-                'deptcode': '$ordertodepartmentuid.code',
-                'bed': '$beduid.bedcode',
-                'ward': '$warduid.name',
-                'visitentype': '$visitentype.valuedescription',
-                'patientfirstname': '$patient.firstname',
-                'patientlastname': '$patient.lastname',
-                'patientuid': '$patient._id',
-                'patientvisituid': '$pv._id',
-                'patientid': '$patient.patientid',
+                'patientname': {
+                    '$concat': [
+                        { '$ifNull': [{ '$concat': ['$patient.lastname', ', '] }, ''] },
+                        { '$ifNull': [{ '$concat': ['$patient.firstname', ', '] }, ''] },
+                        { '$ifNull': [{ '$concat': ['$patient.thirdname', ', '] }, ''] },
+                        { '$ifNull': ['$patient.middlename', ''] }
+                    ]
+                },
                 'visitid': '$pv.visitid',
-                'dischargedate': {
-                    '$ifNull': ['$dc.dischargedate', '$pv.dischargedate']
+                'iswelfarepatient': {
+                    '$cond': [
+                        { '$eq': ['$pv.iswelfarepatient', true] },
+                        'Y',
+                        'N'
+                    ]
                 },
-                'dateofbirth': '$patient.dateofbirth',
-                'entype': '$entype.valuedescription',
-                'isbaby': {
-                    '$cond': { 
-                        'if': { '$ne': ['$nb', null] },
-                        'then': true,
-                        'else': false
+                'startdate': {
+                    '$ifNull': [
+                        { '$dateToString': { 'format': "%m/%d/%Y %H:%M:%S", 'timezone': "+08:00", 'date': '$nb.birthdatetime' } },
+                        { '$dateToString': { 'format': "%m/%d/%Y %H:%M:%S", 'timezone': "+08:00", 'date': '$pv.createdat' } }
+                    ]
+                },
+                'enddate': { '$dateToString': { 'format': "%m/%d/%Y %H:%M:%S", 'timezone': "+08:00", 'date': '$pv.enddate' } },
+                'medicaldischargedate': { '$ifNull': ['$dc.deathdatetime', '$pv.medicaldischargedate'] },
+                'dateofbirth': { '$dateToString': { 'format': "%m/%d/%Y", 'timezone': "+08:00", 'date': '$patient.dateofbirth' } },
+                'ward': { '$ifNull': ['$warduid.name', ''] },
+                'bed': { '$ifNull': ['$beduid.name', ''] },
+                'depositamount': { '$sum': '$totaldeposit.paidamount' },
+                'refunddeposit': { '$sum': '$refunddeposit.paidamount' },
+                'patientaddress': {
+                    'address': '$patient.address.address',
+                    'area': '$patient.address.area',
+                    'country': '$patient.address.country',
+                    'city': '$patient.address.city',
+                    'state': '$patient.address.state',
+                    'mobilephone': '$patient.contact.mobilephone',
+                    'workphone': '$patient.contact.workphone',
+                    'zipcode': '$patient.address.zipcode'
+                },
+                'pwdid': { '$arrayElemAt': [{ '$filter': { 'input': '$adddetail.addlnidentifiers', 'as': 'ov', 'cond': { '$eq': ['$$ov.idtypeuid', '$PWDUID._id'] } } }, 0] },
+                'seniorcitizenid': { '$arrayElemAt': [{ '$filter': { 'input': '$adddetail.addlnidentifiers', 'as': 'ov', 'cond': { '$eq': ['$$ov.idtypeuid', '$SENIORCITIZENUID._id'] } } }, 0] },
+                'tin': { '$arrayElemAt': [{ '$filter': { 'input': '$adddetail.addlnidentifiers', 'as': 'ov', 'cond': { '$eq': ['$$ov.idtypeuid', '$TIN._id'] } } }, 0] },
+                'soloparentid': { '$arrayElemAt': [{ '$filter': { 'input': '$adddetail.addlnidentifiers', 'as': 'ov', 'cond': { '$eq': ['$$ov.idtypeuid', '$SOLOPARDUID._id'] } } }, 0] },
+                'payorname': {
+                    '$reduce': {
+                        'input': '$payoruid.name',
+                        'initialValue': '',
+                        'in': {
+                            '$cond': [
+                                { '$or': [{ '$eq': ['$$value', ''] }, { '$eq': ['$$this', ''] }] },
+                                { '$concat': ['$$value', '$$this'] },
+                                { '$concat': ['$$value', ',', '$$this'] }
+                            ]
+                        }
                     }
-                }
+                },
+                'doctor': '$careprovideruid.printname',
+                'deathtime': {
+                    '$ifNull': [
+                        { '$dateToString': { 'format': "%m/%d/%Y", 'timezone': "+08:00", 'date': '$dc.deathdatetime' } },
+                        { '$dateToString': { 'format': "%m/%d/%Y", 'timezone': "+08:00", 'date': '$pv.medicaldischargedate' } }
+                    ]
+                },
+                'HmoCoordinate': { '$arrayElemAt': [{ '$filter': { 'input': '$pv.visitpayors', 'as': 'vi', 'cond': { '$ne': [{ '$ifNull': ['$$vi.coordinatoruid', 'NOCOR'] }, 'NOCOR'] } } }, 0] },
+                'diagnosistext': {
+                    '$reduce': {
+                        'input': '$diagnoses.diagnosistext',
+                        'initialValue': '',
+                        'in': {
+                            '$cond': [
+                                { '$or': [{ '$eq': ['$$value', ''] }, { '$eq': ['$$this', ''] }] },
+                                { '$concat': ['$$value', '$$this'] },
+                                { '$concat': ['$$value', ',', '$$this'] }
+                            ]
+                        }
+                    }
+                },
+                'primarydiagnosis': {
+                    '$reduce': {
+                        'input': '$primarydiagnosis.name',
+                        'initialValue': '',
+                        'in': {
+                            '$cond': [
+                                { '$or': [{ '$eq': ['$$value', ''] }, { '$eq': ['$$this', ''] }] },
+                                { '$concat': ['$$value', '$$this'] },
+                                { '$concat': ['$$value', ',', '$$this'] }
+                            ]
+                        }
+                    }
+                },
+                'entype': '$entype.valuedescription',
+                'visitentype': '$visitentype.valuedescription',
+                'deptname': '$ordertodepartmentuid.name'
             }
         }
     ]
