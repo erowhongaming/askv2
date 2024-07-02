@@ -17,6 +17,77 @@ const index = new FlexSearch.Index({
 const doctorData = {};
 let groupedSpecializations =[];
 
+
+function fetchDoctorsRoom(person_id, callback){
+    
+        const query = `
+          SELECT person_id, 
+                room,
+                GROUP_CONCAT(
+                    DISTINCT CONCAT(
+                        LEFT(day, 1), ' - ',
+                        TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
+                        TIME_FORMAT(end_time, '%h:%i %p')
+                    ) ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
+                ) AS schedule,
+                GROUP_CONCAT(
+                    DISTINCT day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
+                ) AS schedule_day
+            FROM (
+                SELECT person_id, 
+                    room,
+                    CASE
+                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN 'Monday'
+                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN 'Tuesday'
+                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN 'Wednesday'
+                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN 'Thursday'
+                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN 'Friday'
+                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN 'Saturday'
+                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN 'Sunday'
+                    END AS day,
+                    CASE
+                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN MON_start
+                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN TUE_start
+                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN WED_start
+                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN THUR_start
+                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN FRI_start
+                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN SAT_start
+                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN SUN_start
+                    END AS start_time,
+                    CASE
+                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN MON_end
+                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN TUE_end
+                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN WED_end
+                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN THUR_end
+                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN FRI_end
+                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN SAT_end
+                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN SUN_end
+                    END AS end_time
+                FROM proc_doctors_schedule_final_2
+                WHERE
+                ( (MON_start IS NOT NULL AND MON_end IS NOT NULL) OR
+                    (TUE_start IS NOT NULL AND TUE_end IS NOT NULL) OR
+                    (WED_start IS NOT NULL AND WED_end IS NOT NULL) OR
+                    (THUR_start IS NOT NULL AND THUR_end IS NOT NULL) OR
+                    (FRI_start IS NOT NULL AND FRI_end IS NOT NULL) OR
+                    (SAT_start IS NOT NULL AND SAT_end IS NOT NULL) OR
+                    (SUN_start IS NOT NULL AND SUN_end IS NOT NULL)
+                )
+                AND person_id =${person_id} 
+            ) AS IndividualDays
+            GROUP BY room;
+
+
+            `;
+        // Execute the query and handle the callback
+        db.query(query, (error, results) => {
+            if (error) {
+                callback(error); // Pass error to callback
+            } else {
+                callback(null, results); // Pass results to callback function
+            }
+        });
+}
 /**
  * Doctor object containing methods to retrieve, search, and group doctor details.
  * Methods include fetching doctor details from the database, searching for doctors based on various criteria,
@@ -32,60 +103,36 @@ const Doctor = {
      */
     getDetails: () => {
         const query = `
-            SELECT phySched.person_id,
-            CONCAT(phySched.firstname, ' ', LEFT(phySched.middlename, 1), '. ', phySched.lastname) AS fullname,
-            phySched.firstname,
-            phySched.lastname,
-            CASE 
-                WHEN phySched.spec = 'OBSTETRICS & GYNECOLOGY'
-                THEN 'OBGYNE'
-                WHEN phySched.spec = 'REHABILITATION MEDICINE'
-                THEN 'REHAB'
-                ELSE phySched.spec
-            END AS specialization,
-            phySched.sub_spec as subSpecialization,
-            phySched.HMOS as affiliated_payors,
-            phySched.secretary_name as secretary,
-            phySched.secretary_contact,
-            CONCAT( phySched.room,' - ',phySched.bldg ) as room,
-            phySched.is_in,
-            people.gender,
-            HMOS as hmo,
-            HMOS_ids as hmo_id,
-            TRIM(TRAILING ', ' FROM 
-                CONCAT(
+               
+                SELECT DISTINCT
+                    phySched.person_id,
+                    CONCAT(phySched.firstname, ' ', LEFT(phySched.middlename, 1), '. ', phySched.lastname) AS fullname,
+                    phySched.firstname,
+                    phySched.lastname,
+                    phySched.local_num,
                     CASE 
-                        WHEN phySched.MON_start IS NOT NULL AND phySched.MON_end IS NOT NULL THEN 'Monday, '
-                        ELSE ''
-                    END,
-                    CASE 
-                        WHEN phySched.TUE_start IS NOT NULL AND phySched.TUE_end IS NOT NULL THEN 'Tuesday, '
-                        ELSE ''
-                    END,
-                    CASE 
-                        WHEN phySched.WED_start IS NOT NULL AND phySched.WED_end IS NOT NULL THEN 'Wednesday, '
-                        ELSE ''
-                    END,
-                    CASE 
-                        WHEN phySched.THUR_start IS NOT NULL AND phySched.THUR_end IS NOT NULL THEN 'Thursday, '
-                        ELSE ''
-                    END,
-                    CASE  
-                        WHEN phySched.FRI_start IS NOT NULL AND phySched.FRI_end IS NOT NULL THEN 'Friday, '
-                        ELSE ''
-                    END,
-                    CASE  
-                        WHEN phySched.SAT_start IS NOT NULL AND phySched.SAT_end IS NOT NULL THEN 'Saturday, '
-                        ELSE ''
-                    END,
-                    CASE  
-                        WHEN phySched.SUN_start IS NOT NULL AND phySched.SUN_end IS NOT NULL THEN 'Sunday, '
-                        ELSE ''
-                    END
-                )
-            ) AS schedule
-            FROM proc_doctors_schedule_final_2 as phySched
-            LEFT JOIN people ON people.person_id = phySched.person_id;
+                        WHEN phySched.spec = 'OBSTETRICS & GYNECOLOGY' THEN 'OBGYNE'
+                        WHEN phySched.spec = 'REHABILITATION MEDICINE' THEN 'REHAB'
+                        ELSE phySched.spec
+                    END AS specialization,
+                    phySched.sub_spec AS subSpecialization,
+                    phySched.HMOS AS affiliated_payors,
+                    phySched.secretary_name AS secretary,
+                    phySched.secretary_contact,
+                    CONCAT(phySched.room, ' - ', phySched.bldg) AS room,
+                    phySched.is_in,
+                    people.gender,
+                    phySched.HMOS AS hmo,
+                    phySched.HMOS_ids AS hmo_id
+                   
+                FROM 
+                    proc_doctors_schedule_final_2 AS phySched
+                LEFT JOIN 
+                    people ON people.person_id = phySched.person_id
+            
+          
+               
+          
         `;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results) => {
@@ -103,7 +150,7 @@ const Doctor = {
                             doctor.specialization?.toLowerCase() || '',
                             doctor.secretary?.toLowerCase() || '',
                             doctor.subSpecialization?.toLowerCase() || '',
-                            doctor.room?.toLowerCase() || '',
+                         
                             doctor.hmo?.toLowerCase() || '',
                             doctor.hmo_id?.toLowerCase() || ''
                         ];
@@ -111,19 +158,53 @@ const Doctor = {
                         //console.log(searchableFields);
                         // Concatenate all searchable fields into a single string
                         const dataToIndex = searchableFields.join(' ');
-
+                    
                         index.add(doctor.person_id, dataToIndex); // Index the combined fields
+
                         doctorData[doctor.person_id] = doctor; // Store the actual doctor data
                         //console.log("Added to index:", doctor.person_id, dataToIndex); //
                     });
-
-                   
+                                
+                             
                     return resolve(results);
                 }
             });
         });
+
+
+    
     },
 
+    getRooms: async (doctors) => {
+        const doctorsWithRooms = [];
+
+        // Define a function to fetch rooms for a doctor
+        const fetchRoomsForDoctor = (doctor) => {
+            return new Promise((resolve, reject) => {
+                fetchDoctorsRoom(doctor.person_id, (error, results) => {
+                    if (error) {
+                        console.error(`Error fetching rooms for doctor ${doctor.person_id}:`, error);
+                        reject(error);
+                    } else {
+                        // Assign rooms to the doctor object
+                        doctor.rooms = results;
+                        resolve(doctor);
+                    }
+                });
+            });
+        };
+
+        try {
+            // Use Promise.all to fetch rooms for all doctors concurrently
+            const updatedDoctors = await Promise.all(doctors.map(fetchRoomsForDoctor));
+            
+            // Return the updated array of doctors with rooms
+            return updatedDoctors;
+        } catch (error) {
+            console.error('Error fetching rooms for doctors:', error);
+            throw error; // Propagate the error to the caller
+        }
+    },
     /**
      * Search for doctors based on the given search term.
      * 

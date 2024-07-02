@@ -18,7 +18,10 @@ const router = express.Router();
 router.get('/api/doctors', async (req, res) => {
     try {
         const results = await Doctor.getDetails();
-        res.json(results);
+        const withRooms = await  Doctor.getRooms(results);
+
+
+        res.json(withRooms);
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch doctor details" });
     }
@@ -40,7 +43,8 @@ router.get('/api/doctors/search', async (req, res) => {
         }
         // Search the indexed data using wildcard search for multiple terms
         const results = await Doctor.search(query);
-        res.json(results);
+        const withRooms = await  Doctor.getRooms(results);
+        res.json(withRooms);
     } catch (err) {
         console.error("Error performing search:", err);
         res.status(500).json({ error: "Failed to perform search" });
@@ -78,7 +82,8 @@ router.get('/api/doctors/search-by-specialization-with-subspecialization', async
     const subSpecialization = req.query.subSpecialization || '';
     const searchVal = req.query.searchVal || '';
     const results = await Doctor.searchBySpecializationWithSubspecialization(specialization, subSpecialization,searchVal);
-    res.json(results);
+    const withRooms = await  Doctor.getRooms(results);
+    res.json(withRooms);
 });
 
 

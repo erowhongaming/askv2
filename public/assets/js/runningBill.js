@@ -180,7 +180,6 @@
                     showStep(3);
 
                     setTimeout(function() {
-                      
                         // Call showBillingTable()
                         showBillingTable();
                     }, 2000); // 2000 milliseconds = 2 seconds
@@ -208,9 +207,6 @@
 
     }
   }
-  $('#verifyOTP').click(function(){
-    verifyOTP();
-  });
 
   function showBillingTable(){
     //hide login inpatient portal
@@ -235,4 +231,4 @@
   }
 
 
-
+  $('#verifyOTP').click(verifyOTP);

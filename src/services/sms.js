@@ -29,9 +29,15 @@ async function sendSMS(message, phoneNumber, authToken) {
         console.error('Error sending SMS:', error.response.data);
         throw new Error('Failed to send SMS');
     }
-}
+} 
+ 
 
+const sms_snapp = {
+    getAuthoken: () => {
 
+    },
+    
+};
 // Usage
 const message = "From Nodejs";
 const phoneNumber = "09672773458";

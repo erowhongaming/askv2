@@ -38,6 +38,7 @@ body {
 /* Side-payors */
 .side-payors{
   overflow: auto;
+  -webkit-overflow-scrolling: touch; /
   height:65vh;
   font-size: 11px;
   font-weight: 700px;
@@ -466,13 +467,13 @@ h6 {
   border:0.5px solid #692323;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 1) 0px 1px 3px -1px;
   border-radius: 20px;
-  padding:30px;
+  padding:20px;
   text-align:center;
   background-color: #fbfbfb;
-  height: 700px; /* Minimum height */
-  /* height: 700px; Allow it to grow as needed */
+  height: 700px;
   margin-top:5px;
-  overflow: hidden;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
 }
 
 

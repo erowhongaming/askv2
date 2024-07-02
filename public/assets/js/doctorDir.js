@@ -339,12 +339,29 @@ $('#search-icon').click(toggleSearch);
             affil ='<i>None</i>'
           }
 
-            // // Generate schedule rows
-             let scheduleRows = '';
-            scheduleRows = '';
-           
-            scheduleRows = ` <strong style="font-size:11px;color:black;">${doctorInfo.schedule}</strong>`;
+          const rooms = doctorInfo.rooms;
+    
+          let clinicalSchedules =  '';
+          // Loop through each room and clinical schedules
+          for (const room of rooms) {
+              // Access individual properties of each room
+             
+              clinicalSchedules += `
+                <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px;">
+                       <strong style="font-size:12px;color:#969393">Clinic Schedule</strong>   <br> 
+                        <strong style="font-size:10px;color:black;">`+room.schedule_day+`</strong><br>
+                         <strong style="font-size:10px;color:black;">`+room.schedule+`</strong><br>
+                    
+                    <strong style="font-size:12px;color:#969393">Room</strong>      
+                    <br>
+                     <strong style="font-size:10px;color:black;">`+room.room+`</strong>
+                  </div> 
+              `;
+              // Perform other operations with room data
+          }
 
+            // // Generate schedule rows
+        
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
           $('#physicians-container').append(
@@ -360,20 +377,14 @@ $('#search-icon').click(toggleSearch);
                     <strong style="font-size:12px;text-align:center;color:#969393"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
                    
                     <div class="row">
-                      <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px;">
-                       <strong style="font-size:12px;color:#969393">Clnic Schedule</strong>   <br><br> 
-                       `+scheduleRows+`
-                      </div> 
-                      <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
-                        <strong style="font-size:12px;color:#969393">Room</strong>      
-                        <br>
-                        <strong style="font-size:12px;color:black;">${doctorInfo.room}</strong>
-                      </div> 
+                     `+clinicalSchedules+`
+                      
+                      
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
                         <strong style="font-size:11px;color:black;">${doctorInfo.secretary} - </strong> 
-                        <strong style="font-size:11Px;color:black;">${doctorInfo.secretary_contact}</strong> 
+                        <strong style="font-size:11Px;color:black;">${doctorInfo.local_num}</strong> 
 
                       </div> 
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
