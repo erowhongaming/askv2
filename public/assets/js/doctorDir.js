@@ -347,7 +347,7 @@ $('#search-icon').click(toggleSearch);
               // Access individual properties of each room
              
               clinicalSchedules += `
-                <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px;">
+                <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px; padding: 0;">
                        <strong style="font-size:12px;color:#969393">Clinic Schedule</strong>   <br> 
                         <strong style="font-size:10px;color:black;">`+room.schedule_day+`</strong><br>
                          <strong style="font-size:10px;color:black;">`+room.schedule+`</strong><br>

@@ -21,60 +21,71 @@ let groupedSpecializations =[];
 function fetchDoctorsRoom(person_id, callback){
     
         const query = `
-          SELECT person_id, 
-                room,
-                GROUP_CONCAT(
-                    DISTINCT CONCAT(
-                        LEFT(day, 1), ' - ',
-                        TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
-                        TIME_FORMAT(end_time, '%h:%i %p')
-                    ) ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
-                ) AS schedule,
-                GROUP_CONCAT(
-                    DISTINCT day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
-                ) AS schedule_day
-            FROM (
-                SELECT person_id, 
-                    room,
-                    CASE
-                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN 'Monday'
-                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN 'Tuesday'
-                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN 'Wednesday'
-                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN 'Thursday'
-                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN 'Friday'
-                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN 'Saturday'
-                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN 'Sunday'
-                    END AS day,
-                    CASE
-                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN MON_start
-                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN TUE_start
-                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN WED_start
-                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN THUR_start
-                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN FRI_start
-                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN SAT_start
-                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN SUN_start
-                    END AS start_time,
-                    CASE
-                        WHEN MON_start IS NOT NULL AND MON_end IS NOT NULL THEN MON_end
-                        WHEN TUE_start IS NOT NULL AND TUE_end IS NOT NULL THEN TUE_end
-                        WHEN WED_start IS NOT NULL AND WED_end IS NOT NULL THEN WED_end
-                        WHEN THUR_start IS NOT NULL AND THUR_end IS NOT NULL THEN THUR_end
-                        WHEN FRI_start IS NOT NULL AND FRI_end IS NOT NULL THEN FRI_end
-                        WHEN SAT_start IS NOT NULL AND SAT_end IS NOT NULL THEN SAT_end
-                        WHEN SUN_start IS NOT NULL AND SUN_end IS NOT NULL THEN SUN_end
-                    END AS end_time
-                FROM proc_doctors_schedule_final_2
-                WHERE
-                ( (MON_start IS NOT NULL AND MON_end IS NOT NULL) OR
-                    (TUE_start IS NOT NULL AND TUE_end IS NOT NULL) OR
-                    (WED_start IS NOT NULL AND WED_end IS NOT NULL) OR
-                    (THUR_start IS NOT NULL AND THUR_end IS NOT NULL) OR
-                    (FRI_start IS NOT NULL AND FRI_end IS NOT NULL) OR
-                    (SAT_start IS NOT NULL AND SAT_end IS NOT NULL) OR
-                    (SUN_start IS NOT NULL AND SUN_end IS NOT NULL)
+         WITH IndividualDays AS (
+                SELECT person_id, room, 'Monday' AS day, 
+                    MON_start AS start_time, MON_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE MON_start IS NOT NULL AND MON_end IS NOT NULL 
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Tuesday' AS day, 
+                    TUE_start AS start_time, TUE_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE TUE_start IS NOT NULL AND TUE_end IS NOT NULL 
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Wednesday' AS day, 
+                    WED_start AS start_time, WED_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE WED_start IS NOT NULL AND WED_end IS NOT NULL 
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Thursday' AS day, 
+                    THUR_start AS start_time, THUR_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE THUR_start IS NOT NULL AND THUR_end IS NOT NULL 
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Friday' AS day, 
+                    FRI_start AS start_time, FRI_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE FRI_start IS NOT NULL AND FRI_end IS NOT NULL 
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Saturday' AS day, 
+                    SAT_start AS start_time, SAT_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE SAT_start IS NOT NULL AND SAT_end IS NOT NULL  
+                    AND person_id = ${person_id}
+                UNION ALL
+                SELECT person_id, room, 'Sunday' AS day, 
+                    SUN_start AS start_time, SUN_end AS end_time 
+                FROM proc_doctors_schedule_final_2 
+                WHERE SUN_start IS NOT NULL AND SUN_end IS NOT NULL 
+                    AND person_id = ${person_id}
+            )
+
+          SELECT room, 
+            CASE 
+                WHEN COUNT(DISTINCT start_time) = 1 AND COUNT(DISTINCT end_time) = 1 
+                THEN CONCAT(
+                    
+                    TIME_FORMAT(MAX(start_time), '%h:%i %p'), ' - ',
+                    TIME_FORMAT(MAX(end_time), '%h:%i %p')
                 )
-                AND person_id =${person_id} 
-            ) AS IndividualDays
+                ELSE GROUP_CONCAT(
+                    DISTINCT 
+                    LEFT(day, 1), ' : ',
+                    TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
+                    TIME_FORMAT(end_time, '%h:%i %p')
+                    ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
+                )
+            END AS schedule,
+            GROUP_CONCAT(
+                DISTINCT day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
+            ) AS schedule_day
+            FROM IndividualDays
+            WHERE person_id = ${person_id}
             GROUP BY room;
 
 
