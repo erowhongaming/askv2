@@ -168,6 +168,7 @@ $('#search-icon').click(toggleSearch);
           $.ajax({
             url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
             method: 'GET',
+            
             success: function(data) {
               $('#physicians-container').html('');
             

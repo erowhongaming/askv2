@@ -36,6 +36,8 @@ const getPatientByMobileNum = (mobilenumber) =>{
           ,
           {
             '$project': {
+              _id: 1,
+              patient_id: "$patient._id",
               primaryKey: '$patients._id',
               firstname: '$patients.firstname',  
               fullname: {
