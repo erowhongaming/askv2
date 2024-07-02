@@ -66,24 +66,16 @@ function fetchDoctorsRoom(person_id, callback){
             )
 
           SELECT room, 
-            CASE 
-                WHEN COUNT(DISTINCT start_time) = 1 AND COUNT(DISTINCT end_time) = 1 
-                THEN CONCAT(
-                    
-                    TIME_FORMAT(MAX(start_time), '%h:%i %p'), ' - ',
-                    TIME_FORMAT(MAX(end_time), '%h:%i %p')
-                )
-                ELSE GROUP_CONCAT(
+             
+               GROUP_CONCAT(
                     DISTINCT 
-                    LEFT(day, 1), ' : ',
+                    LEFT(day, 3), ' : ',
                     TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
                     TIME_FORMAT(end_time, '%h:%i %p')
-                    ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
+                    ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR '<br>'
                 )
-            END AS schedule,
-            GROUP_CONCAT(
-                DISTINCT day ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR ', '
-            ) AS schedule_day
+             AS schedule
+          
             FROM IndividualDays
             WHERE person_id = ${person_id}
             GROUP BY room;
