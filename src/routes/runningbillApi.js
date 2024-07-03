@@ -80,7 +80,8 @@ router.post('/api/generate/validate-otp-by-mobilenumber',jsonParser, async (req 
         console.log(result);
         if(result[0].find > 0){ // Update expired otp
             await Patients.updateOTPStatusByMobilenumber(mobilenumber,'verified',otp);  
-            res.json({ msg: 'verified',status: 1});
+            const details = await Patients.fetchPatientsByMobileNumber(mobilenumber);
+            res.json({ msg: 'verified',status: 1,details: details});
         }else{
             res.json({ msg: 'not found',status: 0, expires_at: process.env.OTP_EXPIRES+'(S)' });
         }

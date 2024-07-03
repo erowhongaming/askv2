@@ -17,7 +17,9 @@ var request;
       const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       const selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
       if (selectedValue) {
-          
+         if (request) {
+            request.abort();
+          }
           getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
       } else {
          
@@ -39,6 +41,12 @@ var request;
     });
     $('#sidebar-home').click(function() {
         // event.preventDefault();
+        $('#search-doctor').val('');
+        $('#mobilenumber').val('');
+        $('input[name="radioSpecialty"]:checked').prop('checked', false);
+        $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
+        runninBillLogout();
+        $('input[name="sideHMO"]:checked').prop('checked', false);
         goTo('#landingPage');
     });
     $('#sidebar-runningbill').click(function() {

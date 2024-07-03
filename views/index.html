@@ -419,17 +419,17 @@
             <div class="p-3 border bg-light">
               <div class="row">
                 <div class="col-lg-4">
-                  <p class="card-title"><strong>Name:</strong> John Doe</p>
-                  <p><strong>Date of Birth:</strong> Jan 01,997</p>
+                  <p class="card-title"><strong>Name:</strong> <span id="rbTable_name">John Doe</span></p>
+                  <p><strong>Date of Birth:</strong> <span id="rbTable_bdate">Jan 01,997</span></p>
                 
               </div>
               <div class="col-lg-4">
-                  <p class="card-title"><strong>Medical Record No:</strong> MRN00128154</p>
-                  <p><strong>Patient Number:</strong> 000000730358</p>
+                  <p class="card-title"><strong>Medical Record No:</strong> <span id="rbTable_mrn">MRN00128154</span></p>
+                  <p><strong>Patient Number:</strong> <span id="rbTable_patientnum">000000730358</span> </p>
               </div>
               <div class="col-lg-4">
-                  <p><strong>Admission Date:</strong> 11/17/2023 1:00 PM</p>
-                  <p><strong>Room No.:</strong> 2 MAIN / 228</p>
+                  <p><strong>Admission Date:</strong> <span id="rbTable_admission">11/17/2023 1:00 PM</span></p>
+                  
                 </div>
               </div>
                 
@@ -445,337 +445,46 @@
       </div>
       <!-- Row 1 -->
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" style="overflow:auto;height:65vh">
           <div class="p-3 border bg-light">
-              <h5 class="text-center mb-4">Information Notes</h5>
-              <div class="card mb-3">
+              <h5 class="text-center mb-4">Notes!</h5>
+              <div id="infoNotes"></div>
+              <div class="card mb-3" >
                   <div class="card-body">
                       <h6 class="card-title">Note 1</h6>
                       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum, mauris vel lacinia fringilla.</p>
                   </div>
+                 
               </div>
-              <div class="card bg-danger text-white">
-                  <div class="card-body">
-                      <h6 class="card-title">Note 2</h6>
-                      <p class="card-text">Nulla vitae purus vestibulum, dictum leo eget, ultricies risus.</p>
-                  </div>
-              </div>
+            
           </div>
         </div>
-        <div class="col-md-8" style="overflow: auto;height:65vh">
-            <div class="p-3 border bg-light">
-              <table class="table_new">
-                <thead>
-                
-                    <th>Department</th>
-                    <th>Description</th>
-                    <th>Qty</th>
-                    <th>Unit Price</th>
-                    <th>Amount</th>
-                 
-
-                 
-                </thead>
-                <tbody>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new" > Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Syringe</td>
-                                <td>1</td>
-                                <td>27.00</td>
-                                <td>27.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>ER FEE - Regular</td>
-                                <td>1</td>
-                                <td>2000.00</td>
-                                <td>2000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Operating Room</td>
-                                <td>Surgery - Appendectomy</td>
-                                <td>1</td>
-                                <td>5000.00</td>
-                                <td>5000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Lab Tests - Blood Work</td>
-                                <td>1</td>
-                                <td>150.00</td>
-                                <td>150.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Pharmacy</td>
-                                <td>Medication - Painkillers</td>
-                                <td>1</td>
-                                <td>50.00</td>
-                                <td>50.00</td>
-                            </tr>
-                        </tbody>
-                        
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new"> Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Painkillers</td>
-                              <td>1</td>
-                              <td>50.00</td>
-                              <td>50.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antibiotics</td>
-                              <td>1</td>
-                              <td>35.00</td>
-                              <td>35.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antihistamines</td>
-                              <td>1</td>
-                              <td>20.00</td>
-                              <td>20.00</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new" > Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Syringe</td>
-                                <td>1</td>
-                                <td>27.00</td>
-                                <td>27.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>ER FEE - Regular</td>
-                                <td>1</td>
-                                <td>2000.00</td>
-                                <td>2000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Operating Room</td>
-                                <td>Surgery - Appendectomy</td>
-                                <td>1</td>
-                                <td>5000.00</td>
-                                <td>5000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Lab Tests - Blood Work</td>
-                                <td>1</td>
-                                <td>150.00</td>
-                                <td>150.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Pharmacy</td>
-                                <td>Medication - Painkillers</td>
-                                <td>1</td>
-                                <td>50.00</td>
-                                <td>50.00</td>
-                            </tr>
-                        </tbody>
-                        
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new"> Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Painkillers</td>
-                              <td>1</td>
-                              <td>50.00</td>
-                              <td>50.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antibiotics</td>
-                              <td>1</td>
-                              <td>35.00</td>
-                              <td>35.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antihistamines</td>
-                              <td>1</td>
-                              <td>20.00</td>
-                              <td>20.00</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new" > Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Syringe</td>
-                                <td>1</td>
-                                <td>27.00</td>
-                                <td>27.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>ER FEE - Regular</td>
-                                <td>1</td>
-                                <td>2000.00</td>
-                                <td>2000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Operating Room</td>
-                                <td>Surgery - Appendectomy</td>
-                                <td>1</td>
-                                <td>5000.00</td>
-                                <td>5000.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Emergency Room</td>
-                                <td>Lab Tests - Blood Work</td>
-                                <td>1</td>
-                                <td>150.00</td>
-                                <td>150.00</td>
-                            </tr>
-                        
-                            <tr>
-                                <td>Pharmacy</td>
-                                <td>Medication - Painkillers</td>
-                                <td>1</td>
-                                <td>50.00</td>
-                                <td>50.00</td>
-                            </tr>
-                        </tbody>
-                        
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                  <tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                        <b class="left-content_new">06/21/2024</b> &nbsp;&nbsp;
-                        <b class="right-content_new"> Subtotal: 50,000</b>
-                    </span>
-                  
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner">
-                          <tbody>
-                            <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Painkillers</td>
-                              <td>1</td>
-                              <td>50.00</td>
-                              <td>50.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antibiotics</td>
-                              <td>1</td>
-                              <td>35.00</td>
-                              <td>35.00</td>
-                          </tr>
-                      
-                          <tr>
-                              <td>Pharmacy</td>
-                              <td>Medication - Antihistamines</td>
-                              <td>1</td>
-                              <td>20.00</td>
-                              <td>20.00</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </td>
-                    
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <div class="col-md-8" id='billingDetailsTable' style="overflow: auto;height:65vh">
+          
+          
         </div>
+       
         <div class="col-md-2">
           <div class="card text-center">
             <div class="card-header bg-light ">
-                <h5>Total Amount</h5>
+                <h5>Break Down</h5>
             </div>
             <div class="card-body bg-light">
-                <p class="display-6 text-primary-emphasis">Php 50,000</p>
+                <p class="text-primary-emphasis"> ---</p>
+                <p class="text-primary-emphasis"> ---</p>
+                <p class="text-primary-emphasis"> ---</p>
             </div>
-           
+          
         </div>
+          <div class="card text-center">
+              <div class="card-header bg-light ">
+                  <h5>Total Amount</h5>
+              </div>
+              <div class="card-body bg-light">
+                  <p class="display-6 text-primary-emphasis">Php -----</p>
+              </div>
+            
+          </div>
         </div>
       </div>
 
@@ -979,9 +688,10 @@
 
       });
 
-      // hide billing table
-      $('#runningBillTable').css('display', 'none');
-    
+   
+  
+
+
       //  Initial Actions/Process
       $(".sidebar-wrapper").hide();
       getHMOs(); 
@@ -1018,6 +728,27 @@
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
       })
+
+
+         // hide billing table
+         $('#runningBillTable').css('display', 'none');
+    // // Define response object with details array
+    //   var response = {
+    //     details: [
+    //       {
+    //         "_id": "6664337ed340d07adc225d87",
+    //         "visitid": "000000900708",
+    //         "primaryKey": "5fd99f8d9d934ef68f7e3724",
+    //         "firstname": "CARL JOEL",
+    //         "fullname": "DE LARA, CARL JOEL",
+    //         "contactno": "09985412557",
+    //         "dateofbirth": "09/20/1982",
+    //         "admissionDate": "06/08/2024",
+    //         "mrn": "MRN00014091"
+    //       }
+    //     ]
+    //   };
+    //   billingDetails(response);
   });
 
   

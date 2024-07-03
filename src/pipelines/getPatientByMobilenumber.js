@@ -43,7 +43,23 @@ const getPatientByMobileNum = (mobilenumber) =>{
               fullname: {
                   $concat: ['$patients.lastname', ', ', '$patients.firstname']
               },
-              contactno: '$patients.contact.mobilephone'
+              contactno: '$patients.contact.mobilephone',
+              dateofbirth: {
+                '$dateToString': {
+                  format: "%m/%d/%Y", 
+                  timezone: "+08:00", 
+                  date: "$patients.dateofbirth"
+                }
+              },
+              admissionDate:{
+                '$dateToString': {
+                  format: "%m/%d/%Y  %H:%M", 
+                  timezone: "+08:00", 
+                  date: "$$ROOT.createdat"
+                }
+              },
+              mrn: '$patients.mrn',
+              visitid:1
             }
           }
     ];

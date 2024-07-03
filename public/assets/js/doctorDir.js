@@ -1,19 +1,4 @@
 
-$('span#collapse').click(function() {
-        var $span = $(this);
-        var $icon = $span.find('.icon'); // Find the icon within the span
-        var currentText = $span.html(); // Get the current HTML content of the span
-
-      
-    // Toggle text and icon based on the current state
-    if ($icon.hasClass('ri-arrow-up-s-line')) {
-        $icon.removeClass('ri-arrow-up-s-line').addClass('ri-arrow-down-s-line');
-    } else {
-        $icon.removeClass('ri-arrow-down-s-line').addClass('ri-arrow-up-s-line');
-    }
-        // Toggle 'active' class on the parent tr element
-        $span.parents("tr.collapse_new").toggleClass("active");
-    });
 $(".btnAll").click(searchToggleALL);
 
 function searchToggleALL(){
@@ -324,7 +309,7 @@ $('#search-icon').click(toggleSearch);
       //const searchVal = $('#searchDoctor').val();
 
       if(specialization != null && specialization != ''){
-        $.ajax({
+        request = $.ajax({
             url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${encodeURIComponent(subspecialization)}&searchVal=${encodeURIComponent(searchVal)}`,
             method: 'GET',
             beforeSend: function(){
@@ -347,7 +332,9 @@ $('#search-icon').click(toggleSearch);
               renderPhysicians(data);
             },  
             error: function() {
+              if (textStatus !== 'abort') {
                 console.error('Failed to load doctor data');
+              }
             }
         });
       }
