@@ -237,7 +237,8 @@
     patientsDetails(response);
     // Get Billing Results 
     resultsDetails(patientvisituid,function(results){
-     // console.log(results);
+    
+     $('#rbTable_room').html(results.result[0].ward);
     });
 
     //Get Charges
