@@ -13,7 +13,7 @@
           currentStep.classList.add('step-active');
       }, 10);  // Small delay to trigger CSS transition
     }
-
+    var request;
     const Keyboard = {
         elements: {
             main: null,
@@ -165,6 +165,9 @@
 
         _triggerEvent(handlerName) {
             if (typeof this.eventHandlers[handlerName] == "function") {
+               if(request){
+                request.abort();
+               }
                 this.eventHandlers[handlerName](this.properties.value);
             }
         },
@@ -193,8 +196,9 @@
             this.elements.main.classList.add("keyboard--hidden");
         }
     };
-
+    
     window.addEventListener("DOMContentLoaded", function () {
+       
         Keyboard.init();
         closeKeyboard();
     });
