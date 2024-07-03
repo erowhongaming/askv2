@@ -3,11 +3,13 @@
     // ON EVENT JQUERY
 
 
-
+var request;
 
     $('#searchDoctor').keyup(function(){
       const query = $('#searchDoctor').val();
-  
+      if (request) {
+        request.abort();
+      }
       search(query);
     });
 

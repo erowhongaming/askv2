@@ -157,7 +157,7 @@ $('#search-icon').click(toggleSearch);
         return groupedData;
     }
     
-    
+   
     function search(query){
 
 
@@ -165,11 +165,14 @@ $('#search-icon').click(toggleSearch);
       
       const selectedSubSpecialty = $('input[name="sub-radioSpecialty"]:checked').val();
       if(query != '' && (selectedSpecialty == 'ALL' )){
-          $.ajax({
+         // If there is an ongoing request, abort it
+         
+         request =  $.ajax({
             url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
-            method: 'GET',beforeSend: function(){
+            method: 'GET',
+            beforeSend: function(){
               $('#physicians-container').html(`
-                  <div class="spinner-container">
+                <div class="spinner-container">
                       <div class="spinner-grow text-dark" role="status">
                         <span class="sr-only"></span>
                       </div>
@@ -181,7 +184,7 @@ $('#search-icon').click(toggleSearch);
                       </div>
                      
                   </div>
-                      `);
+                 `);
             },
             
             success: function(data) {
@@ -190,10 +193,12 @@ $('#search-icon').click(toggleSearch);
               renderPhysicians(data);
                
             },  
-            error: function() {
-                console.error('Failed to load doctor data');
+            error: function(jqXHR, textStatus) {
+                if (textStatus !== 'abort') {
+                  console.error('Failed to load doctor data');
+                }
             }
-        });
+          });
       }else if(selectedSpecialty != 'ALL'){
         getDoctorsBySpecializationAndSubspecialization(selectedSpecialty,selectedSubSpecialty);
       }else{
