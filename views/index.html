@@ -413,10 +413,10 @@
     </div> <!--end fo container-->
     <br>
     
-    <div id="runningBillTable" class="container-fluid" data-aos="fade-up" style="background-color: white;height:75vh;margin-top:35px;">
+    <div id="runningBillTable" class="container-fluid" data-aos="fade-up" style="background-color: transparent;height:75vh;margin-top:35px;">
       <div class="row">
-        <div class="col-md-10">
-            <div class="p-3 border bg-light">
+        <div class="col-md-10 border bg-light" style="padding:40px;">
+            <div class="p-3 ">
               <div class="row">
                 <div class="col-lg-4">
                   <p class="card-title"><strong>Name:</strong> <span id="rbTable_name">John Doe</span></p>
@@ -437,7 +437,8 @@
         </div>
         <div class="col-md-2">
           <div class="p-3 border bg-light">
-            <h5>Timer</h5>
+            <h5 id="idLeCountdown">Timer:</h5>
+
             <button type="button" class="btn btn-danger" onclick="runninBillLogout()"><i class="ri-logout-circle-r-line"></i> Logout</button>
 
           </div>
@@ -449,13 +450,7 @@
           <div class="p-3 border bg-light">
               <h5 class="text-center mb-4">Notes!</h5>
               <div id="infoNotes"></div>
-              <div class="card mb-3" >
-                  <div class="card-body">
-                      <h6 class="card-title">Note 1</h6>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum, mauris vel lacinia fringilla.</p>
-                  </div>
-                 
-              </div>
+            
             
           </div>
         </div>

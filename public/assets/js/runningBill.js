@@ -215,6 +215,8 @@
   
 
   function billingDetails(response){
+    
+    showBillingTable();
     $('#infoNotes').html(` 
         <div class="card mb-3" >
         <div class="card-body">       
@@ -291,11 +293,11 @@
             var formattedNetAmount = itemValue.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
               html += `<tr '>
-              <td>${itemValue.billinggroupname}</td>
-              <td>${itemValue.itemname}</td>
-              <td>${itemValue.quantity}</td>
-              <td>${formattedUnitPrice}</td>
-              <td>${formattedNetAmount}</td>
+              <td  style="text-align: center;">${itemValue.billinggroupname}</td>
+              <td  style="text-align: center;">${itemValue.itemname}</td>
+              <td style="text-align: center;">${itemValue.quantity}</td>
+              <td style="text-align: center;">${formattedUnitPrice}</td>
+              <td style="text-align: center;">${formattedNetAmount}</td>
            </tr>`;
             //  console.log("Item:", itemKey, itemValue);
             });
@@ -316,11 +318,10 @@
       });
 
 
-    
+      $('#navbar').hide();
       $('span#collapse').click(collapseTbl);
     });
     
-    showBillingTable();
   }
 
   function collapseTbl(){
@@ -343,8 +344,11 @@
     $.ajax({
       url : 'api/runningbill/results',  
       method: 'POST',
-      contentType: 'application/json',
+      contentType: 'application/json', 
+      
+      
       data: JSON.stringify({ patientvisituid:patientvisituid }), 
+      
       success: function(results) {
         callback(results); 
       },
@@ -368,7 +372,8 @@
       url : 'api/runningbill/charges',  
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({ patientvisituid:patientvisituid}), 
+      data: JSON.stringify({ patientvisituid:patientvisituid}),
+      
       success: function(results) {
       
         
@@ -380,10 +385,11 @@
       }
     });
   }
-  function showBillingTable(){
+  function showBillingTable(){ 
+    $('#navbar').hide();
     //hide login inpatient portal
     $('#runningbillLogin').css('display', 'none');
-    $('#navbar').hide();
+   
     //show billing table after validation
     $('#runningBillTable').css({
                     display: 'block',
@@ -393,7 +399,7 @@
 
 
   function runninBillLogout(){
-    
+    $('#mobilenumber').val('');
     $('#runningBillTable').css('display', 'none');
     $('#runningBillTable').html('');
     showStep(1);
