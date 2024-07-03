@@ -245,84 +245,215 @@
     chargesDetails(patientvisituid,function(results){
 
       if(results.result.profFee !== null){
-        $('#infoNotes').append(`
-            <div class="card mb-3" >
-          <div class="card-body">       
-              <p class="card-text" style="text-align:justify">   Professional Fees indicated prior to generation of final bill are net of Philhealth. If you have any clarifications regarding Professional Fees, kindly coordinate directly with your Doctors</p>
-          </div>
-         </div>
-          `);
-      }
-      $.each(results.result.charges, function(category, dates) {
-        var html = '';
-       // console.log("Category:", category);
-        html += `<div class="p-3 border bg-light">`;
-        html += `<h3>${category}</h3>`;
-        html += `<table class="table_new">
-                  <thead>
-                    <tr>
-                      <th>Department</th>
-                      <th>Description</th>
-                      <th>Qty</th>
-                      <th>Unit Price</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>`;
-        
-        // Loop through dates for each category
-        $.each(dates, function(date, data) {
-          //console.log("Date:", date);
-          var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          
-          html += `<tr class="collapse_new">
-                    <td colspan="5">
-                      <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
-                      <b class="left-content_new">${date}</b> &nbsp;&nbsp;
-                      <b class="right-content_new"> Subtotal: ${formattedSubtotal}</b>
-                      </span>
-                      <div class="table__wrapper">
-                        <table class="table_new table-inner" style="text-align:center">
-                          <tbody>`;
-      
-          if (data.items) {
-          
-            $.each(data.items, function(itemKey, itemValue) {
-                // Format unit price as number with comma for thousands and two decimal places
-            var formattedUnitPrice = itemValue.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            // Format net amount as number with comma for thousands and two decimal places
-            var formattedNetAmount = itemValue.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          $('#infoNotes').append(`
+              <div class="card mb-3" >
+                <div class="card-body">       
+                    <p class="card-text" style="text-align:justify">   Professional Fees indicated prior to generation of final bill are net of Philhealth. If you have any clarifications regarding Professional Fees, kindly coordinate directly with your Doctors</p>
+                </div>
+              </div>
+            `);
 
-              html += `<tr '>
-              <td  style="text-align: center;">${itemValue.billinggroupname}</td>
-              <td  style="text-align: center;">${itemValue.itemname}</td>
-              <td style="text-align: center;">${itemValue.quantity}</td>
-              <td style="text-align: center;">${formattedUnitPrice}</td>
-              <td style="text-align: center;">${formattedNetAmount}</td>
-           </tr>`;
-            //  console.log("Item:", itemKey, itemValue);
-            });
-          }
           
+
+          var html = "";
+          html += `<div class="p-3 border bg-light">`;
+          html += `<h3>Professional Fee</h3>`;
+          html += `<table class="table_new">
+          <thead>
+              <tr>
+                  <th>Department</th>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Amount</th>
+              </tr>
+          </thead>
+          <tbody>`;
+          $.each(results.result.profFee, function(date, data) {
+           
+          
+              // Ensure items is an array and has elements
+              if (data.items && Array.isArray(data.items)) {
+                  var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          
+                  html += `<tr class="collapse_new">
+                              <td colspan="5">
+                                  <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
+                                  <b class="left-content_new">${date}</b> &nbsp;&nbsp;
+                                  <b class="right-content_new"> Subtotal: ${formattedSubtotal}</b>
+                                  </span>
+                                  <div class="table__wrapper">
+                                      <table class="table_new table-inner" style="text-align:center">
+                                          <tbody>`;
+          
+                  $.each(data.items, function(index, item) {
+                    //  console.log("Item ID:", item._id);
+          
+                      // Format unit price and net amount if needed
+                      var formattedUnitPrice = item.unitprice;
+                      var formattedNetAmount = item.netamount;
+          
+                      html += `<tr>
+                                  <td style="text-align: center;">${item.billinggroupname}</td>
+                                  <td style="text-align: center;">${item.itemname}</td>
+                                  <td style="text-align: center;">${item.quantity}</td>
+                                  <td style="text-align: center;">${formattedUnitPrice}</td>
+                                  <td style="text-align: center;">${formattedNetAmount}</td>
+                              </tr>`;
+                  });
+          
+                  html += `        </tbody>
+                                      </table>
+                                  </div>
+                              </td>
+                          </tr>`;
+              }
+          
+             
+          });
           html += `    </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>`;
-        });
-      
-        html += `</tbody>
-                 </table>`;
-        html += `</div>`;
-        
-        $('#billingDetailsTable').append(html);
-      });
+          </table>`;
+          html += `</div>`;
+          $('#billingDetailsTable').append(html);
 
+      }
+      if(results.result.charges !== null){
+        // Charges
+        $.each(results.result.charges, function(category, dates) {
+          var html = '';
+        // console.log("Category:", category);
+          html += `<div class="p-3 border bg-light">`;
+          html += `<h3>${category}</h3>`;
+          html += `<table class="table_new">
+                    <thead>
+                      <tr>
+                        <th>Department</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>`;
+        
+          // Loop through dates for each category
+          $.each(dates, function(date, data) {
+            //console.log("Date:", date);
+            var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            html += `<tr class="collapse_new">
+                      <td colspan="5">
+                        <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
+                        <b class="left-content_new">${date}</b> &nbsp;&nbsp;
+                        <b class="right-content_new"> Subtotal: ${formattedSubtotal}</b>
+                        </span>
+                        <div class="table__wrapper">
+                          <table class="table_new table-inner" style="text-align:center">
+                            <tbody>`;
+        
+            if (data.items) {
+            
+              $.each(data.items, function(itemKey, itemValue) {
+                  // Format unit price as number with comma for thousands and two decimal places
+              var formattedUnitPrice = itemValue.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              // Format net amount as number with comma for thousands and two decimal places
+              var formattedNetAmount = itemValue.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                html += `<tr '>
+                <td  style="text-align: center;">${itemValue.billinggroupname}</td>
+                <td  style="text-align: center;">${itemValue.itemname}</td>
+                <td style="text-align: center;">${itemValue.quantity}</td>
+                <td style="text-align: center;">${formattedUnitPrice}</td>
+                <td style="text-align: center;">${formattedNetAmount}</td>
+            </tr>`;
+              //  console.log("Item:", itemKey, itemValue);
+              });
+            }
+            
+            html += `    </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>`;
+          });
+        
+          html += `</tbody>
+                  </table>`;
+          html += `</div>`;
+          
+          $('#billingDetailsTable').append(html);
+        });
+      }
+      if(results.result.returns ){
+        
+        var html = "";
+        html += `<div class="p-3 border bg-light">`;
+        html += `<h3>Returns and Discontinuations</h3>`;
+        html += `<table class="table_new">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>`;
+        $.each(results.result.returns, function(date, data) {
+         
+        
+            // Ensure items is an array and has elements
+            if (data.items && Array.isArray(data.items)) {
+                var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        
+                html += `<tr class="collapse_new">
+                            <td colspan="5">
+                                <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
+                                <b class="left-content_new">${date}</b> &nbsp;&nbsp;
+                                <b class="right-content_new"> Subtotal: ${formattedSubtotal}</b>
+                                </span>
+                                <div class="table__wrapper">
+                                    <table class="table_new table-inner" style="text-align:center">
+                                        <tbody>`;
+        
+                $.each(data.items, function(index, item) {
+                  //  console.log("Item ID:", item._id);
+        
+                    // Format unit price and net amount if needed
+                    var formattedUnitPrice = item.unitprice;
+                    var formattedNetAmount = item.netamount;
+        
+                    html += `<tr>
+                                <td style="text-align: center;">${item.billinggroupname}</td>
+                                <td style="text-align: center;">${item.itemname}</td>
+                                <td style="text-align: center;">${item.quantity}</td>
+                                <td style="text-align: center;">${formattedUnitPrice}</td>
+                                <td style="text-align: center;">${formattedNetAmount}</td>
+                            </tr>`;
+                });
+        
+                html += `        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>`;
+            }
+        
+           
+        });
+        html += `    </tbody>
+        </table>`;
+        html += `</div>`;
+        $('#billingDetailsTable').append(html);
+      }
 
       $('#navbar').hide();
       $('span#collapse').click(collapseTbl);
     });
     
+
+  
   }
 
   function collapseTbl(){
@@ -359,14 +490,14 @@
       }
     });
   }
- function patientsDetails(response){
+  function patientsDetails(response){
 
-    $('#rbTable_name').html(response.details[0].fullname);
-    $('#rbTable_bdate').html(response.details[0].dateofbirth);
-    $('#rbTable_patientnum').html(response.details[0].patient_id);
-    $('#rbTable_admission').html(response.details[0].admissionDate);
-   
- }
+      $('#rbTable_name').html(response.details[0].fullname);
+      $('#rbTable_bdate').html(response.details[0].dateofbirth);
+      $('#rbTable_patientnum').html(response.details[0].patient_id);
+      $('#rbTable_admission').html(response.details[0].admissionDate);
+    
+  }
   function chargesDetails(patientvisituid,callback){
     
     $.ajax({

@@ -139,7 +139,7 @@ function displayRemainingTime() {
   const timeRemaining = IDLE_TIMEOUT - timeElapsed;
   
   // Display remaining time in seconds
-  console.log(`Time remaining before idle timeout: ${Math.ceil(timeRemaining / 1000)} seconds`);
+  //console.log(`Time remaining before idle timeout: ${Math.ceil(timeRemaining / 1000)} seconds`);
   
  
   $('#idLeCountdown').html(`Logging out in <b>${Math.ceil(timeRemaining / 1000)} seconds </b> <br> <span style="font-size:9px">Timer resets when activity resumes</span>`);

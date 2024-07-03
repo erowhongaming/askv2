@@ -308,7 +308,7 @@ h6 {
 
 .right-content_new {
   float: right; /* Floats right content to the right */
-  width: 200px; /* Adjust width as needed */
+  width: 180px; /* Adjust width as needed */
 }
 .table-inner tr td {
   padding: 10px;
