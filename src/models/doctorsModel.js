@@ -281,7 +281,12 @@ const Doctor = {
     getDoctorsGroupedBySpecialization: () => {
         const query = `
             SELECT 
-                spec as specialization,               
+            CASE 
+                        WHEN spec = 'OBSTETRICS & GYNECOLOGY' THEN 'OBGYNE'
+                        WHEN spec = 'REHABILITATION MEDICINE' THEN 'REHAB'
+                        ELSE spec
+                    END AS specialization,
+                            
                 GROUP_CONCAT(DISTINCT sub_spec) as subSpecializations
             FROM 
                 proc_doctors_schedule_final_2

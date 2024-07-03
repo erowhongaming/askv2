@@ -167,7 +167,22 @@ $('#search-icon').click(toggleSearch);
       if(query != '' && (selectedSpecialty == 'ALL' )){
           $.ajax({
             url: `/api/doctors/search?q=${encodeURIComponent(query)}`,
-            method: 'GET',
+            method: 'GET',beforeSend: function(){
+              $('#physicians-container').html(`
+                  <div class="spinner-container">
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                     
+                  </div>
+                      `);
+            },
             
             success: function(data) {
               $('#physicians-container').html('');
@@ -253,6 +268,22 @@ $('#search-icon').click(toggleSearch);
       $.ajax({
         url: `api/doctors/grouped-specializations?specialization=${encodeURIComponent(specialization)}`,
         method: 'GET',
+        beforeSend: function(){
+          $('#subSpecialtyFilter').html(`
+              <div class="spinner-container">
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                 
+              </div>
+                  `);
+        },
         success: function(data) {
           $('#subSpecialtyFilter').html('');      
           // Iterate over each specialization
@@ -291,6 +322,22 @@ $('#search-icon').click(toggleSearch);
         $.ajax({
             url: `/api/doctors/search-by-specialization-with-subspecialization?specialization=${encodeURIComponent(specialization)}&subSpecialization=${encodeURIComponent(subspecialization)}&searchVal=${encodeURIComponent(searchVal)}`,
             method: 'GET',
+            beforeSend: function(){
+              $('#physicians-container').html(`
+                  <div class="spinner-container">
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                     
+                  </div>
+                      `);
+            },
             success: function(data) {
               renderPhysicians(data);
             },  
@@ -447,7 +494,23 @@ $('#search-icon').click(toggleSearch);
  function getHMOs(){
   $.ajax({
     url: `/api/hmos`,
-      method: 'GET',
+      method: 'GET', 
+      beforeSend: function(){
+        $('.side-payors').html(`
+            <div class="spinner-container">
+                <div class="spinner-grow text-dark" role="status">
+                  <span class="sr-only"></span>
+                </div>
+                <div class="spinner-grow text-dark" role="status">
+                  <span class="sr-only"></span>
+                </div>
+                <div class="spinner-grow text-dark" role="status">
+                  <span class="sr-only"></span>
+                </div>
+               
+            </div>
+                `);
+      },
       success: function(data) {
         
         $('.side-payors').html('');

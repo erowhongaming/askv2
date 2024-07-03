@@ -45,6 +45,15 @@ body {
 
 }
 /* END Side-payors */
+/* Loadingspiiners */
+.spinner-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Adjust gap between spinners as needed */
+}
+/* Endspinner */
 .card-services{
   text-align:center;
   
