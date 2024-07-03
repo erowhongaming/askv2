@@ -109,7 +109,7 @@
                     title: 'Validation Successful',
                     html: 'Sending <b> 6 digit OTP </b> to your mobile number.',
                     timerProgressBar: true,
-                    timer: 5000,
+                    timer: 1500,
                     showConfirmButton: false
                 }).then(() => {
    
