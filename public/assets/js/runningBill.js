@@ -218,17 +218,17 @@
     
     showBillingTable();
     $('#infoNotes').html(` 
-        <div class="card mb-3" >
-        <div class="card-body">       
-              <p class="card-text" style="text-align:justify">  Applicable discount/s (if any) will be deducted upon computation of the final bill. 
+          <div class="card mb-3" >
+            <div class="card-body card-design">       
+              <p class="card-text" style="text-align:justify; ">  Applicable discount/s (if any) will be deducted upon computation of the final bill. 
                                   The details shown here are based on your PROVISIONAL BILL and are SUBJECT TO CHANGE.</p>
+            </div>
           </div>
-          </div>
-            <div class="card mb-3" >
-        <div class="card-body">       
-            <p class="card-text" style="text-align:justify"> Please call 727-0001 local 3017/3018 or visit the Billing department should you have clarifications regarding your bill.</p>
+          <div class="card mb-3" >
+            <div class="card-body card-design">       
+                <p class="card-text" style="text-align:justify"> Please call 727-0001 local 3017/3018 or visit the Billing department should you have clarifications regarding your bill.</p>
+            </div>
         </div>
-          </div>
         `);    
 
 
@@ -245,9 +245,10 @@
     chargesDetails(patientvisituid,function(results){
 
       if(results.result.profFee !== null){
+       
           $('#infoNotes').append(`
               <div class="card mb-3" >
-                <div class="card-body">       
+                <div class="card-body card-design">       
                     <p class="card-text" style="text-align:justify">   Professional Fees indicated prior to generation of final bill are net of Philhealth. If you have any clarifications regarding Professional Fees, kindly coordinate directly with your Doctors</p>
                 </div>
               </div>
@@ -290,8 +291,8 @@
                     //  console.log("Item ID:", item._id);
           
                       // Format unit price and net amount if needed
-                      var formattedUnitPrice = item.unitprice;
-                      var formattedNetAmount = item.netamount;
+                      var formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                      var formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
           
                       html += `<tr>
                                   <td style="text-align: center;">${item.billinggroupname}</td>
@@ -411,7 +412,7 @@
                             <td colspan="5">
                                 <span id="collapse"><i class="ri-arrow-down-s-line icon"></i>
                                 <b class="left-content_new">${date}</b> &nbsp;&nbsp;
-                                <b class="right-content_new"> Subtotal: ${formattedSubtotal}</b>
+                                <b class="right-content_new"> Subtotal: <b style='text-align:right'>${formattedSubtotal}</b></b>
                                 </span>
                                 <div class="table__wrapper">
                                     <table class="table_new table-inner" style="text-align:center">
@@ -421,8 +422,8 @@
                   //  console.log("Item ID:", item._id);
         
                     // Format unit price and net amount if needed
-                    var formattedUnitPrice = item.unitprice;
-                    var formattedNetAmount = item.netamount;
+                    var formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                    var formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
         
                     html += `<tr>
                                 <td style="text-align: center;">${item.billinggroupname}</td>

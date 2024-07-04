@@ -286,7 +286,11 @@ h6 {
   transition: background .5s;
 }
 
-
+.card-design{
+  padding-left: 0.5rem;
+  border-left: 0.5rem solid #ff3300;
+  padding:20px;
+}
 
 .table_new tr.collapse_new .table__wrapper {
   max-height: 0px;
@@ -309,6 +313,7 @@ h6 {
 .right-content_new {
   float: right; /* Floats right content to the right */
   width: 180px; /* Adjust width as needed */
+  text-align:right;
 }
 .table-inner tr td {
   padding: 10px;

@@ -109,10 +109,12 @@ router.post('/api/runningbill/charges',jsonParser, async (req, res) => {
     const patientvisituid = req.body.patientvisituid|| '';
     
     try {
-        const result = await PatientBill.getResults(patientvisituid);
+        const result = await PatientBill.getResults(patientvisituid); 
+     
         const charges = await PatientBill.getCharges(result);
-        console.log("getCharges():Get charges success!");
-         res.json({ result: charges,msg: 'Success'});
+        console.log(charges);
+         //console.log("getCharges():Get charges success!");
+        res.json({ result: charges,msg: 'Success'});
     }catch(error) {
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
