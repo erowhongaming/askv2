@@ -20,7 +20,17 @@ const patientDeposits = (patientvisituid) => {
                     'depositdate' : '$depositdate',
                     'paidamount' : '$paidamount'
                 }
-            }
+            },
+            {
+                '$group':
+                 
+                  {
+                    '_id': null,
+                    'total_deposit': {
+                      '$sum': '$paidamount'
+                    }
+                  }
+              }
         
         ];
 };

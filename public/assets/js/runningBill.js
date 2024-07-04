@@ -241,10 +241,12 @@
      $('#rbTable_room').html(results.result[0].ward);
     });
 
+
+  
     //Get Charges
     chargesDetails(patientvisituid,function(results){
 
-      if(results.result.profFee !== null){
+      if(results.result.profFee){
        
           $('#infoNotes').append(`
               <div class="card mb-3" >
@@ -256,7 +258,7 @@
 
           
 
-          var html = "";
+          let html = "";
           html += `<div class="p-3 border bg-light">`;
           html += `<h3>Professional Fee</h3>`;
           html += `<table class="table_new">
@@ -275,7 +277,7 @@
           
               // Ensure items is an array and has elements
               if (data.items && Array.isArray(data.items)) {
-                  var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                  let formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           
                   html += `<tr class="collapse_new">
                               <td colspan="5">
@@ -291,8 +293,8 @@
                     //  console.log("Item ID:", item._id);
           
                       // Format unit price and net amount if needed
-                      var formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
-                      var formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                      let formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                      let formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
           
                       html += `<tr>
                                   <td style="text-align: center;">${item.billinggroupname}</td>
@@ -318,10 +320,10 @@
           $('#billingDetailsTable').append(html);
 
       }
-      if(results.result.charges !== null){
+      if(results.result.charges){
         // Charges
         $.each(results.result.charges, function(category, dates) {
-          var html = '';
+          let html = '';
         // console.log("Category:", category);
           html += `<div class="p-3 border bg-light">`;
           html += `<h3>${category}</h3>`;
@@ -340,7 +342,7 @@
           // Loop through dates for each category
           $.each(dates, function(date, data) {
             //console.log("Date:", date);
-            var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            let formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             
             html += `<tr class="collapse_new">
                       <td colspan="5">
@@ -356,9 +358,9 @@
             
               $.each(data.items, function(itemKey, itemValue) {
                   // Format unit price as number with comma for thousands and two decimal places
-              var formattedUnitPrice = itemValue.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              let formattedUnitPrice = itemValue.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
               // Format net amount as number with comma for thousands and two decimal places
-              var formattedNetAmount = itemValue.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              let formattedNetAmount = itemValue.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 html += `<tr '>
                 <td  style="text-align: center;">${itemValue.billinggroupname}</td>
@@ -385,9 +387,9 @@
           $('#billingDetailsTable').append(html);
         });
       }
-      if(results.result.returns ){
+      if(results.result.returns){
         
-        var html = "";
+        let html = "";
         html += `<div class="p-3 border bg-light">`;
         html += `<h3>Returns and Discontinuations</h3>`;
         html += `<table class="table_new">
@@ -406,7 +408,7 @@
         
             // Ensure items is an array and has elements
             if (data.items && Array.isArray(data.items)) {
-                var formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                let formattedSubtotal = data.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         
                 html += `<tr class="collapse_new">
                             <td colspan="5">
@@ -422,8 +424,8 @@
                   //  console.log("Item ID:", item._id);
         
                     // Format unit price and net amount if needed
-                    var formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
-                    var formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                    let formattedUnitPrice = item.unitprice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+                    let formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
         
                     html += `<tr>
                                 <td style="text-align: center;">${item.billinggroupname}</td>
@@ -449,6 +451,73 @@
         $('#billingDetailsTable').append(html);
       }
 
+      // Hospital Balance
+      let totalDeposits = 0 ;
+      let totalRefunds = 0 ;
+      
+      if(results.total_refunds_and_deposits.deposits.length > 0) {
+        totalDeposits = results.total_refunds_and_deposits.deposits[0].total_deposit;
+      }
+
+      if(results.total_refunds_and_deposits.refunds.length > 0) {
+        totalRefunds = results.total_refunds_and_deposits.refunds[0].total_refunds;
+      }
+
+
+      let totalCharges = parseFloat(results.result.total_charges);
+      let totalReturn = parseFloat(results.result.total_returns);
+      let totalHospitalBal = parseFloat(totalCharges + totalReturn);
+      let totalProFee = parseFloat(results.result.total_profFee);
+
+      let availAmnt = parseFloat((totalCharges+totalReturn+totalProFee)-(totalDeposits-totalRefunds) );
+
+      let html ='';
+      html = `  
+        <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
+                <h3>Amount Due</h3>
+                <tr>
+                  <td><b>Hospital Balance</b></td>
+                  <td style="padding-left: 25px;" id="totalHospitalBal">${totalHospitalBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                <tr>
+                  <td><b>Professional Fees</b></td>
+                  <td style="padding-left: 25px;"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                   <tr>
+                  <td><b>Avail. Deposit Amount</b></td>
+                  <td style="padding-left: 25px;font-size:17px;"  id="totalProfFee">${totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                <tr style="font-size:25px;">
+                  <td><b>Running Balance</b></td>
+                  <td style="padding-left: 25px;"  id="Running Balance">${availAmnt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>  
+                </tr>
+              
+              </table>`;
+
+      $('#BalAmountDue').html(html);
+
+      let html1 ='';
+      html1 = `  
+        <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
+                <h3>Charges</h3>
+                <tr>
+                  <td><b>Hospital Charges</b></td>
+                  <td style="padding-left: 25px;" id="totalHospitalBal">${totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                <tr>
+                  <td><b>Professional Fees</b></td>
+                  <td style="padding-left: 25px;"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                   <tr>
+                  <td><b>Returns & Discontinuations:</b></td>
+                  <td style="padding-left: 25px;font-size:17px;"  id="totalProfFee">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+               
+              
+              </table>`;
+
+      $('#BalAmountCharges').html(html1);
+
       $('#navbar').hide();
       $('span#collapse').click(collapseTbl);
     });
@@ -456,6 +525,7 @@
 
   
   }
+
 
   function collapseTbl(){
     var $span = $(this);

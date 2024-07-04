@@ -415,7 +415,7 @@
     
     <div id="runningBillTable" class="container-fluid" data-aos="fade-up" style="background-color: transparent;height:75vh;margin-top:35px;">
       <div class="row">
-        <div class="col-md-10 border bg-light" style="padding:40px;">
+        <div class="col-md-10 border bg-light" style="padding:30px;">
             <div class="p-3 ">
               <div class="row">
                 <div class="col-lg-4">
@@ -444,6 +444,7 @@
           </div>
         </div>
       </div>
+      <div><br></div>
       <!-- Row 1 -->
       <div class="row">
         <div class="col-md-2" style="overflow:auto;height:65vh">
@@ -454,32 +455,31 @@
             
           </div>
         </div>
-        <div class="col-md-8" id='billingDetailsTable' style="overflow: auto;height:65vh">
+        <div class="col-md-7" id='billingDetailsTable' style="overflow: auto;height:65vh">
           
           
         </div>
        
-        <div class="col-md-2">
-          <div class="card text-center">
-            <div class="card-header bg-light ">
-                <h5>Break Down</h5>
-            </div>
-            <div class="card-body bg-light">
-                <p class="text-primary-emphasis"> ---</p>
-                <p class="text-primary-emphasis"> ---</p>
-                <p class="text-primary-emphasis"> ---</p>
-            </div>
+        <div class="col-md-3">
+            <div class="card text-center"  >
+        
+              <div class="card-body bg-light" id="BalAmountDue" style="padding:40px;border-radius: 20px;">
+              
+              </div>
+
           
+            </div>
+            <br>
+            <div class="card text-center">
+        
+              <div class="card-body bg-light" id="BalAmountCharges" style="padding:40px;border-radius: 20px;">
+              
+              </div>
+
+          
+            </div>
         </div>
-          <div class="card text-center">
-              <div class="card-header bg-light ">
-                  <h5>Total Amount</h5>
-              </div>
-              <div class="card-body bg-light">
-                  <p class="display-6 text-primary-emphasis">Php -----</p>
-              </div>
-            
-          </div>
+          
         </div>
       </div>
 
@@ -731,7 +731,7 @@
       // var response = {
       //   details: [
       //     {
-      //       "_id": "6664337ed340d07adc225d87",
+      //       "_id": "66800e0c201dfc1a65fbdd0f",
       //       "visitid": "000000900708",
       //       "primaryKey": "5fd99f8d9d934ef68f7e3724",
       //       "firstname": "CARL JOEL",

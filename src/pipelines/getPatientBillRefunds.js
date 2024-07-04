@@ -19,7 +19,18 @@ const patientBillrefunds = (patientvisituid) => {
                 paidamount: "$paidamount",
             
             }
-        }
+        },
+
+            {
+                '$group':
+                            
+                            {
+                                '_id': null,
+                                'total_refunds': {
+                                '$sum': '$paidamount'
+                                }
+                            }
+            }
           
     ];
 }

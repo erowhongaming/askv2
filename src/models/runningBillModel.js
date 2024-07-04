@@ -55,7 +55,7 @@ const patientBill= {
             await Collection.initializeDb(); // Ensure the database is initialized
             const collection = await Collection.getCollection('deposits');
            
-            const pipeline = getRefunds(patientvisituid); // Assuming the pipeline function doesn't need parameters
+            const pipeline = getDeposits(patientvisituid); // Assuming the pipeline function doesn't need parameters
            // console.log('Pipeline:', pipeline); // Log the pipeline
             const result = await collection.aggregate(pipeline).toArray();
            //console.log('Aggregation Result:', result); // Log the result
@@ -72,7 +72,10 @@ const patientBill= {
         let arr_returns = {};
         let arr_charges = {};
         let arr_profFee = {};
-
+        let total_returns = 0;
+        let total_charges = 0;
+        let total_profFee = 0;
+        
         // Iterate over results and categorize them
         results.forEach(r => {
 
@@ -85,6 +88,7 @@ const patientBill= {
 
                 arr_profFee[r.chargedate].items.push(r);
                 arr_profFee[r.chargedate].subtotal += parseFloat(r.netamount);
+                total_profFee += parseFloat(r.netamount);
                 return; // Continue to next iteration
             }
 
@@ -101,6 +105,7 @@ const patientBill= {
               
                 arr_returns[r.chargedate].items.push(r);
                 arr_returns[r.chargedate].subtotal += parseFloat(r.netamount);
+                total_returns += parseFloat(r.netamount);
             } else if (r.netamount > 0) {
                 const entype = r.entype || r.visitentype;
                 if (!arr_charges[entype]) arr_charges[entype] = {};
@@ -112,6 +117,7 @@ const patientBill= {
               
                 arr_charges[entype][r.chargedate].items.push(r);
                 arr_charges[entype][r.chargedate].subtotal += parseFloat(r.netamount);
+                total_charges += parseFloat(r.netamount);
             }
         });
 
@@ -120,7 +126,10 @@ const patientBill= {
         return {
             'profFee':arr_profFee,
             'returns':arr_returns,
-            'charges':arr_charges
+            'charges':arr_charges,
+            'total_returns':total_returns,
+            'total_charges':total_charges,
+            'total_profFee':total_profFee
         };
     } catch (error) {
         console.error('Error:', error); // Log any errors

@@ -112,13 +112,43 @@ router.post('/api/runningbill/charges',jsonParser, async (req, res) => {
         const result = await PatientBill.getResults(patientvisituid); 
      
         const charges = await PatientBill.getCharges(result);
-        console.log(charges);
-         //console.log("getCharges():Get charges success!");
-        res.json({ result: charges,msg: 'Success'});
+        const total_deposits = await PatientBill.getDeposits('667d27ef7df5439d5b378d08');
+        const total_refunds = await PatientBill.getRefunds('667d27ef7df5439d5b378d08');
+      
+         console.log("getCharges():Get charges success!");
+        res.json({ result: charges,total_refunds_and_deposits:{deposits:total_deposits,refunds:total_refunds},msg: 'Success'});
     }catch(error) {
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
+
+
+
+router.post('/api/runningbill/deposits',jsonParser, async (req, res) => {
+    const patientvisituid = req.body.patientvisituid|| '';
+    
+    try {
+        const result = await PatientBill.getDeposits(patientvisituid);
+        console.log("getResults():Get deposits success!");
+        res.json({ result: result,msg: 'Success'});
+    }catch(error) {
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
+
+
+router.post('/api/runningbill/refunds',jsonParser, async (req, res) => {
+    const patientvisituid = req.body.patientvisituid|| '';
+    
+    try {
+        const result = await PatientBill.getRefunds(patientvisituid);
+        console.log("getResults():Get Refunds success!");
+        res.json({ result: result,msg: 'Success'});
+    }catch(error) {
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
+
 
 
 
