@@ -299,7 +299,7 @@
      
       </div>
         <!-- <div class="card border-light-subtle shadow-sm " > -->
-          <div class="row justify-content-center border-light-subtle shadow-sm" style='height:75vh;display:none'>
+          <div class="row justify-content-center border-light-subtle shadow-sm" style='height:75vh;'>
             <div class="col-12 col-md-6 text-bg-rbill" style='
             background: linear-gradient(rgba(128, 0, 0, 0.8), rgba(128, 0, 0, 0.8)), url("/assets/img/bg2_pattern.jpg") top center;
             background-blend-mode: multiply;
@@ -726,24 +726,24 @@
 
 
          // hide billing table
-         $('#runningBillTable').css('display', 'block');
+         $('#runningBillTable').css('display', 'none');
     // Define response object with details array
-      var response = {
-        details: [
-          {
-            "_id": "6664337ed340d07adc225d87",
-            "visitid": "000000900708",
-            "primaryKey": "5fd99f8d9d934ef68f7e3724",
-            "firstname": "CARL JOEL",
-            "fullname": "DE LARA, CARL JOEL",
-            "contactno": "09985412557",
-            "dateofbirth": "09/20/1982",
-            "admissionDate": "06/08/2024",
-            "mrn": "MRN00014091"
-          }
-        ]
-      };
-      billingDetails(response);
+      // var response = {
+      //   details: [
+      //     {
+      //       "_id": "6664337ed340d07adc225d87",
+      //       "visitid": "000000900708",
+      //       "primaryKey": "5fd99f8d9d934ef68f7e3724",
+      //       "firstname": "CARL JOEL",
+      //       "fullname": "DE LARA, CARL JOEL",
+      //       "contactno": "09985412557",
+      //       "dateofbirth": "09/20/1982",
+      //       "admissionDate": "06/08/2024",
+      //       "mrn": "MRN00014091"
+      //     }
+      //   ]
+      // };
+      // billingDetails(response);
   });
 
   
