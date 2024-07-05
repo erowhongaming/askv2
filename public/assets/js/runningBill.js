@@ -54,6 +54,7 @@
   $('#validate-number').click(function(){
     const mobilenumber =  $('#mobilenumber').val();
     if(checkEntry() == 0){
+      $('#otp input').val('');
       validateMobileNumber(mobilenumber);
     }
   });
@@ -215,7 +216,10 @@
   
 
   function billingDetails(response){
-    
+    $('#rbTable_name').html('');
+    $('#rbTable_bdate').html('');
+    $('#rbTable_patientnum').html('');
+    $('#rbTable_admission').html('');
     showBillingTable();
     $('#infoNotes').html(` 
           <div class="card mb-3" >
@@ -245,7 +249,7 @@
   
     //Get Charges
     chargesDetails(patientvisituid,function(results){
-
+      $('#billingDetailsTable').html(``);
       if(results.result.profFee){
        
           $('#infoNotes').append(`
@@ -565,8 +569,9 @@
 
       $('#rbTable_name').html(response.details[0].fullname);
       $('#rbTable_bdate').html(response.details[0].dateofbirth);
-      $('#rbTable_patientnum').html(response.details[0].patient_id);
+      $('#rbTable_patientnum').html(response.details[0].visitid);
       $('#rbTable_admission').html(response.details[0].admissionDate);
+      $('#rbTable_mrn').html(response.details[0].mrn);
     
   }
   function chargesDetails(patientvisituid,callback){
@@ -576,7 +581,21 @@
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({ patientvisituid:patientvisituid}),
-      
+      beforeSend: function(){
+        $('#billingDetailsTable').html(`
+          <div class="spinner-container">
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow text-dark" role="status">
+              <span class="sr-only"></span>
+            </div>
+          
+        </div>`);
+      },
       success: function(results) {
       
         
@@ -603,13 +622,17 @@
 
   function runninBillLogout(){
     $('#mobilenumber').val('');
+    $('#billingDetailsTable').html('');
     $('#runningBillTable').css('display', 'none');
-    $('#runningBillTable').html('');
+   
     showStep(1);
     $('#runningbillLogin').css({
                     display: 'block',
                     opacity: 0
                 }).animate({ opacity: 1 }, 300); // 300ms animation duration
+
+   goTo('#runningBill');
+
   }
 
 
