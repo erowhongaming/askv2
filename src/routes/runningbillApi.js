@@ -112,8 +112,8 @@ router.post('/api/runningbill/charges',jsonParser, async (req, res) => {
         const result = await PatientBill.getResults(patientvisituid); 
      
         const charges = await PatientBill.getCharges(result);
-        const total_deposits = await PatientBill.getDeposits('667d27ef7df5439d5b378d08');
-        const total_refunds = await PatientBill.getRefunds('667d27ef7df5439d5b378d08');
+        const total_deposits = await PatientBill.getDeposits(patientvisituid);
+        const total_refunds = await PatientBill.getRefunds(patientvisituid);
       
          console.log("getCharges():Get charges success!");
         res.json({ result: charges,total_refunds_and_deposits:{deposits:total_deposits,refunds:total_refunds},msg: 'Success'});
