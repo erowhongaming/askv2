@@ -43,8 +43,8 @@ router.get('/api/doctors/search', async (req, res) => {
         }
         // Search the indexed data using wildcard search for multiple terms
         const results = await Doctor.search(query);
-        const withRooms = await  Doctor.getRooms(results);
-        res.json(withRooms);
+        //const withRooms = await  Doctor.getRooms(results);
+        res.json(results);
     } catch (err) {
         console.error("Error performing search:", err);
         res.status(500).json({ error: "Failed to perform search" });
@@ -68,6 +68,12 @@ router.get('/api/doctors/search-by-specialization', async (req, res) => {
     res.json(results);
 });
 
+
+router.get('/api/doctors/preData', async (req,res) =>{
+    const results = await Doctor.getPreData();
+    res.json(results);
+});
+
 /**
  * Retrieves doctors based on the provided specialization, sub-specialization, and search value.
  * 
@@ -82,8 +88,8 @@ router.get('/api/doctors/search-by-specialization-with-subspecialization', async
     const subSpecialization = req.query.subSpecialization || '';
     const searchVal = req.query.searchVal || '';
     const results = await Doctor.searchBySpecializationWithSubspecialization(specialization, subSpecialization,searchVal);
-    const withRooms = await  Doctor.getRooms(results);
-    res.json(withRooms);
+    //const withRooms = await  Doctor.getRooms(results);
+    res.json(results);
 });
 
 

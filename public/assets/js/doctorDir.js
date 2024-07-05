@@ -34,8 +34,9 @@ function toggleSearch(){
   } else {
     searchIcon.classList.remove('ri-close-line');
     searchIcon.classList.add('ri-search-2-line');
-    searchInput.value = ''; // Clear the input value if the search bar is being closed
-    search(searchInput.value);
+   // searchInput.value = ''; // Clear the input value if the search bar is being closed
+    getPreData();
+   // search(searchInput.value);
   }
 }
 $('#search-icon').click(toggleSearch);
@@ -188,10 +189,25 @@ $('#search-icon').click(toggleSearch);
         getDoctorsBySpecializationAndSubspecialization(selectedSpecialty,selectedSubSpecialty);
       }else{
         $('#physicians-container').html(``);
-        getInitialLoading();
+        getPreData();
+        //getInitialLoading();
       }
     }
   
+
+    function getPreData(){
+      $.ajax({
+        url: `/api/doctors/preData`,
+        method: 'GET',
+        success: function(data) {   
+          const limitedData = data.slice(0, 100);
+          renderPhysicians(limitedData);    
+        },error: function(jqXHR, textStatus, errorThrown) {
+          console.error('Error:', textStatus, errorThrown);     
+         
+        }
+      });
+    }
 
     function getInitialLoading(){
        
@@ -476,7 +492,8 @@ $('#search-icon').click(toggleSearch);
       } else {
         $('#navbar').show();
           $(".sidebar-wrapper").hide(400);
-          getInitialLoading();
+          // getInitialLoading();
+          getPreData();
           $('#selectedValue').text('None');
           $('#selectedValue').text('None');
       }

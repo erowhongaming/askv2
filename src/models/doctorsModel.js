@@ -122,7 +122,7 @@ const Doctor = {
                     phySched.HMOS AS affiliated_payors,
                     phySched.secretary_name AS secretary,
                     phySched.secretary_contact,
-                    CONCAT(phySched.room, ' - ', phySched.bldg) AS room,
+                   
                     phySched.is_in,
                     people.gender,
                     phySched.HMOS AS hmo,
@@ -191,6 +191,8 @@ const Doctor = {
                     } else {
                         // Assign rooms to the doctor object
                         doctor.rooms = results;
+                        doctorData[doctor.person_id].rooms = results;
+                       
                         resolve(doctor);
                     }
                 });
@@ -200,7 +202,11 @@ const Doctor = {
         try {
             // Use Promise.all to fetch rooms for all doctors concurrently
             const updatedDoctors = await Promise.all(doctors.map(fetchRoomsForDoctor));
-            
+            // console.log(doctorData);
+            // console.log(updatedDoctors);
+
+            // console.log(doctorData);
+            //             process.exit()
             // Return the updated array of doctors with rooms
             return updatedDoctors;
         } catch (error) {
@@ -218,6 +224,8 @@ const Doctor = {
         // Split the search term by commas and trim whitespace
         const searchTerms = searchTerm.split(',').map(term => term.trim());
         const matchingIdsSet = new Set();
+
+    
 
         searchTerms.forEach(term => {
             const wildcardSearchTerm = `${term}*`;
@@ -348,9 +356,12 @@ const Doctor = {
                 }
             });
         });
-    }
+    },
 
-    
+    getPreData: () => {
+        let preDoctor = Object.values(doctorData);
+        return preDoctor;
+    }
 };
 
 module.exports = Doctor;
