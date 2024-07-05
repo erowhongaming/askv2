@@ -45,8 +45,22 @@ var request;
         $('#mobilenumber').val('');
         $('input[name="radioSpecialty"]:checked').prop('checked', false);
         $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
-        runninBillLogout();showStep(1);
+      
         $('input[name="sideHMO"]:checked').prop('checked', false);
+
+        
+      
+        // Running Bill 
+         $('#billingDetailsTable').html('');
+      
+        $('#runningBillTable').css('display', 'none');
+        showStep(1);
+   
+        $('#runningbillLogin').css({
+            display: 'block',
+            opacity: 0
+        }).animate({ opacity: 1 }, 300);
+        
         goTo('#landingPage');
     }
     $('#sidebar-home').click(resetWhenHome);
