@@ -220,6 +220,8 @@
     $('#rbTable_bdate').html('');
     $('#rbTable_patientnum').html('');
     $('#rbTable_admission').html('');
+    $('#BalAmountDue').html('');
+    $('#BalAmountCharges').html('');
     showBillingTable();
     $('#infoNotes').html(` 
           <div class="card mb-3" >
@@ -514,7 +516,7 @@
                 </tr>
                    <tr>
                   <td><b>Returns & Discontinuations:</b></td>
-                  <td style="padding-left: 25px;font-size:17px;"  id="totalProfFee">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td style="padding-left: 25px;"  id="totalProfFee">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 </tr>
                
               
