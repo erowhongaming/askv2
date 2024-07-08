@@ -1,31 +1,42 @@
-
 require('../config/env-load'); // Ensure environment variables are loaded
 const mysql = require('mysql2');
-/**
- * Creates a connection to a MySQL database using the provided environment variables for host, username, password, database, and port.
- * If there is an error connecting to the database, it logs the error message. Otherwise, it logs a success message.
- * @returns {Object} The MySQL connection object.
- */
-const connection = mysql.createConnection({
+
+const config = {
   host: process.env.MYSQL_PROD_HOST,
   user: process.env.MYSQL_PROD_USERNAME,
   password: process.env.MYSQL_PROD_PASSWORD,
   database: process.env.ASK_DB,
   port: process.env.MSYQL_PROD_PORT
-});
+};
+
+let connection;
 
 /**
- * Arrow function that handles the connection callback for connecting to the database.
- * 
- * @param {Error} err - The error object, if any, that occurred during the connection.
- * @returns {void}
+ * Function to establish a connection to the MySQL database.
  */
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err.stack);
-    return;
-  }
-  console.log('Connected to the Ask database.');
-});
+const connectToDatabase = () => {
+  connection = mysql.createConnection(config);
+
+  connection.connect((err) => {
+    if (err) {
+      console.error('Error connecting to the Ask database:', err.stack);
+      setTimeout(connectToDatabase, 2000); // Retry connection after 2 seconds
+    } else {
+      console.log('Connected to the Ask database.');
+    }
+  });
+
+  connection.on('error', (err) => {
+    console.error('Database error:', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNREFUSED' || err.code === 'ER_CON_COUNT_ERROR') {
+      connectToDatabase(); // Reconnect on connection lost error
+    } else {
+      throw err;
+    }
+  });
+};
+
+// Initial connection attempt
+connectToDatabase();
 
 module.exports = connection;
