@@ -1,4 +1,4 @@
-# askv2
+[# askv2
 Askv2: A patient kiosk application designed to streamline the healthcare experience.
 
 
@@ -45,4 +45,4 @@ https://codepen.io/Avelin-SAMA/pen/YzqEYjo
 https://discord.com/invite/EUUkU9h8
 
 **Notion Notes**
-https://sapphire-insect-278.notion.site/ASKv2-TO-DO-LIST-2f596cabbead4a0d8fd9764d2b7f1282
+https://erowhon.notion.site/ASKv2-TO-DO-LIST-2f596cabbead4a0d8fd9764d2b7f1282
