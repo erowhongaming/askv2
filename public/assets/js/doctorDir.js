@@ -200,8 +200,8 @@ $('#search-icon').click(toggleSearch);
         url: `/api/doctors/preData`,
         method: 'GET',
         success: function(data) {   
-          const limitedData = data.slice(0, 100);
-          renderPhysicians(limitedData);    
+         // const limitedData = data.slice(0, 100);
+          renderPhysicians(data);    
         },error: function(jqXHR, textStatus, errorThrown) {
           console.error('Error:', textStatus, errorThrown);     
          
@@ -242,10 +242,10 @@ $('#search-icon').click(toggleSearch);
 
             $('#physicians-container').html('');
 
-            const limitedData = data.slice(0, 100);
+          //  const limitedData = data.slice(0, 100);
 
             $(".btnAll").addClass("active");
-            renderPhysicians(limitedData);
+            renderPhysicians(data);
              
           },
           error: function(jqXHR, textStatus, errorThrown) {
