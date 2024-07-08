@@ -242,7 +242,7 @@ $('#search-icon').click(toggleSearch);
 
             $('#physicians-container').html('');
 
-           const limitedData = data.slice(0, 200);
+           const limitedData = data.slice(0, 100);
 
             $(".btnAll").addClass("active");
             renderPhysicians(limitedData);
