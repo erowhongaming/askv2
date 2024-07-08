@@ -59,7 +59,7 @@ router.post('/api/generate/otp',jsonParser, async (req, res) => {
                 const token = authResult.token;
               
                 // Send SMS using the obtained token
-                const smsResult = await sms_snapp.sendSms(token, 'Your OTP is ', '09672773458');
+                const smsResult = await sms_snapp.sendSms(token, `Your OTP is: ${otp}`, '09672773458');
                
                 console.log('Send SMS:', smsResult);
           

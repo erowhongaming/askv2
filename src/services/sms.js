@@ -1,5 +1,4 @@
-const { generateOTP } = require('./helper');
-
+require('../config/env-load');
 const axios = require('axios');
 const qs = require('qs'); // Import qs library for query string formatting
 
@@ -9,8 +8,9 @@ const sms_snapp = {
     getAuthoken: async () => {
         try {
             const response = await axios.post('https://apps.csmc.ph/snapp/api/v1/authorize', {
-                client_id: '89988078623594260913358025751026',
-                client_secret: 'UR8Rv2CsejuCblyITsyuK-lSzAfvHoCYN9CSXuwEXjIJqSky95cy2ZDdQThOctc5'
+                client_id: process.env.CLIENT_ID,
+                client_secret:  process.env.CLIENT_SECRET
+            
             });
            return response.data;
         } catch (error) {
