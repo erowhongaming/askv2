@@ -15,7 +15,8 @@ const handleDisconnect = () => {
         user: process.env.MYSQL_PROD_USERNAME,
         password: process.env.MYSQL_PROD_PASSWORD,
         database: process.env.MYSQL_PROD_HRIS_DB,
-        port: process.env.MSYQL_PROD_PORT
+        port: process.env.MSYQL_PROD_PORT, 
+        connectTimeout: 60000
     });
 
     connection.connect((err) => {
