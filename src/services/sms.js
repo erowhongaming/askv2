@@ -1,48 +1,82 @@
 const { generateOTP } = require('./helper');
 
 const axios = require('axios');
+const qs = require('qs'); // Import qs library for query string formatting
 
-async function sendSMS(message, phoneNumber, authToken) {
-    
-    const client_id = "15252307826838028532856564660668";
-    const client_secret = "v1Lx2ICLv2MoDgO-aW=Dh4TgfbtrLO4nKspegYtxko3miy7mhvVB9WA4243c6qRb";
-
-    try {
-        const response = await axios.post('https://apps.csmc.ph/snapp/api/v1/', {
-            message: message,
-            to: phoneNumber,
-        }, {
-            headers: {
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'multipart/form-data',
-            }
-            ,form_params:{
-                'client_id' : client_id,
-                'client_secret' : client_secret,
-            }
-        });
-
-        console.log('SMS sent successfully:', response.data);
-        console.log('OTP:',generateOTP());
-        return response.data;
-    } catch (error) {
-        console.error('Error sending SMS:', error.response.data);
-        throw new Error('Failed to send SMS');
-    }
-} 
  
 
 const sms_snapp = {
-    getAuthoken: () => {
-
+    getAuthoken: async () => {
+        try {
+            const response = await axios.post('https://apps.csmc.ph/snapp/api/v1/authorize', {
+                client_id: '89988078623594260913358025751026',
+                client_secret: 'UR8Rv2CsejuCblyITsyuK-lSzAfvHoCYN9CSXuwEXjIJqSky95cy2ZDdQThOctc5'
+            });
+           return response.data;
+        } catch (error) {
+           // console.error('Response error:', error.message);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error('Response error:', error.response.data);
+                // console.error('Response status:', error.response.status);
+                // console.error('Response headers:', error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error('No response received:', error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Error', error.message);
+            }
+            console.error('Config:', error.config);
+        }
     },
-    
-};
-// Usage
-const message = "From Nodejs";
-const phoneNumber = "09672773458";
-const authToken = "QVNJNOGZJW8cai7tBG7P8XQJs8A7Sx64";
+    sendSms: async (authToken,message,recipient) => {
+        const formData = {
+            sms_messages: JSON.stringify({
+              sms_messages: [
+                {
+                  recipient: recipient,
+                  message: message,
+                  schedule_at: ""
+                }
+              ]
+            })
+          };
+          
+   
+      
+        try {
+               // Serialize formData using qs.stringify
+            const serializedFormData = qs.stringify(formData);
 
-sendSMS(message, phoneNumber, authToken)
-    .then(() => console.log("SMS sent successfully"))
-    .catch(error => console.error("Failed to send SMS:", error.message));
+            // Make POST request using Axios
+            const response = await axios.post('https://apps.csmc.ph/snapp/api/v1/sms_messages', serializedFormData,{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded', 
+                    'Authorization': `Bearer ${authToken}`, // Ensure to use backticks ` to correctly interpolate authToken
+      
+                  }
+            });
+            
+           
+            return response.data;
+        } catch (error) {
+            console.error('Error', error.message); console.error('Response error:', error.response.data);            // if (error.response) {
+           
+        }
+    }
+};
+
+
+module.exports = sms_snapp;
+
+// // Test
+// sms_snapp.getAuthoken().then(result=>{
+//     console.log(result.token);
+//     let token = result.token;
+//     sms_snapp.sendSms(token,'Hi','09672773458').then(result=>{
+//         console.log(result);
+//     })
+// });
+

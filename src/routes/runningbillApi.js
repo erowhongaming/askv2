@@ -2,6 +2,7 @@ const express = require('express');
 const Patients = require('../models/patientsModel');
 const PatientBill = require('../models/runningBillModel');
 const helper = require('../services/helper');
+const sms_snapp = require('../services/sms');
 const router = express.Router();
 require('../config/env-load');
 
@@ -53,6 +54,14 @@ router.post('/api/generate/otp',jsonParser, async (req, res) => {
             
            
             console.log('Generated OTP:', otp);
+          
+                const authResult = await sms_snapp.getAuthoken();
+                const token = authResult.token;
+              
+                // Send SMS using the obtained token
+                const smsResult = await sms_snapp.sendSms(token, 'Your OTP is ', '09672773458');
+               
+                console.log('Send SMS:', smsResult);
           
             res.json({ msg: 'OTP generated and sent', status: 1, otp: otp });
         }
