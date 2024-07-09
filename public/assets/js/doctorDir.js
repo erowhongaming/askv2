@@ -420,7 +420,7 @@ $('#search-icon').click(toggleSearch);
             // // Generate schedule rows
         
 
-          img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy">`;
+          img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy"  onerror="this.onerror=null; this.src='/assets/img/avatar.jpg';">`;
           $('#physicians-container').append(
             `
             <div class="docs col-lg-3 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" >
