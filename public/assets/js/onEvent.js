@@ -35,13 +35,13 @@ var request;
     selectedSpecialty();
     });
     
-    $('#runnginBill-link').click(function() {    
-        // event.preventDefault();
+    $('body').on("click", "#runnginBill-link", ()=> {
         goTo('#runningBill');
     });
+
     function resetWhenHome(){
         // event.preventDefault();
-        $('#search-doctor').val('');
+        toggleSearch();
         $('#mobilenumber').val('');
         $('input[name="radioSpecialty"]:checked').prop('checked', false);
         $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
@@ -60,7 +60,7 @@ var request;
             display: 'block',
             opacity: 0
         }).animate({ opacity: 1 }, 300);
-        
+        getPreData();
         goTo('#landingPage');
     }
     $('#sidebar-home').click(resetWhenHome);
@@ -112,7 +112,7 @@ var request;
 
 
 // Set idle timeout duration (5 minutes = 300,000 milliseconds)
-const IDLE_TIMEOUT = 300000; // 5 minutes
+const IDLE_TIMEOUT = 120000; // 5 minutes
 
 let idleTimer; // Variable to hold the timeout ID
 let lastActivityTime; // Variable to track the last activity time

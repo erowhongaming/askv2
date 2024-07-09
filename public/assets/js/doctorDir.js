@@ -34,6 +34,7 @@ function toggleSearch(){
   } else {
     searchIcon.classList.remove('ri-close-line');
     searchIcon.classList.add('ri-search-2-line');
+    $('.search-input').val('');
    // searchInput.value = ''; // Clear the input value if the search bar is being closed
     getPreData();
    // search(searchInput.value);
@@ -439,8 +440,8 @@ $('#search-icon').click(toggleSearch);
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
-                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary} - </strong> 
-                        <strong style="font-size:11Px;color:black;">${doctorInfo.local_num}</strong> 
+                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
+                        <strong style="font-size:11Px;color:black;">loc ${doctorInfo.local_num}</strong> 
 
                       </div> 
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
