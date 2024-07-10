@@ -315,6 +315,12 @@ h6 {
   width: 180px; /* Adjust width as needed */
   text-align:right;
 }
+
+.right-content_p {
+  float: right; /* Floats right content to the right */
+  width: 220px; /* Adjust width as needed */
+  text-align:right;
+}
 .table-inner tr td {
   padding: 10px;
   border: 1px solid #ddd;

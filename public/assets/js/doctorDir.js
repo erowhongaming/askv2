@@ -210,6 +210,30 @@ $('#search-icon').click(toggleSearch);
       });
     }
 
+    function getCurrentDate(){
+        // Get the current date
+      var currentDate = new Date();
+
+      // Format the date as m/d/yyyy
+      var formattedDate = (currentDate.getMonth() + 1) + '/' +
+                          currentDate.getDate() + '/' +
+                          currentDate.getFullYear();
+
+      // Format the time as H:i am/pm
+      var hours = currentDate.getHours();
+      var minutes = currentDate.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+
+      var formattedTime = hours + ':' + minutes + ' ' + ampm;
+
+      // Combine date and time
+      var formattedDateTime = formattedDate + ' ' + formattedTime;
+      return formattedDateTime;
+    }
+
     function getInitialLoading(){
        
         // Initial load 
@@ -247,7 +271,8 @@ $('#search-icon').click(toggleSearch);
 
             $(".btnAll").addClass("active");
             renderPhysicians(limitedData);
-             
+            let dateCu = getCurrentDate();
+            $('#dataAsOf').text(`Data as of ${dateCu}`);
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.error('Error:', textStatus, errorThrown);         

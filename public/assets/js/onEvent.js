@@ -13,26 +13,48 @@ var request;
       search(query);
     });
 
-    $('#subForm').on('change', 'input[type="radio"][name="sub-radioSpecialty"]', function() {
+    var subspecialtyButton  = '';
+    $('#subForm').on('click', 'input[type="radio"][name="sub-radioSpecialty"]', function() {
+        
+      
       const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       const selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
-      if (selectedValue) {
-         if (request) {
-            request.abort();
-          }
-          getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
-      } else {
-         
-          $('#selectedValue').text('None');
+        console.log(subspecialtyButton);
+      
+      if(subspecialtyButton != selectedValue){
+        if (selectedValue) {
+            if (request) {
+               request.abort();
+             }
+             getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
+         } else {
+            
+             $('#selectedValue').text('None');
+         }
+      }else{
+
+      
+        $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
       }
+      subspecialtyButton = selectedValue;
     });
 
-
+     
+    var specialtyButton  = '';
 
     $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]',function(event){
-    // Handle specific behavior for radio buttons if needed
-    event.stopPropagation(); // Prevent bubbling to document level
-    selectedSpecialty();
+        event.stopPropagation(); // Prevent bubbling to document level
+        var specialtyValue = $('input[name="radioSpecialty"]:checked').val();
+        
+      
+        if (specialtyValue != specialtyButton) {
+            // Handle specific behavior for radio buttons if needed
+            selectedSpecialty();
+        } else {
+        
+            $('input[name="radioSpecialty"]:checked').prop('checked', false);
+        }    
+        specialtyButton = specialtyValue;
     });
     
     $('body').on("click", "#runnginBill-link", ()=> {
@@ -41,7 +63,15 @@ var request;
 
     function resetWhenHome(){
         // event.preventDefault();
-        toggleSearch();
+        //toggleSearch();
+         const searchIcon = document.querySelector('#search-icon i'); 
+        searchIcon.classList.remove('ri-close-line');
+        searchIcon.classList.add('ri-search-2-line');
+        
+        $('.search-input').val('');
+
+
+
         $('#mobilenumber').val('');
         $('input[name="radioSpecialty"]:checked').prop('checked', false);
         $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
