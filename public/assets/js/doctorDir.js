@@ -466,7 +466,7 @@ $('#search-icon').click(toggleSearch);
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
                   
                         <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
-                        <strong style="font-size:11Px;color:black;">loc ${doctorInfo.local_num}</strong> 
+                        <strong style="font-size:11Px;color:black;">loc. ${doctorInfo.local_num}</strong> 
 
                       </div> 
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">

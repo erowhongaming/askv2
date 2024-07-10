@@ -337,7 +337,7 @@ const Doctor = {
 
     getHmos: () => {
         const query = `SELECT id,name,has_photo
-        FROM hmos where is_active = 1`;
+        FROM hmos where is_active = 1 order by name asc` ;
 
         return new Promise((resolve, reject) => {
             
