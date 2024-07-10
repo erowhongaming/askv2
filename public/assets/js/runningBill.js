@@ -232,7 +232,7 @@
           </div>
           <div class="card mb-3" >
             <div class="card-body card-design">       
-                <p class="card-text" style="text-align:justify"> Please call 727-0001 local 3017/3018 or visit the Billing department should you have clarifications regarding your bill.</p>
+                <p class="card-text" style="text-align:justify"> Please call 8728-0001 local 3017/3018 or visit the Billing department should you have clarifications regarding your bill.</p>
             </div>
         </div>
         `);    
@@ -270,7 +270,7 @@
           html += `<table class="table_new">
           <thead>
               <tr>
-                  <th>Department</th>
+                  <th>Physician</th>
                   <th>Description</th>
                   <th>Qty</th>
                   <th>Unit Price</th>
@@ -303,7 +303,7 @@
                       let formattedNetAmount = item.netamount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
           
                       html += `<tr>
-                                  <td style="text-align: center;">${item.billinggroupname}</td>
+                                  <td style="text-align: center;">${item.careprovidername}</td>
                                   <td style="text-align: center;">${item.itemname}</td>
                                   <td style="text-align: center;">${item.quantity}</td>
                                   <td style="text-align: center;">${formattedUnitPrice}</td>
@@ -332,7 +332,7 @@
           let html = '';
         // console.log("Category:", category);
           html += `<div class="p-3 border bg-light">`;
-          html += `<h3>${category}</h3>`;
+          html += `<h3>Hospital Charges - ${category}</h3>`;
           html += `<table class="table_new">
                     <thead>
                       <tr>
@@ -482,47 +482,51 @@
         <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
                 <h3>Amount Due</h3>
                 <tr>
-                  <td><b>Hospital Balance</b></td>
-                  <td style="padding-left: 25px;" id="totalHospitalBal">${totalHospitalBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td style="text-align:left"><b>Hospital Charges</b></td>
+                  <td style="text-align:right" id="totalHospitalBal">${totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 </tr>
                 <tr>
-                  <td><b>Professional Fees</b></td>
-                  <td style="padding-left: 25px;"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td style="text-align:left"><b>Returns & Discontinuations</b></td>
+                  <td style="text-align:right" id="totalHospitalBal">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+                <tr>
+                  <td style="text-align:left"><b>Professional Fees</b></td>
+                  <td style="text-align:right"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 </tr>
                    <tr>
-                  <td><b>Avail. Deposit Amount</b></td>
-                  <td style="padding-left: 25px;font-size:17px;"  id="totalProfFee">${totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td style="text-align:left"><b>Avail. Deposit Amount</b></td>
+                  <td style="text-align:right;font-size:17px;"  id="totalProfFee">${totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 </tr>
                 <tr style="font-size:25px;">
-                  <td><b>Running Balance</b></td>
-                  <td style="padding-left: 25px;"  id="Running Balance">${availAmnt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>  
+                  <td style="text-align:left"><b>Running Balance</b></td>
+                  <td style="text-align:right;"  id="Running Balance">${availAmnt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>  
                 </tr>
               
               </table>`;
 
       $('#BalAmountDue').html(html);
 
-      let html1 ='';
-      html1 = `  
-        <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
-                <h3>Charges</h3>
-                <tr>
-                  <td><b>Hospital Charges</b></td>
-                  <td style="padding-left: 25px;" id="totalHospitalBal">${totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                </tr>
-                <tr>
-                  <td><b>Professional Fees</b></td>
-                  <td style="padding-left: 25px;"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                </tr>
-                   <tr>
-                  <td><b>Returns & Discontinuations:</b></td>
-                  <td style="padding-left: 25px;"  id="totalProfFee">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                </tr>
+      // let html1 ='';
+      // html1 = `  
+      //   <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
+      //           <h3>Charges</h3>
+      //           <tr>
+      //             <td><b>Hospital Charges</b></td>
+      //             <td style="padding-left: 25px;" id="totalHospitalBal">${totalCharges.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+      //           </tr>
+      //           <tr>
+      //             <td><b>Professional Fees</b></td>
+      //             <td style="padding-left: 25px;"  id="totalProfFee">${totalProFee.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+      //           </tr>
+      //              <tr>
+      //             <td><b>Returns & Discontinuations:</b></td>
+      //             <td style="padding-left: 25px;"  id="totalProfFee">${totalReturn.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+      //           </tr>
                
               
-              </table>`;
+      //         </table>`;
 
-      $('#BalAmountCharges').html(html1);
+      // $('#BalAmountCharges').html(html1);
 
       $('#navbar').hide();
       $('span#collapse').click(collapseTbl);
