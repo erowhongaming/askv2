@@ -24,19 +24,24 @@ var request;
       if(subspecialtyButton != selectedValue){
         if (selectedValue) {
             if (request) {
-               request.abort();
-             }
-             getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
-         } else {
-            
-             $('#selectedValue').text('None');
-         }
+                    request.abort();
+                }
+                getDoctorsBySpecializationAndSubspecialization(specialtyValue, selectedValue);
+            } else {
+                
+                $('#selectedValue').text('None');
+            }
+         
+        subspecialtyButton = selectedValue;
       }else{
 
       
         $('input[name="sub-radioSpecialty"]:checked').prop('checked', false);
+        $('#selectedValue').text('None'); 
+        getDoctorsBySpecializationAndSubspecialization(specialtyValue, '');
+
+        subspecialtyButton = '';
       }
-      subspecialtyButton = selectedValue;
     });
 
      
@@ -44,17 +49,22 @@ var request;
 
     $('#myForm').on('click', 'input[type="radio"][name="radioSpecialty"]',function(event){
         event.stopPropagation(); // Prevent bubbling to document level
-        var specialtyValue = $('input[name="radioSpecialty"]:checked').val();
+        const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
         
       
         if (specialtyValue != specialtyButton) {
             // Handle specific behavior for radio buttons if needed
             selectedSpecialty();
+            specialtyButton = specialtyValue;
         } else {
         
             $('input[name="radioSpecialty"]:checked').prop('checked', false);
+            $(".sidebar-wrapper").hide(400);
+            $('#selectedValue').text('None');
+            getPreData();
+            specialtyButton = '';
         }    
-        specialtyButton = specialtyValue;
+       
     });
     
     $('body').on("click", "#runnginBill-link", ()=> {

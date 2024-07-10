@@ -521,7 +521,6 @@ $('#search-icon').click(toggleSearch);
           // getInitialLoading();
           getPreData();
           $('#selectedValue').text('None');
-          $('#selectedValue').text('None');
       }
     }
 
