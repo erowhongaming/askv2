@@ -479,6 +479,10 @@
 
       let availAmnt = parseFloat((totalCharges+totalReturn+totalProFee)-(totalDeposits-totalRefunds) );
 
+      let formattedNegativeDeposits = totalDeposits !== 0 
+      ? (-totalDeposits).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
+      : totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  
       let html ='';
       let dateCu = getCurrentDate();
       
@@ -500,7 +504,7 @@
                 </tr>
                    <tr>
                   <td style="text-align:left"><b>Avail. Deposit Amount</b></td>
-                  <td style="text-align:right;font-size:17px;"  id="totalProfFee">${totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td style="text-align:right;font-size:17px;"  id="totalProfFee">${formattedNegativeDeposits}</td>
                 </tr>
                 <tr style="font-size:25px;">
                   <td style="text-align:left"><b>Running Balance</b></td>
