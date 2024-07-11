@@ -15,6 +15,10 @@ body {
   color: #272829;
   overflow:hidden;
   font-family: "Lato", sans-serif;
+  user-select: none; /* Standard */
+    -webkit-user-select: none; /* Webkit */
+    -moz-user-select: none; /* Mozilla */
+    -ms-user-select: none; /* Internet Explorer */
 }
 
 .cards:hover > .card-services:not(:hover) {

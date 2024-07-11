@@ -208,3 +208,12 @@ function displayRemainingTime() {
 
 // Update remaining time every second
 setInterval(displayRemainingTime, 1000);
+
+
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+history.pushState(null, null, document.URL);
+window.addEventListener('popstate', function () {
+    history.pushState(null, null, document.URL);
+});
