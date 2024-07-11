@@ -446,34 +446,40 @@ $('#search-icon').click(toggleSearch);
         
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy"  onerror="this.onerror=null; this.src='/assets/img/avatar.jpg';">`;
+         
+          let secrtary_div = '';
+          if(doctorInfo.secretary != null){
+                 secrtary_div = `
+                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
+                        <strong style="font-size:11Px;color:black;">loc. ${doctorInfo.local_num}</strong> 
+                        `;
+          }
           $('#physicians-container').append(
             `
             <div class="docs col-lg-3 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" >
                 <div class="doc-member"> 
                   <div class="member-img"  >
                  
-                    `+img+`
+                    ${img}
                   </div>
                   <div class="member-info">
                     <strong style="font-size:18px;color:#002e5c;text-align:center;font-weight:900;">${doctorInfo.fullname}</strong><br>
                     <strong style="font-size:12px;text-align:center;color:#969393"><i>${doctorInfo.specialization} - ${doctorInfo.subSpecialization}</i></strong>
                    
                     <div class="row">
-                     `+clinicalSchedules+`
-                      
+                   
+                      ${clinicalSchedules}
                       
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
-                  
-                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
-                        <strong style="font-size:11Px;color:black;">loc. ${doctorInfo.local_num}</strong> 
+                          ${secrtary_div}
 
                       </div> 
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Affiliated Payors: </strong>
                         <div class="affiliated-payors-wrapper">
                          
-                                `+affil+`
+                       ${affil}
                                
                            
                         </div>

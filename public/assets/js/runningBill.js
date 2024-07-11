@@ -192,6 +192,7 @@
             console.log('Response:', response);
             if(response.status == 1){
               showStep(3);
+              closeKeyboardOTP();
               //  Get BillingDetails
               billingDetails(response);
             
