@@ -195,13 +195,36 @@ $('#search-icon').click(toggleSearch);
       }
     }
   
+  function getSpecialties(data){
+       // Group data by specialization and subspecialization
+       const groupedBySpecialization = groupDataBySpecialization(data);                
+       const groupBySubSpecialization = groupDataBySubSpecialization(data);            
 
+      
+     
+       $('#filterSpecialty').html('');
+     
+       // Append filter items for each specialization
+       for (const specialization in groupedBySpecialization) {
+           $('#filterSpecialty').append(
+             `<label  >
+                 <input type="radio" name="radioSpecialty" value="${specialization}"  />
+                 <div class="specialty-filter box" data-toggle="tooltip" data-placement="top" title="CLICK ${specialization}">
+                   <span class="specialtyh1">${specialization}</span>
+                 </div>
+               </label>`                    
+           );
+       }
+  }
     function getPreData(){
       $.ajax({
         url: `/api/doctors/preData`,
         method: 'GET',
         success: function(data) {   
           const limitedData = data.slice(0, 100);
+            
+          getSpecialties(data);
+
           renderPhysicians(limitedData);    
         },error: function(jqXHR, textStatus, errorThrown) {
           console.error('Error:', textStatus, errorThrown);     
@@ -245,25 +268,7 @@ $('#search-icon').click(toggleSearch);
             // Limit data to the first 100 doctors
           
             
-            // Group data by specialization and subspecialization
-            const groupedBySpecialization = groupDataBySpecialization(data);                
-            const groupBySubSpecialization = groupDataBySubSpecialization(data);            
-
-           
-          
-            $('#filterSpecialty').html('');
-          
-            // Append filter items for each specialization
-            for (const specialization in groupedBySpecialization) {
-                $('#filterSpecialty').append(
-                  `<label  >
-                      <input type="radio" name="radioSpecialty" value="${specialization}"  />
-                      <div class="specialty-filter box" data-toggle="tooltip" data-placement="top" title="CLICK ${specialization}">
-                        <span class="specialtyh1">${specialization}</span>
-                      </div>
-                    </label>`                    
-                );
-            }
+            getSpecialties(data);
 
             $('#physicians-container').html('');
 
