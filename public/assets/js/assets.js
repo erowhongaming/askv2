@@ -83,7 +83,7 @@
                 switch (key) {
                     case "backspace":
                         keyElement.classList.add("keyboard__key--wide");
-                        keyElement.innerHTML ='BACK'
+                        keyElement.innerHTML ='⌫'
 
                         keyElement.addEventListener("click", () => {
                             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -346,7 +346,7 @@
                 switch (key) {
                     case "backspace":
                         keyElement.classList.add("keyboard__key--wide");
-                        keyElement.innerHTML = 'BACK';
+                        keyElement.innerHTML = '⌫';
     
                         keyElement.addEventListener("click", () => {
                             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -495,7 +495,7 @@
 
                 switch (key) {
                     case "backspace":
-                        keyElement.innerHTML = 'BACK';
+                        keyElement.innerHTML = '⌫';
 
                         keyElement.addEventListener("click", () => {
                             if (this.properties.value.length > 0) {
