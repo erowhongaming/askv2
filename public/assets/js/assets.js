@@ -331,13 +331,15 @@
         _createKeys() {
             const fragment = document.createDocumentFragment();
             const keyLayout = [
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                "done"
+                "1", "2", "3",
+                "4", "5", "6",
+                "7", "8", "9",
+                "done", "0", "backspace"
             ];
     
-            keyLayout.forEach(key => {
+            keyLayout.forEach((key, index) => {
                 const keyElement = document.createElement("button");
-                const insertLineBreak = ["backspace"].indexOf(key) !== -1;
+                const insertLineBreak = (index + 1) % 3 === 0;
     
                 // Add attributes/classes
                 keyElement.setAttribute("type", "button");
@@ -381,7 +383,7 @@
     
                 fragment.appendChild(keyElement);
     
-                if (insertLineBreak) {
+                if (insertLineBreak && index < keyLayout.length - 1) {
                     fragment.appendChild(document.createElement("br"));
                 }
             });
