@@ -101,7 +101,14 @@ var request;
             opacity: 0
         }).animate({ opacity: 1 }, 300);
         getPreData();
+
+        closeKeyboard();
+        closeKeyboardNum();
+        closeKeyboardOTP();
         goTo('#landingPage');
+
+
+
     }
     $('#sidebar-home').click(resetWhenHome);
     $('#sidebar-runningbill').click(function() {
