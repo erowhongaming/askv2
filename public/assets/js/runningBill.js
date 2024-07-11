@@ -480,7 +480,10 @@
       let availAmnt = parseFloat((totalCharges+totalReturn+totalProFee)-(totalDeposits-totalRefunds) );
 
       let html ='';
-      html = `  
+      let dateCu = getCurrentDate();
+      
+      html = `    
+            
         <table style=" width:100%;border-top: 1px solid #3C2A21;padding-top:3px;font-weight:900;font-size:15px;">
                 <h3>Amount Due</h3>
                 <tr>
@@ -504,7 +507,9 @@
                   <td style="text-align:right;"  id="Running Balance">${availAmnt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>  
                 </tr>
               
-              </table>`;
+              </table>
+               <span id="dataAsOfRunningBill"  class="right-content_p" style="font-size:9px;font-weight:200">Data as of ${dateCu}</span>
+              `;
 
       $('#BalAmountDue').html(html);
 
