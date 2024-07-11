@@ -18,7 +18,8 @@ const jsonParser = bodyParser.json()
  * @returns {Object} - JSON response indicating if active patients are found or any server error.
  */
 router.get('/api/validate/patients-is-active', async (req, res) => {
-    const mobilenumber = req.query.mobilenumber || '';
+    const mobilenumber = Number(req.query.mobilenumber) || '';
+
     
     try {
         const results = await Patients.fetchPatientsByMobileNumber(mobilenumber);
