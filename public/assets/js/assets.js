@@ -484,8 +484,7 @@
         _createKeys() {
             const fragment = document.createDocumentFragment();
             const keyLayout = [
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
-                "done"
+                "1", "2", "3", "4", "5", "6", "7", "8", "9","done", "0", "backspace"
             ];
     
             keyLayout.forEach((key, index) => {
