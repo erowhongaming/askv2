@@ -12,8 +12,8 @@
   - Hides the error message if the input is valid
   """
   */
-
-  $('#mobilenumber').keyup(checkEntry);
+  $('body').on("keyup", "#mobilenumber",checkEntry);
+  
   /*
   Function to check if a mobile number is valid.
   Parameters:
@@ -24,10 +24,11 @@
   - 1 if the mobile number is invalid, 0 if the mobile number is valid
   */
   function checkEntry(){
+    
     const mobileInput = $('#mobilenumber');
     const errorMessage = $('#error-message');
     const validateNumber = $('#validate-number');
-
+    
     const mobileValue = mobileInput.val();
     if (mobileValue.length >= 2 && mobileValue.substring(0, 2) !== '09') {
         errorMessage.html('Must start with 09').show();

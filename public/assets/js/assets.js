@@ -324,6 +324,8 @@
                     this.open(element.value, currentValue => {
                         element.value = currentValue;
                     }, element.maxLength);
+                    $('#validate-number').prop('disabled', false);
+                    $('#error-message').hide();
                 });
             });
         },
