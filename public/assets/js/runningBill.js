@@ -76,6 +76,7 @@
         timer: 1500,
         timerProgressBar: true,
         didOpen: () => {
+          closeKeyboardNum();
           Swal.showLoading();
         },
         willClose: () => {
@@ -94,7 +95,7 @@
                       data: JSON.stringify({ mobilenumber: mobilenumber }),
                       success: function(response) {
                           console.log('Response:', response);
-                          closeKeyboardNum();
+                        
                           testOTP=response.otp;
                           // Handle success response here
                       },

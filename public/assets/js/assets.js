@@ -424,42 +424,41 @@
     
   
 
-
     const KeyOTPBoard = {
         elements: {
             main: null,
             keysContainer: null,
             keys: []
         },
-
+    
         eventHandlers: {
             oninput: null,
             onclose: null
         },
-
+    
         properties: {
             value: "",
             targetInput: null,
             maxLength: 1 // Default maximum length for OTP
         },
-
+    
         init() {
             // Create main elements
             this.elements.main = document.createElement("div");
             this.elements.keysContainer = document.createElement("div");
-
+    
             // Setup main elements
             this.elements.main.id = "keyboard";
             this.elements.main.classList.add("keyboard", "keyboard--hidden");
             this.elements.keysContainer.classList.add("keyboard__keys");
             this.elements.keysContainer.appendChild(this._createKeys());
-
+    
             this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
-
+    
             // Add to DOM
             this.elements.main.appendChild(this.elements.keysContainer);
             document.body.appendChild(this.elements.main);
-
+    
             // Automatically use keyboard for elements with .use-otp-board
             document.querySelectorAll(".use-otp-keyboard").forEach(element => {
                 element.addEventListener("focus", () => {
@@ -468,7 +467,7 @@
                     }, element.maxLength);
                     this.properties.targetInput = element;
                 });
-
+    
                 // Add event listener for regular keyboard input
                 element.addEventListener("input", (event) => {
                     if (event.inputType === 'insertText' && event.data.length === 1) {
@@ -479,26 +478,26 @@
                 });
             });
         },
-
+    
         _createKeys() {
             const fragment = document.createDocumentFragment();
             const keyLayout = [
                 "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
                 "done"
             ];
-
-            keyLayout.forEach(key => {
+    
+            keyLayout.forEach((key, index) => {
                 const keyElement = document.createElement("button");
-                const insertLineBreak = ["backspace"].indexOf(key) !== -1;
-
+                const insertLineBreak = (index + 1) % 3 === 0 && index < 9;
+    
                 // Add attributes/classes
                 keyElement.setAttribute("type", "button");
                 keyElement.classList.add("keyboard__key");
-
+    
                 switch (key) {
                     case "backspace":
                         keyElement.innerHTML = '⌫';
-
+    
                         keyElement.addEventListener("click", () => {
                             if (this.properties.value.length > 0) {
                                 this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
@@ -506,52 +505,52 @@
                                 this._triggerEvent("oninput");
                             }
                         });
-
+    
                         break;
-
+    
                     case "done":
                         keyElement.innerHTML = 'EXIT';
-
+    
                         keyElement.addEventListener("click", () => {
                             this.close();
                             this._triggerEvent("onclose");
                         });
-
+    
                         break;
-
+    
                     default:
                         keyElement.textContent = key;
-
+    
                         keyElement.addEventListener("click", () => {
                             if (this.properties.targetInput && this.properties.targetInput.value.length < this.properties.maxLength) {
                                 this.properties.value += key;
                                 this.properties.targetInput.value = this.properties.value;
                                 this._triggerEvent("oninput");
-
+    
                                 // Move focus to the next input if available
                                 this._moveToNextInput();
                             }
                         });
-
+    
                         break;
                 }
-
+    
                 fragment.appendChild(keyElement);
-
+    
                 if (insertLineBreak) {
                     fragment.appendChild(document.createElement("br"));
                 }
             });
-
+    
             return fragment;
         },
-
+    
         _triggerEvent(handlerName) {
             if (typeof this.eventHandlers[handlerName] === "function") {
                 this.eventHandlers[handlerName](this.properties.value);
             }
         },
-
+    
         _moveToNextInput() {
             if (this.properties.targetInput) {
                 const nextInput = this.properties.targetInput.nextElementSibling;
@@ -560,7 +559,7 @@
                 }
             }
         },
-
+    
         open(initialValue, oninput, onclose, maxLength) {
             this.properties.value = initialValue || "";
             this.properties.maxLength = maxLength || 1; // Use provided maxLength or default to 1
@@ -568,13 +567,13 @@
             this.eventHandlers.onclose = onclose;
             this.elements.main.classList.remove("keyboard--hidden");
         },
-
+    
         close() {
             this.properties.value = "";
             this.elements.main.classList.add("keyboard--hidden");
         }
     };
-
+    
 
     window.addEventListener("DOMContentLoaded", function () {
         KeyOTPBoard.init();
