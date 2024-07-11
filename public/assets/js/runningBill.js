@@ -33,14 +33,17 @@
     if (mobileValue.length >= 2 && mobileValue.substring(0, 2) !== '09') {
         errorMessage.html('Must start with 09').show();
         validateNumber.prop('disabled', true);
+        closeKeyboardNum();
         return 1;
     } else if (mobileValue.length != 11) {
         errorMessage.html('Must be 11 digits').show();  
         validateNumber.prop('disabled', true);
+        closeKeyboardNum();
         return 1;
     } else if (mobileValue.length === 11 && !/^09\d{9}$/.test(mobileValue)) {
         errorMessage.html('Invalid mobile number format').show();
         validateNumber.prop('disabled', true);
+        closeKeyboardNum();
         return 1;
     } else {
         validateNumber.prop('disabled', false);
