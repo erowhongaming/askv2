@@ -273,7 +273,7 @@
 
           let html = "";
           html += `<div class="p-3 border bg-light">`;
-          html += `<h3>Professional Fee</h3>`;
+          html += `<h2 style="font-weight:800">Professional Fee</h2>`;
           html += `<table class="table_new">
           <thead>
               <tr>
@@ -339,7 +339,7 @@
           let html = '';
         // console.log("Category:", category);
           html += `<div class="p-3 border bg-light">`;
-          html += `<h3>Hospital Charges - ${category}</h3>`;
+          html += `<h2  style="font-weight:800">Hospital Charges - ${category}</h2>`;
           html += `<table class="table_new">
                     <thead>
                       <tr>
@@ -404,7 +404,7 @@
         
         let html = "";
         html += `<div class="p-3 border bg-light">`;
-        html += `<h3>Returns and Discontinuations</h3>`;
+        html += `<h2  style="font-weight:800">Returns and Discontinuations</h2>`;
         html += `<table class="table_new">
         <thead>
             <tr>
@@ -511,13 +511,13 @@
                   <td style="text-align:left"><b>Avail. Deposit Amount</b></td>
                   <td style="text-align:right;font-size:17px;"  id="totalProfFee">${formattedNegativeDeposits}</td>
                 </tr>
-                <tr style="font-size:25px;">
+                <tr style="font-size:25px;font-weight:1500">
                   <td style="text-align:left"><b>Running Balance</b></td>
                   <td style="text-align:right;"  id="Running Balance">${availAmnt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>  
                 </tr>
               
               </table>
-               <span id="dataAsOfRunningBill"  class="right-content_p" style="font-size:9px;font-weight:200">Data as of ${dateCu}</span>
+               <span id="dataAsOfRunningBill"  class="right-content_p" style="font-size:9px;font-weight:200;">Data as of ${dateCu}</span>
               `;
 
       $('#BalAmountDue').html(html);

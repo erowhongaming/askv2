@@ -94,12 +94,13 @@ var request;
          $('#billingDetailsTable').html('');
       
         $('#runningBillTable').css('display', 'none');
-        showStep(1);
-   
+       
         $('#runningbillLogin').css({
             display: 'block',
             opacity: 0
         }).animate({ opacity: 1 }, 300);
+        showStep(1);
+   
         getPreData();
 
         closeKeyboard();

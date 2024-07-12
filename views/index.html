@@ -448,7 +448,7 @@
       <div><br></div>
       <!-- Row 1 -->
       <div class="row">
-        <div class="col-md-2" style="overflow:auto;height:65vh">
+        <div class="col-md-2" >
           <div class="p-3 border bg-light">
               <h5 class="text-center mb-4">Notes</h5>
               <div id="infoNotes"></div>
@@ -469,17 +469,28 @@
 
           
             </div>
-            
-            <!-- <div class="card text-center">
-        
-              <div class="card-body bg-light" id="BalAmountCharges" style="padding:40px;border-radius: 20px;">
-              
-              </div>
-
-          
-            </div> -->
+           
         </div>
-          
+        <style>
+          .card-body-center {
+              padding: 40px;
+              border-radius: 20px;
+              justify-content: center; /* Horizontally center */
+              align-items: center; /* Vertically center */
+              height: 100vh; /* Full viewport height */
+          }
+  
+          .card-body-center img {
+              width: 60%;
+           
+          }
+      </style>
+        <div class="card-body card-body-center text-center"  >
+              
+          <img src="/assets/img/patientPortal.png"> 
+          <p><b>Take this patient portal with you</b></p>
+       </div>
+
         </div>
       </div>
 
@@ -729,23 +740,8 @@
 
          // hide billing table
          $('#runningBillTable').css('display', 'none');
-   // Define response object with details array
-      // var response = {
-      //   details: [
-      //     {
-      //       "_id": "66800e0c201dfc1a65fbdd0f",
-      //       "visitid": "000000900708",
-      //       "primaryKey": "5fd99f8d9d934ef68f7e3724",
-      //       "firstname": "CARL JOEL",
-      //       "fullname": "DE LARA, CARL JOEL",
-      //       "contactno": "09985412557",
-      //       "dateofbirth": "09/20/1982",
-      //       "admissionDate": "06/08/2024",
-      //       "mrn": "MRN00014091"
-      //     }
-      //   ]
-      // };
-      // billingDetails(response);
+   
+      
   });
 
   
