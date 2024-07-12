@@ -150,7 +150,9 @@ router.get('/api/hmos',async (req, res) => {
 
 router.post('/api/activity-log',jsonParser, async (req, res) => {
     const module = req.body.module || ''; 
-    const ip_address = req.ip || req.socket.remoteAddress; 
+    //const ip_address = req.ip || req.socket.remoteAddress; 
+    const ip_address = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null; // Get IP address
+
     try {
         await Patients.logActivity(module,ip_address);  
         res.json({msg:1,results:'user activity logged'});
