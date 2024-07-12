@@ -18,9 +18,11 @@ const router = express.Router();
 router.get('/api/doctors', async (req, res) => {
     try {
         const results = await Doctor.getDetails();
+
+      
         const withRooms = await  Doctor.getRooms(results);
 
-
+      
         res.json(withRooms);
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch doctor details" });

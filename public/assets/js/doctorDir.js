@@ -435,14 +435,21 @@ $('#search-icon').click(toggleSearch);
              
               clinicalSchedules += `
                 <div class="col-sm-12 border p-3"  style="margin-top:10px;border-radius: 5px; padding: 0;">
-                       <strong style="font-size:12px;color:#969393">Clinic Schedule</strong>   <br> 
-                     
-                         <strong style="font-size:10px;color:black;">`+room.schedule+`</strong><br>
-                    
-                    <strong style="font-size:12px;color:#969393">Room</strong>      
-                    <br>
-                     <strong style="font-size:10px;color:black;">`+room.room+`</strong>
-                  </div> 
+                  <strong style="font-size:12px; color:#969393;">Clinic Schedule</strong>
+                  <div style="line-height: 1;">
+                      <strong style="font-size:10px; color:black;">${room.schedule}</strong>
+                  </div>
+
+                  <strong style="font-size:12px; color:#969393;">Room</strong>
+                  <div style="line-height: 1;">
+                      <strong style="font-size:10px; color:black;">${room.room}</strong>
+                  </div>
+
+                  <strong style="font-size:12px; color:#969393;">Secretary</strong>
+                  <div style="line-height: 1;">
+                      <strong style="font-size:10px; color:black;">${room.secretary != null ? room.secretary : ''}</strong>
+                  </div>
+                </div> 
               `;
               // Perform other operations with room data
           }
@@ -452,13 +459,18 @@ $('#search-icon').click(toggleSearch);
 
           img =` <img src="https://hris.csmc.ph/photos/${doctorInfo.person_id}.jpg" class="image--cover" alt="" loading="lazy"  onerror="this.onerror=null; this.src='/assets/img/avatar.jpg';">`;
          
-          let secrtary_div = '';
-          if(doctorInfo.secretary != null){
-                 secrtary_div = `
-                        <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
-                        <strong style="font-size:11Px;color:black;">loc. ${doctorInfo.local_num}</strong> 
-                        `;
-          }
+          // let secrtary_div = '';
+          // if(doctorInfo.secretary != null){
+          //        secrtary_div = `
+          //               <strong style="font-size:11px;color:black;">${doctorInfo.secretary ?? '' } - </strong> 
+          //               <strong style="font-size:11Px;color:black;">loc. ${doctorInfo.local_num}</strong> 
+          //               `;
+          // }
+        //   /   <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
+        //   <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
+        //     ${secrtary_div}
+
+        // </div> 
           $('#physicians-container').append(
             `
             <div class="docs col-lg-3 col-md-6 align-items-stretch ${doctorInfo.specialization.toLowerCase().replace(/\s+/g, '_')}" >
@@ -475,11 +487,7 @@ $('#search-icon').click(toggleSearch);
                    
                       ${clinicalSchedules}
                       
-                      <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
-                        <strong style="font-size:12px;color:#969393">Secretary</strong> <br>
-                          ${secrtary_div}
-
-                      </div> 
+                   
                       <div class="col-sm-12  border p-3" style="margin-top:10px;border-radius: 5px;">
                         <strong style="font-size:12px;color:#969393">Affiliated Payors: </strong>
                         <div class="affiliated-payors-wrapper">

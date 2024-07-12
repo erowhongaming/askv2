@@ -19,7 +19,7 @@ var request;
       
       const specialtyValue = $('input[name="radioSpecialty"]:checked').val();
       const selectedValue = $('input[name="sub-radioSpecialty"]:checked').val();
-        console.log(subspecialtyButton);
+       // console.log(subspecialtyButton);
       
       if(subspecialtyButton != selectedValue){
         if (selectedValue) {
@@ -190,7 +190,7 @@ document.addEventListener('touchstart', resetTimer); // Add touchstart event to 
 // Example function to be executed after idle timeout
 function myFunction() {
   resetWhenHome();
-  // Replace with your function logic (e.g., logout user, perform cleanup tasks, etc.)
+  getUpdatedDataUpdatingTheDoctorObject();
 }
 
 // Function to display the remaining time
@@ -217,3 +217,22 @@ history.pushState(null, null, document.URL);
 window.addEventListener('popstate', function () {
     history.pushState(null, null, document.URL);
 });
+
+
+
+
+function getUpdatedDataUpdatingTheDoctorObject(){
+  $.ajax({
+    url: `/api/doctors`,
+    method: 'GET',
+    success: function(data) {              
+      
+      let dateCu = getCurrentDate();
+      $('#dataAsOf').text(`Data as of ${dateCu}`);
+      console.log(`Doctor's Data updated from the background....Data as of ${dateCu}`);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.error('Error:', textStatus, errorThrown);         
+    }
+  })
+}

@@ -1254,7 +1254,7 @@ margin-right: 10px;
 
 ::-webkit-scrollbar
 {
-  width: 5px; /* Adjusted width */
+  width: 11px; /* Adjusted width */
 	background-color: #F5F5F5;
 }
 
@@ -1399,7 +1399,8 @@ section {
   bottom: 0;
   width: 100%;
   padding: 5px 0;
-  background: #004134;
+  background: #0b4439;
+
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   user-select: none;
   transition: bottom 0.2s;

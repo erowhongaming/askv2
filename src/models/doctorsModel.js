@@ -21,64 +21,171 @@ let groupedSpecializations =[];
 function fetchDoctorsRoom(person_id, callback){
     
         const query = `
-         WITH IndividualDays AS (
-                SELECT person_id, room, 'Monday' AS day, 
-                    MON_start AS start_time, MON_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE MON_start IS NOT NULL AND MON_end IS NOT NULL 
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Tuesday' AS day, 
-                    TUE_start AS start_time, TUE_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE TUE_start IS NOT NULL AND TUE_end IS NOT NULL 
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Wednesday' AS day, 
-                    WED_start AS start_time, WED_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE WED_start IS NOT NULL AND WED_end IS NOT NULL 
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Thursday' AS day, 
-                    THUR_start AS start_time, THUR_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE THUR_start IS NOT NULL AND THUR_end IS NOT NULL 
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Friday' AS day, 
-                    FRI_start AS start_time, FRI_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE FRI_start IS NOT NULL AND FRI_end IS NOT NULL 
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Saturday' AS day, 
-                    SAT_start AS start_time, SAT_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE SAT_start IS NOT NULL AND SAT_end IS NOT NULL  
-                    AND person_id = ${person_id}
-                UNION ALL
-                SELECT person_id, room, 'Sunday' AS day, 
-                    SUN_start AS start_time, SUN_end AS end_time 
-                FROM proc_doctors_schedule_final_2 
-                WHERE SUN_start IS NOT NULL AND SUN_end IS NOT NULL 
-                    AND person_id = ${person_id}
-            )
+                  
 
-          SELECT room, 
-             
-               GROUP_CONCAT(
-                    DISTINCT 
-                    LEFT(day, 3), ' : ',
-                    TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
-                    TIME_FORMAT(end_time, '%h:%i %p')
-                    ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR '<br>'
+                WITH IndividualDays AS (
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Monday' AS day, 
+                        MON_start AS start_time, 
+                        MON_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        MON_start IS NOT NULL AND MON_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Tuesday' AS day, 
+                        TUE_start AS start_time, 
+                        TUE_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        TUE_start IS NOT NULL AND TUE_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Wednesday' AS day, 
+                        WED_start AS start_time, 
+                        WED_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        WED_start IS NOT NULL AND WED_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Thursday' AS day, 
+                        THUR_start AS start_time, 
+                        THUR_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        THUR_start IS NOT NULL AND THUR_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Friday' AS day, 
+                        FRI_start AS start_time, 
+                        FRI_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        FRI_start IS NOT NULL AND FRI_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Saturday' AS day, 
+                        SAT_start AS start_time, 
+                        SAT_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        SAT_start IS NOT NULL AND SAT_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
+
+                    UNION ALL
+
+                    SELECT 
+                        mab_clinic_physicians.physician_id AS person_id, 
+                        mab_clinics.name AS room, 
+                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        'Sunday' AS day, 
+                        SUN_start AS start_time, 
+                        SUN_end AS end_time 
+                    FROM 
+                        mab_clinic_physicians 
+                    LEFT JOIN 
+                        mab_clinics ON mab_clinics.id = mab_clinic_physicians.clinic_id
+                    LEFT JOIN 
+                        proc_doctors_schedule_final_2 AS phySched 
+                        ON (phySched.person_id = mab_clinic_physicians.physician_id 
+                        )
+                    WHERE 
+                        SUN_start IS NOT NULL AND SUN_end IS NOT NULL 
+                        AND mab_clinic_physicians.physician_id= ${person_id}
                 )
-             AS schedule
-          
-            FROM IndividualDays
-            WHERE person_id = ${person_id}
-            GROUP BY room;
+
+                SELECT 
+                    room, 
+                    GROUP_CONCAT(
+                        DISTINCT 
+                        LEFT(day, 3), ' : ',
+                        TIME_FORMAT(start_time, '%h:%i %p'), ' - ',
+                        TIME_FORMAT(end_time, '%h:%i %p')
+                        ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') SEPARATOR '<br>'
+                    ) AS schedule,
+                    secretary
+                    
+                FROM 
+                    IndividualDays
+                GROUP BY 
+                    room;
+
 
 
             `;
@@ -106,33 +213,35 @@ const Doctor = {
      */
     getDetails: () => {
         const query = `
-               
-                SELECT DISTINCT
-                    phySched.person_id,
-                    CONCAT(phySched.firstname, ' ', LEFT(phySched.middlename, 1), '. ', phySched.lastname) AS fullname,
-                    phySched.firstname,
-                    phySched.lastname,
-                    phySched.local_num,
-                    CASE 
-                        WHEN phySched.spec = 'OBSTETRICS & GYNECOLOGY' THEN 'OBGYNE'
-                        WHEN phySched.spec = 'REHABILITATION MEDICINE' THEN 'REHAB'
-                        ELSE phySched.spec
-                    END AS specialization,
-                    phySched.sub_spec AS subSpecialization,
-                    phySched.HMOS AS affiliated_payors,
-                    phySched.secretary_name AS secretary,
-                    phySched.secretary_contact,
-                   
-                    phySched.is_in,
-                    people.gender,
-                    phySched.HMOS AS hmo,
-                    phySched.HMOS_ids AS hmo_id
-                   
-                FROM 
-                    proc_doctors_schedule_final_2 AS phySched
-                LEFT JOIN 
-                    people ON people.person_id = phySched.person_id
-            
+
+             
+            SELECT DISTINCT
+                phySched.person_id,
+                CONCAT(phySched.firstname, ' ', LEFT(phySched.middlename, 1), '. ', phySched.lastname) AS fullname,
+                phySched.firstname,
+                phySched.lastname,
+         
+                CASE 
+                    WHEN phySched.spec = 'OBSTETRICS & GYNECOLOGY' THEN 'OBGYNE'
+                    WHEN phySched.spec = 'REHABILITATION MEDICINE' THEN 'REHAB'
+                    ELSE phySched.spec
+                END AS specialization,
+                phySched.sub_spec AS subSpecialization,
+                phySched.HMOS AS affiliated_payors,
+             
+                
+                phySched.is_in,
+                people.gender,
+                phySched.HMOS AS hmo,
+                phySched.HMOS_ids AS hmo_id
+                
+            FROM 
+                proc_doctors_schedule_final_2 AS phySched
+            LEFT JOIN 
+                people ON people.person_id = phySched.person_id
+        
+
+                
           
                
           
