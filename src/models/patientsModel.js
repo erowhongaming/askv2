@@ -157,7 +157,28 @@ const patients = {
         console.error('Error:', error); // Log any errors
         throw error; // Throw the error for handling elsewhere if needed
     }
-  },
+  },    
+  logActivity: (module,ip_address) => {
+    try {
+        const query = `INSERT INTO tracking_module_logs (module_name,kiosk_ip) VALUES (?,?)`;
+
+        return new Promise((resolve, reject) => {
+            db.query(query, [module,ip_address], (err, results) => {
+                if (err) {
+                    console.error("Error executing query:", err);
+                    return reject(err);
+                } else {
+                    return resolve(results);
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error('Error:', error); // Log any errors
+        throw error; // Throw the error for handling elsewhere if needed
+    }
+}
+
 
 };
 

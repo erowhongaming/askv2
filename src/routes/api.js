@@ -8,8 +8,13 @@
 const express = require('express');
 const Doctor = require('../models/doctorsModel');
 
+const Patients = require('../models/patientsModel');
 const router = express.Router();
 
+const bodyParser = require('body-parser')
+
+// create application/json parser
+const jsonParser = bodyParser.json()
 /**
  * Route to handle GET request for fetching doctor details.
  * Retrieves doctor details using Doctor.getDetails() method and sends the results as a JSON response.
@@ -140,5 +145,21 @@ router.get('/api/hmos',async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch hmos list" });
     }
-})
+});
+
+
+router.post('/api/activity-log',jsonParser, async (req, res) => {
+    const module = req.body.module || ''; 
+    const ip_address = req.ip || req.socket.remoteAddress; 
+    try {
+        await Patients.logActivity(module,ip_address);  
+        res.json({msg:1,results:'user activity logged'});
+    } catch (err) {
+        res.status(500).json({ error: "Failed to saved activity logs" });
+    }
+});
+
+
+
+
 module.exports = router;

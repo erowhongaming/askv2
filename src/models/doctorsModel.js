@@ -470,7 +470,8 @@ const Doctor = {
     getPreData: () => {
         let preDoctor = Object.values(doctorData);
         return preDoctor;
-    }
+    },
+
 };
 
 module.exports = Doctor;

@@ -41,17 +41,36 @@ function toggleSearch(){
   }
 }
 $('#search-icon').click(toggleSearch);
-
-
+     
+function activityLog(module){
+  $.ajax({
+      url: '/api/activity-log',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ module: module }),
+      success: function(response) {
+          console.log('Response:', response);
+          
+        
+      },
+      error: function(xhr, status, error) {
+          console.error('Error:', error);
+          // Handle error here
+      }
+  });
+}
     function goTo(target) {
      
 
       if(target == '#portfolio'){
           doctorsDir(target);
+          activityLog('doctorsDirectory');
       }else if(target == '#runningBill'){
           runnginBill(target);
+          activityLog('runningBill');
       }else if(target == '#landingPage'){
           home(target);
+          activityLog('home');
       }
 
     } 
