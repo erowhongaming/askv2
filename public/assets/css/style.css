@@ -19,8 +19,8 @@ body {
     -webkit-user-select: none; /* Webkit */
     -moz-user-select: none; /* Mozilla */
     -ms-user-select: none; /* Internet Explorer */
-    touch-action: none;
-    -ms-touch-action: none; /* for Internet Explorer */
+    touch-action: pan-x pan-y; /* Allow panning but disable zooming */
+     -ms-touch-action: pan-x pan-y; /* for Internet Explorer */
 }
 
 .cards:hover > .card-services:not(:hover) {
