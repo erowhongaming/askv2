@@ -116,12 +116,13 @@
                     title: 'Validation Successful',
                     html: 'Sending <b> 6 digit OTP </b> to your mobile number.',
                     timerProgressBar: true,
-                    timer: 1500,
+                    timer: 2000,
                     showConfirmButton: false
                 }).then(() => {
    
                   // Mask the number
-                  const maskedNumber = "*******" + mobilenumber.slice(-4)+"<br> Your Test OTP is: <b>"+testOTP+'</b>'; // Append "*******" to the masked part
+                  const maskedNumber = "*******" + mobilenumber.slice(-4);
+                  //"<br> Your Test OTP is: <b>"+testOTP+'</b>'; // Append "*******" to the masked part
                   
                   $('#maskedNumber').html(maskedNumber).show();
                   // This will be called after the timer ends

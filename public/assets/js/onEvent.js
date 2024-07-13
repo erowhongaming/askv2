@@ -238,7 +238,15 @@ function getUpdatedDataUpdatingTheDoctorObject(){
   })
 }
 
-document.addEventListener('gesturestart', function(event) {
+
+   // Prevent two-finger scroll
+   document.addEventListener('touchmove', function(event) {
+      if (event.touches.length > 1) {
+          event.preventDefault();
+      }
+  }, { passive: false });
+ // Prevent zooming using gesture events
+ document.addEventListener('gesturestart', function(event) {
   event.preventDefault();
 });
 
@@ -249,3 +257,45 @@ document.addEventListener('gesturechange', function(event) {
 document.addEventListener('gestureend', function(event) {
   event.preventDefault();
 });
+
+window.addEventListener('popstate', function(event) {
+  history.pushState(null, null, document.URL);
+});
+
+history.pushState(null, null, document.URL);
+
+     // Listen for the touchstart event
+     document.addEventListener('touchstart', function(event) {
+      // Check if there is only one touch point
+      if (event.touches.length === 1) {
+          const touch = event.touches[0];
+          // Check if the touch point is near the left or right edge of the screen
+          if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
+              event.preventDefault(); // Prevent the default action (swipe-to-go-back)
+          }
+      }
+  }, { passive: false });
+
+  // Listen for the touchmove event
+  document.addEventListener('touchmove', function(event) {
+      // Check if there is only one touch point
+      if (event.touches.length === 1) {
+          const touch = event.touches[0];
+          // Check if the touch point is near the left or right edge of the screen
+          if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
+              event.preventDefault(); // Prevent the default action (swipe-to-go-back)
+          }
+      }
+  }, { passive: false });
+
+  // Listen for the touchend event
+  document.addEventListener('touchend', function(event) {
+      // Check if there is only one touch point
+      if (event.touches.length === 1) {
+          const touch = event.changedTouches[0];
+          // Check if the touch point is near the left or right edge of the screen
+          if (touch.clientX < 25 || touch.clientX > window.innerWidth - 25) {
+              event.preventDefault(); // Prevent the default action (swipe-to-go-back)
+          }
+      }
+  }, { passive: false });

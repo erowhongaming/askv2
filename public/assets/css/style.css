@@ -19,7 +19,7 @@ body {
     -webkit-user-select: none; /* Webkit */
     -moz-user-select: none; /* Mozilla */
     -ms-user-select: none; /* Internet Explorer */
-    touch-action: pan-x pan-y; /* Allow panning but disable zooming */
+    touch-action: pan-x pan-y;     /* Allow panning but disable zooming */
      -ms-touch-action: pan-x pan-y; /* for Internet Explorer */
 }
 
@@ -44,7 +44,7 @@ body {
 /* Side-payors */
 .side-payors{
   overflow: auto;
-  -webkit-overflow-scrolling: touch; /
+  -webkit-overflow-scrolling: touch; 
   height:65vh;
   font-size: 11px;
   font-weight: 700px;
