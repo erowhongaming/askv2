@@ -60,11 +60,11 @@ router.post('/api/generate/otp',jsonParser, async (req, res) => {
                 const token = authResult.token;
               
                 // Send SMS using the obtained token
-                const smsResult = await sms_snapp.sendSms(token, `Your OTP is: ${otp}, Please use this OTP to Sign In to Inpatient Portal.`, '09672773458');
+                const smsResult = await sms_snapp.sendSms(token, `Your OTP is: ${otp}, Please use this OTP to Sign In to Inpatient Portal.`,mobilenumber);
                
                 console.log('Send SMS:', smsResult);
           
-            res.json({ msg: 'OTP generated and sent', status: 1, otp: otp });
+            res.json({ msg: 'OTP generated and sent', status: 1});
         }
     } catch (error) {
         res.status(500).json({ msg: 'Server error', error: error.message });
