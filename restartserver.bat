@@ -12,10 +12,12 @@ REM Display the response for debugging
 echo Response: %RESPONSE%
 
 REM Check if the response contains the error message
-echo %RESPONSE% | findstr /C:"Failed to fetch doctor details" >nul
+REM echo %RESPONSE%  findstr /C:"Failed to fetch doctor details" nul
 IF %ERRORLEVEL% EQU 0 (
+    echo API is running.
+) ELSE (
     echo API returned error. Restarting server...
-    cd /d C:\askv2-initial
+    cd /d D:\askv2-prod
     
     REM Find and kill the node process
     FOR /F "tokens=2" %%a IN ('tasklist ^| findstr node.exe') DO (
@@ -23,9 +25,8 @@ IF %ERRORLEVEL% EQU 0 (
     )
 
     START /B cmd /c "node server.js"
-) ELSE (
-    echo API is running.
 )
+
 
 REM Clean up
 del %RESPONSE_FILE%
