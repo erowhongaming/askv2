@@ -17,7 +17,7 @@ IF %ERRORLEVEL% EQU 0 (
     echo API is running.
 ) ELSE (
     echo API returned error. Restarting server...
-    cd /d D:\askv2-prod
+    cd /d "D:\askv2-prod"
     
     REM Find and kill the node process
     FOR /F "tokens=2" %%a IN ('tasklist ^| findstr node.exe') DO (

@@ -27,7 +27,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Monday' AS day, 
                         MON_start AS start_time, 
                         MON_end AS end_time 
@@ -48,7 +48,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Tuesday' AS day, 
                         TUE_start AS start_time, 
                         TUE_end AS end_time 
@@ -69,7 +69,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Wednesday' AS day, 
                         WED_start AS start_time, 
                         WED_end AS end_time 
@@ -90,7 +90,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Thursday' AS day, 
                         THUR_start AS start_time, 
                         THUR_end AS end_time 
@@ -111,7 +111,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Friday' AS day, 
                         FRI_start AS start_time, 
                         FRI_end AS end_time 
@@ -132,7 +132,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' - LOC ', phySched.local_num) AS secretary,
                         'Saturday' AS day, 
                         SAT_start AS start_time, 
                         SAT_end AS end_time 
@@ -153,7 +153,7 @@ function fetchDoctorsRoom(person_id, callback){
                     SELECT 
                         mab_clinic_physicians.physician_id AS person_id, 
                         mab_clinics.name AS room, 
-                        CONCAT(phySched.secretary_name, ' - ', phySched.local_num) AS secretary,
+                        CONCAT(phySched.secretary_name, ' -  LOC ', phySched.local_num) AS secretary,
                         'Sunday' AS day, 
                         SUN_start AS start_time, 
                         SUN_end AS end_time 
