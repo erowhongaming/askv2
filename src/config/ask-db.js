@@ -27,7 +27,7 @@ const connectToDatabase = () => {
   });
 
   connection.on('error', (err) => {
-    console.error('Database error:', err);
+    console.error('ASK Database error:', err);
     if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNREFUSED' || err.code === 'ER_CON_COUNT_ERROR') {
       connectToDatabase(); // Reconnect on connection lost error
     } else {

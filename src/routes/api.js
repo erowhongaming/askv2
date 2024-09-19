@@ -11,6 +11,10 @@ const Doctor = require('../models/doctorsModel');
 const Patients = require('../models/patientsModel');
 const router = express.Router();
 
+const axios = require('axios');
+const sms_snapp = require('../services/sms');
+
+require('../config/env-load');
 const bodyParser = require('body-parser')
 
 // create application/json parser
@@ -21,15 +25,19 @@ const jsonParser = bodyParser.json()
  * If an error occurs, it sends a 500 status with an error message.
  */
 router.get('/api/doctors', async (req, res) => {
+   
+
     try {
         const results = await Doctor.getDetails();
 
       
         const withRooms = await  Doctor.getRooms(results);
-
       
         res.json(withRooms);
     } catch (err) {
+
+    
+   
         res.status(500).json({ error: "Failed to fetch doctor details" });
     }
 });
@@ -162,6 +170,105 @@ router.post('/api/activity-log',jsonParser, async (req, res) => {
 });
 
 
+// Checing the QRCode master data
+router.get('/api/check-hrcard', async (req, res) => {
+    const empid = 4640;  // Fixed employee ID for checking
+    const apiUrl = `http://srv-webapp01:3033/api/v1/get-details-by-employee-id?empid=${empid}`;
+    let token;
+    const mobilenumber = '09672773458';
 
+    try {
+        // Make the API call
+        const response = await axios.get(apiUrl);
+        
+        // Check if the API returned a successful response (status 200)
+        if (response.status === 200 && response.data) {
+
+              
+            // Get the auth token once before the try-catch
+            const authResult = await sms_snapp.getAdminMonitoringAuthoken();
+            token = authResult.token;
+            // Get current timestamp
+            const timestamp = new Date().toLocaleString();
+            // Send SMS using the obtained token
+            await sms_snapp.sendSms(token, `HR_CARD is UP - ${timestamp}`, mobilenumber);
+
+            return res.json({
+                success: true,
+                message: "API is reachable",
+              
+            });
+        } else {
+
+              // Get the auth token once before the try-catch
+              const authResult = await sms_snapp.getAdminMonitoringAuthoken();
+              token = authResult.token;
+              // Get current timestamp
+              const timestamp = new Date().toLocaleString();
+              // Send SMS using the obtained token
+              await sms_snapp.sendSms(token, `HR_CARD is DOWN - ${timestamp}`, mobilenumber);
+
+            return res.status(500).json({
+                success: false,
+                message: "API responded but no data found or unexpected response",
+            });
+        }
+    } catch (error) {
+        // Handle error cases, such as network failure or bad API response
+        console.error("Error calling the API:", error.message);
+           
+            // Get the auth token once before the try-catch
+            const authResult = await sms_snapp.getAdminMonitoringAuthoken();
+            token = authResult.token;
+            // Get current timestamp
+            const timestamp = new Date().toLocaleString();
+            // Send SMS using the obtained token
+            await sms_snapp.sendSms(token, `HR_CARD is DOWN - ${timestamp}`, mobilenumber);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to reach the API",
+            error: error.message
+        });
+    }
+});
+
+
+
+router.get('/api/check-doctors', async (req, res) => {
+    let token;
+    const mobilenumber = '09672773458';
+
+
+    try {
+        const results = await Doctor.getDetails();
+
+      
+        const withRooms = await  Doctor.getRooms(results);
+      
+        // Get the auth token once before the try-catch
+        const authResult = await sms_snapp.getAdminMonitoringAuthoken();
+        token = authResult.token;
+       // Get current timestamp
+       const timestamp = new Date().toLocaleString();
+       // Send SMS using the obtained token
+       await sms_snapp.sendSms(token, `ASK is UP - ${timestamp}`, mobilenumber);
+       return res.json({
+            success: true,
+            message: "API is reachable",
+        
+        });
+    } catch (err) {
+
+        // Get the auth token once before the try-catch
+        const authResult = await sms_snapp.getAdminMonitoringAuthoken();
+        token = authResult.token;
+        const timestamp = new Date().toLocaleString();
+
+        await sms_snapp.sendSms(token, `Error In ASK DB - ${timestamp}`, mobilenumber);
+   
+        res.status(500).json({ error: "Failed to fetch doctor details" });
+    }
+});
 
 module.exports = router;
