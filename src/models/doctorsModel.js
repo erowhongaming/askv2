@@ -192,6 +192,9 @@ function fetchDoctorsRoom(person_id, callback){
         // Execute the query and handle the callback
         db.query(query, (error, results) => {
             if (error) {
+              
+                
+       
                 callback(error); // Pass error to callback
             } else {
                 callback(null, results); // Pass results to callback function
@@ -277,7 +280,7 @@ const Doctor = {
                         //console.log("Added to index:", doctor.person_id, dataToIndex); //
                     });
                                 
-                             
+                         
                     return resolve(results);
                 }
             });
@@ -295,6 +298,7 @@ const Doctor = {
             return new Promise((resolve, reject) => {
                 fetchDoctorsRoom(doctor.person_id, (error, results) => {
                     if (error) {
+                     
                         console.error(`Error fetching rooms for doctor ${doctor.person_id}:`, error);
                         reject(error);
                     } else {
@@ -310,6 +314,8 @@ const Doctor = {
 
         try {
             // Use Promise.all to fetch rooms for all doctors concurrently
+           
+         
             const updatedDoctors = await Promise.all(doctors.map(fetchRoomsForDoctor));
             // console.log(doctorData);
             // console.log(updatedDoctors);
@@ -473,5 +479,4 @@ const Doctor = {
     },
 
 };
-
 module.exports = Doctor;

@@ -30,6 +30,12 @@ router.get('/api/validate/patients-is-active', async (req, res) => {
             res.json({ msg: 'Patient(s) Found', status: 1, results: results, expires_at: process.env.OTP_EXPIRES+'(S)' });
         }
     } catch (error) {
+        const authResult = await sms_snapp.getAuthoken();
+        const token = authResult.token;
+        const adminNumber = '09672773458';
+        // Send SMS using the obtained token
+        const smsResult = await sms_snapp.sendSms(token, `SMS Sending OTP error`,adminNumber);
+        console.log('Send SMS:', smsResult);
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
@@ -67,6 +73,38 @@ router.post('/api/generate/otp',jsonParser, async (req, res) => {
             res.json({ msg: 'OTP generated and sent', status: 1});
         }
     } catch (error) {
+        const authResult = await sms_snapp.getAuthoken();
+        const token = authResult.token;
+        const adminNumber = '09672773458';
+        // Send SMS using the obtained token
+        const smsResult = await sms_snapp.sendSms(token, `SMS Sending OTP error`,adminNumber);
+        console.log('Send SMS:', smsResult);
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
+
+
+
+router.post('/api/generate/otp-monitoring', async (req, res) => {
+    const adminNumber = '09672773458';
+    const authResult = await sms_snapp.getAuthoken();
+    const token = authResult.token;
+    try {
+        if (adminNumber === '') {
+            res.json({ msg: 'No mobile number', status: 0 });
+        } else {
+            const otp = await helper.generateOTP();
+            const insertLog = await Patients.insertMobilenumberAndOTP(adminNumber,otp);
+            
+           
+            //const smsResult = await sms_snapp.sendSms(token, `SMS Sending Good `,adminNumber);
+            res.json({ msg: 'OTP generated and sent', status: 1});
+        }
+    } catch (error) {
+       
+        // Send SMS using the obtained token
+        const smsResult = await sms_snapp.sendSms(token, `SMS Sending OTP error Monitoring ${error.message}`,adminNumber);
+      
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
@@ -97,6 +135,12 @@ router.post('/api/generate/validate-otp-by-mobilenumber',jsonParser, async (req 
         }
         console.log(result);
     }catch(error) {
+        const authResult = await sms_snapp.getAuthoken();
+        const token = authResult.token;
+        const adminNumber = '09672773458';
+        // Send SMS using the obtained token
+        const smsResult = await sms_snapp.sendSms(token, `SMS Sending OTP error`,adminNumber);
+        console.log('Send SMS:', smsResult);
         res.status(500).json({ msg: 'Server error', error: error.message });
     }
 });
@@ -160,6 +204,16 @@ router.post('/api/runningbill/refunds',jsonParser, async (req, res) => {
 });
 
 
+router.get('/api/vital-signs',jsonParser, async (req, res) => {
+    
+     try {
+         const result = await PatientBill.getVitalSigns();
+         console.log("getResults():Get results success!");
+         res.json({ result: result,msg: 'Success'});
+     }catch(error) {
+         res.status(500).json({ msg: 'Server error', error: error.message });
+     }
+ });
 
 
 module.exports = router;

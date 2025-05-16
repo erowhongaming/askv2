@@ -3,6 +3,7 @@
 REM Define URLs
 SET API_DOCTORS=http://srv-dashboard01:3034/api/check-doctors
 SET API_HRCARD=http://srv-dashboard01:3034/api/check-hrcard
+SET API_SMS=http://srv-dashboard01:3034/api/generate/otp-monitoring
 
 REM Call the doctors API with a 10-second timeout
 echo Calling doctors API...
@@ -25,6 +26,21 @@ IF %ERRORLEVEL% NEQ 0 (
 ) ELSE (
     echo HR card API call completed.
 )
+
+
+REM Introduce a delay to ensure sequential execution
+echo Waiting for 5 seconds before calling the next API...
+timeout /t 5 /nobreak > NUL
+
+REM Call the HR card API with a 10-second timeout
+echo Calling SMS  API...
+curl -s --max-time 10 %API_SMS% > NUL
+IF %ERRORLEVEL% NEQ 0 (
+    echo Error occurred when calling SMS API.
+) ELSE (
+    echo SMS API call completed.
+)
+
 
 REM End script
 exit /b 0

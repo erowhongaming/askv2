@@ -4,6 +4,7 @@ const { Collection } = require('../models/collections');
 const getRefunds = require('../pipelines/getPatientBillRefunds');
 const getResults = require('../pipelines/getPatientBillResults');
 const getDeposits = require('../pipelines/getPatientBillDeposits');
+const getVitalSign = require('../pipelines/vitalsigns-foradmitted-patients');
 
 // Function to format money amount (mocking PHP's money function)
 // function money(amount) {
@@ -135,6 +136,22 @@ const patientBill= {
         console.error('Error:', error); // Log any errors
         throw error; // Throw the error for handling elsewhere if needed
     }
+  },
+  
+  getVitalSigns: async (patientvisituid) => {
+      try {
+          await Collection.initializeDb(); // Ensure the database is initialized
+          const collection = await Collection.getCollection('patientvisits');
+        
+          const pipeline = getVitalSign(); // Assuming the pipeline function doesn't need parameters
+        
+          const result = await collection.aggregate(pipeline).toArray();
+        // console.log('Aggregation Result:', result); // Log the result
+          return result; // Return the result
+        } catch (error) {
+          console.error('Error:', error); // Log any errors
+          throw error; // Throw the error for handling elsewhere if needed
+        }
   }
 };
 
