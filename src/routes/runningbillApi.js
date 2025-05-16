@@ -207,13 +207,28 @@ router.post('/api/runningbill/refunds',jsonParser, async (req, res) => {
 router.get('/api/vital-signs',jsonParser, async (req, res) => {
     
      try {
+     
          const result = await PatientBill.getVitalSigns();
-         console.log("getResults():Get results success!");
+         res.removeHeader('Access-Control-Allow-Origin');
+         //console.log("getResults():Get results success!");
          res.json({ result: result,msg: 'Success'});
      }catch(error) {
          res.status(500).json({ msg: 'Server error', error: error.message });
      }
  });
 
+
+router.get('/api/ward-and-beds',jsonParser, async (req, res) => {
+    
+     try {
+     
+         const result = await PatientBill.getWardAndAllBeds();
+         res.removeHeader('Access-Control-Allow-Origin');
+         //console.log("getResults():Get results success!");
+         res.json({ result: result,msg: 'Success'});
+     }catch(error) {
+         res.status(500).json({ msg: 'Server error', error: error.message });
+     }
+ });
 
 module.exports = router;
