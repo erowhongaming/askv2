@@ -160,6 +160,17 @@ router.post('/api/runningbill/refunds',jsonParser, async (req, res) => {
 });
 
 
+router.post('/api/vital-signs',jsonParser, async (req, res) => {
+   // const patientvisituid = req.body.patientvisituid|| '';
+    
+    try {
+        const result = await PatientBill.getVitalSigns();
+        console.log("getResults():Get results success!");
+        res.json({ result: result,msg: 'Success'});
+    }catch(error) {
+        res.status(500).json({ msg: 'Server error', error: error.message });
+    }
+});
 
 
 module.exports = router;

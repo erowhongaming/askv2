@@ -177,7 +177,30 @@ const patients = {
         console.error('Error:', error); // Log any errors
         throw error; // Throw the error for handling elsewhere if needed
     }
-}
+  },
+
+  getLogActivity: async (dateFrom,dateTo) =>{
+    const query = 
+    `SELECT count(*)  as find
+    FROM mobile_otp_log_ask 
+    WHERE mobile_number = ? 
+    AND otp = ? 
+    AND expires_at > NOW() 
+    AND status = 'pending'
+    order by id desc 
+    limit 1`;
+    
+    return new Promise((resolve, reject) => {
+      db.query(query, [dateFrom,dateTo], (err, results) => {
+          if (err) {
+            console.error("Error executing query:", err);
+            return reject(err);
+          } else {
+            return resolve(results);
+          }  
+        });
+      });
+  }
 
 
 };

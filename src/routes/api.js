@@ -12,6 +12,7 @@ const Patients = require('../models/patientsModel');
 const router = express.Router();
 
 const bodyParser = require('body-parser')
+const axios = require('axios');
 
 // create application/json parser
 const jsonParser = bodyParser.json()
@@ -160,6 +161,44 @@ router.post('/api/activity-log',jsonParser, async (req, res) => {
         res.status(500).json({ error: "Failed to saved activity logs" });
     }
 });
+
+router.get('/api/app-posts', async (req, res) => {
+    try {
+            const response = await axios.get('http://srv-webapp01:3023/CMS/content/app-posts', {
+                params: {
+                    connected_app_name: "Assistance Service Kiosk",
+                    content_type: "Services & Packages"
+                  }
+            }); 
+            res.json({data:response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
+
+  
+router.get('/api/app-preview', async (req, res) => {
+    const contentId = req.query.content_id || req.body.content_id;
+    try {
+       console.log(contentId);
+       //     const response = await axios.get('http://srv-webapp01:3023/CMS/content/app-preview', {
+        const response = await axios.get('http://srv-dashboard:3034/vital-signs', {  
+       params: {
+                    content_id :contentId,
+                    connected_app_name: "Assistance Service Kiosk",
+                  } 
+            }); 
+            res.json({data:response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
 
 
 

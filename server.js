@@ -9,8 +9,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3034;
+
+
 
 const routes = require('./src/routes/api');
 const runningBill = require('./src/routes/runningbillApi');
@@ -19,7 +22,19 @@ app.use(runningBill);
 app.use(routes);
 app.use('/assets', express.static(path.join(__dirname, 'public','/assets')));
 
+// Enable CORS for all origins
+// app.use(cors({
+//     origin: 'http://localhost:3034', // Allow requests from frontend (localhost:3034)
+//     methods: ['GET', 'POST'],       // Allowed HTTP methods
+//     allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+//   }));
 
+  // Enable CORS for all origins
+app.use(cors({
+    origin: 'http://srv-webapp01:3023', // Allow requests from frontend (localhost:3034)f
+    methods: ['GET', 'POST'],       // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+  }));
 // Use body-parser middleware
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

@@ -70,6 +70,289 @@ var request;
     $('body').on("click", "#runnginBill-link", ()=> {
         goTo('#runningBill');
     });
+    $('body').on("click", "#product-and-services-link", ()=> {
+      $.ajax({
+        url: '/api/app-posts', // Replace with your API endpoint
+        type: 'GET',
+        dataType: 'json', 
+        data: {
+            connected_app_name: "Assistance Service Kiosk",  // Replace with your parameter name and value
+            content_type: "Product & Services"  // Replace with your parameter name and value
+        },
+        success: function(response) {
+            // Clear the existing content inside the div
+            $('#product-and-services-contents').empty();
+            
+            // Check if the response contains 'data'
+            if (response.data && Array.isArray(response.data)) {
+                // Loop through each item in the data array
+                response.data.forEach(function(item) {
+                  // Step 1: Process item.body (decode HTML, fix image URLs, embed YouTube videos)
+                    let contentBody = item.body;
+
+                    // Function to decode HTML entities
+                    const decodeHTML = (html) => {
+                        const txt = document.createElement('textarea');
+                        txt.innerHTML = html;
+                        return txt.value;
+                    };
+
+                    // Decode content
+                    contentBody = decodeHTML(contentBody);
+
+                    // Replace image src attributes
+                    contentBody = contentBody.replace(/src="(\/uploads\/[^"]+)"/g, function(match, p1) {
+                        return `src="http://srv-webapp01:3023${p1}" class="modal-image" style="max-width: 100%; height: auto;"`;
+                    });
+
+                    // Replace YouTube links with embedded iframes
+                    contentBody = contentBody.replace(
+                        /<oembed[^>]*url="(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))"[^>]*><\/oembed>/g,
+                        function (match, fullUrl, videoId) {
+                            return `<div style="width: 100%; margin: 20px 0;">
+                                        <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen 
+                                                style="width: 100%; height: 400px;">
+                                        </iframe>
+                                    </div>`;
+                        }
+                    );
+
+                    contentBody = contentBody.replace(
+                        /https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/g,
+                        function (match, videoId) {
+                            return `<div style="width: 100%; margin: 20px 0;">
+                                        <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen 
+                                                style="width: 100%; height: 400px;">
+                                        </iframe>
+                                    </div>`;
+                        }
+                    );
+
+                    // Step 2: Create the contentHTML with a gradient overlay
+                    let contentHTML = `
+                    <div class="col-lg-4 col-md-6 align-items-stretch content-title" data-id="${item.id}" 
+                        style="cursor: pointer;">
+                        <div class="icon-box iconbox-blue content-box" 
+                            style="position: relative; padding: 20px; border: 1px solid #ddd; border-radius: 10px; 
+                                height: 420px; display: flex; flex-direction: column; justify-content: space-between;
+                                transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                            
+                            <span class="badge text-bg-secondary" 
+                                style="position: absolute; top: 10px; right: 10px; background-color: rgb(214, 214, 214); 
+                                    color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px;">
+                                <i class='bi-eye-fill' style="color:white"></i> ${item.views}
+                            </span>
+
+                            <h1 style="margin: 0;">
+                                <button class="content-title" data-id="${item.id}" 
+                                    style="background: none; border: none; padding: 0; font: inherit; 
+                                        text-decoration: none; color: inherit; cursor: pointer;">
+                                    ${item.title}
+                                </button>
+                            </h1>
+                            
+                            <div class="content-preview" 
+                                style="position: relative; height: 280px; overflow: hidden; flex-grow: 1;">
+                                <div>${contentBody}</div> 
+                                <div class="fade-overlay" 
+                                    style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; 
+                                        background: linear-gradient(to bottom, rgba(255,255,255,0), white);">
+                                </div>
+                            </div>
+
+                            <!-- "See More" Button Always at Bottom -->
+                            <button class="content-title" data-id="${item.id}" 
+                                style="background: none; border: none; padding: 10px; font: inherit; 
+                                    text-decoration: none; color: inherit; cursor: pointer; 
+                                    width: 100%; text-align: center; margin-top: auto;">
+                                See More
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                
+                
+                 
+                    
+                    // Append the new content to the div
+                    $('#product-and-services-contents').append(contentHTML);
+                });
+    
+                // Add click event listener for titles
+                $(document).on('click', '.content-title', function(event) {
+                    event.preventDefault(); // Prevent the default anchor behavior
+                
+                    const contentId = $(this).data('id'); // Get the content ID
+                    const title = $(this).text(); // Get the title text
+                    $.ajax({
+                      url: '/api/app-preview', // Replace with your API endpoint
+                      type: 'GET',
+                      dataType: 'json', 
+                      data: {
+                           content_id: contentId,
+                         
+                      },
+                      success: function(response) {
+                        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+                            const item = response.data[0]; // Get the first item
+                            
+                            // Step 1: Get the content body (with images)
+                            let contentBody = item.body;
+                    
+                            // Function to decode HTML entities (e.g., &lt; to <)
+                            const decodeHTML = (html) => {
+                                const txt = document.createElement('textarea');
+                                txt.innerHTML = html;
+                                return txt.value;
+                            };
+                    
+                            // Step 2: Decode the contentBody to handle escaped HTML entities
+                            contentBody = decodeHTML(contentBody);
+                    
+                            // Step 3: Replace image src attributes to use the full URL (http://localhost:3020/uploads/)
+                            contentBody = contentBody.replace(/src="(\/uploads\/[^"]+)"/g, function(match, p1) {
+                                return `src="http://srv-webapp01:3023${p1}" class="modal-image" style="max-width: 100%; height: auto;"`;
+                            });
+                    
+                         // Step 4: Replace YouTube video URLs with embedded iframe
+                            contentBody = contentBody.replace(
+                                /<oembed[^>]*url="(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))"[^>]*><\/oembed>/g,
+                                function (match, fullUrl, videoId) {
+                                    return `<div style="width: 100%; margin: 20px 0;">
+                                                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" 
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                        allowfullscreen 
+                                                        style="width: 100%; height: 400px;">
+                                                </iframe>
+                                            </div>`;
+                                }
+                            );
+
+                            // Also replace direct YouTube links (outside oEmbed)
+                            contentBody = contentBody.replace(
+                                /https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/g,
+                                function (match, videoId) {
+                                    return `<div style="width: 100%; margin: 20px 0;">
+                                                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" 
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                        allowfullscreen 
+                                                        style="width: 100%; height: 400px;">
+                                                </iframe>
+                                            </div>`;
+                                }
+                            );
+
+                    
+                            // Step 5: Construct content preview
+                            let newContent =``;
+                            newContent += `<h2>${item.title}</h2>${contentBody}`; 
+                            // Step 6: Handle file_path (if available)
+                            if (item.file_path) {
+                                const uploadFolder = "http://srv-webapp01:3023/uploads/";
+                                const files = item.file_path.split(',').map(f => f.trim());
+                    
+                                const videoExtensions = ["mp4", "webm", "ogg"];
+                                const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+                                const pdfExtension = "pdf";
+                                const zipExtension = "zip";
+                    
+                                // Separate video and other files
+                                const videoFiles = files.filter(f => videoExtensions.includes(f.split('.').pop().toLowerCase()));
+                                const otherFiles = files.filter(f => !videoExtensions.includes(f.split('.').pop().toLowerCase()));
+                    
+                                // Video previews (4-column grid)
+                                if (videoFiles.length > 0) {
+                                    newContent += `<div id="video-preview-container" style="margin-top:20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">`;
+                                    videoFiles.forEach(file => {
+                                        const ext = file.split('.').pop().toLowerCase();
+                                        newContent += `<div class="video-preview-item" style="border: 1px solid #ddd; padding: 5px;">
+                                                           <video controls style="width: 100%; display: block; margin: 0 auto;">
+                                                               <source src="${uploadFolder + file}" type="video/${ext}">
+                                                               Your browser does not support the video tag.
+                                                           </video>
+                                                       </div>`;
+                                    });
+                                    newContent += `</div>`;
+                                }
+                    
+                                // Other files previews
+                                if (otherFiles.length > 0) {
+                                    newContent += `<div id="other-files-container" style="margin-top:20px;">`;
+                                    otherFiles.forEach(file => {
+                                        const ext = file.split('.').pop().toLowerCase();
+                                        if (imageExtensions.includes(ext)) {
+                                            newContent += `<div style="margin-bottom:10px; border: 1px solid #ddd; padding: 5px;">
+                                                              <img src="${uploadFolder + file}" alt="Image Preview" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                                                           </div>`;
+                                        } else if (ext === pdfExtension) {
+                                            newContent += `<div style="margin-bottom:10px; border: 1px solid #ddd; padding: 5px;">
+                                                              <iframe src="${uploadFolder + file}#toolbar=0&navpanes=0" style="width: 100%; height: 500px; border: none;"></iframe>
+                                                           </div>`;
+                                        } else if (ext === zipExtension) {
+                                            newContent += `<div style="margin-bottom:10px; border: 1px solid #ddd; padding: 5px;">
+                                                              <a href="${uploadFolder + file}" download style="display: block; text-align: center;">Download ZIP File</a>
+                                                           </div>`;
+                                        } else {
+                                            newContent += `<div style="margin-bottom:10px; border: 1px solid #ddd; padding: 5px;">
+                                                              <a href="${uploadFolder + file}" target="_blank" style="display: block; text-align: center;">${file}</a>
+                                                           </div>`;
+                                        }
+                                    });
+                                    newContent += `</div>`;
+                                }
+                            }
+                            newContent += ` 
+                            ${item.event_date ? `<p><strong>Event date: </strong>${item.event_date}</p>` : ''}
+                            ${item.event_price ? `<p><strong>Price: </strong>${item.event_price}</p>` : ''}
+                            ${item.tags ? `<p><strong>Tags: </strong>${item.tags.split(/[\s,]+/).map(tag => `<span class="hashtag" style="color: #1DA1F2; font-weight: bold;">#${tag.trim()}</span>`).join(' ')}</p>` : ''}`;
+   
+                            // Step 7: Insert content into modal
+                            $('#preview-content-app').html(newContent);
+                    
+                            // Step 8: Ensure images fit properly
+                            $('#preview-content-app img').each(function() {
+                                $(this).css({
+                                    'max-width': '100%',
+                                    'height': 'auto'
+                                });
+                            });
+                    
+                        } else {
+                            $('#preview-content-app').html('<p>No content available</p>');
+                        }
+                    }
+                    ,
+                    
+                        error: function(error) {
+                          console.log('Error fetching data:', error);
+                      }
+                    });
+                    
+                    // Show the modal
+                    $('#exampleModalToggle').modal('show');
+                });
+    
+            } else {
+                console.log('No data found in response.');
+            }
+        },
+        error: function(error) {
+            console.log('Error fetching data:', error);
+        }
+    });
+    
+      goTo('#productAndServices');
+
+
+
+
+
+  });
 
     function resetWhenHome(){
         // event.preventDefault();

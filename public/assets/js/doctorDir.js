@@ -71,15 +71,25 @@ function activityLog(module){
       }else if(target == '#landingPage'){
           home(target);
           activityLog('home');
+      }else if(target == '#productAndServices'){
+        productAndServices(target);
+        activityLog('productAndServices');
       }
 
     } 
   
-    function home(target){
+    function productAndServices(target){
       $('html, body').animate({
           scrollTop: $(target).offset().top
       }, 200, 'easeInOutCubic');
     }
+  
+
+  function home(target){
+    $('html, body').animate({
+        scrollTop: $(target).offset().top
+    }, 200, 'easeInOutCubic');
+  }
     function doctorsDir(target){
       $('html, body').animate({
           scrollTop: $(target).offset().top
