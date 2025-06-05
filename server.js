@@ -9,6 +9,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3034;
 
@@ -17,7 +18,13 @@ const runningBill = require('./src/routes/runningbillApi');
 
 app.use(runningBill);
 app.use(routes);
+
 app.use('/assets', express.static(path.join(__dirname, 'public','/assets')));
+app.use(cors({
+    origin: 'http://localhost:3023', // Allow requests from frontend (localhost:3034)f
+    methods: ['GET', 'POST'],       // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+  }));
 
 
 // Use body-parser middleware

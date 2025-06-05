@@ -68,8 +68,249 @@ var request;
     });
     
     $('body').on("click", "#runnginBill-link", ()=> {
+
+
+      
         goTo('#runningBill');
     });
+
+
+
+    //START PRDUCTS AND SERVICES
+        // Track navigation for breadcrumbs and back
+        let navigationStack = [];
+
+        // First Level: Main Types
+        $('body').on("click", "#product-and-services-link", () => {
+          navigationStack = []; // Reset stack
+          $.ajax({
+            url: '/api/cms/v1/app-content-type',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+              $('#product-and-services-contents').empty();
+              $('#breadcrumbs').html('');
+
+              response.data.forEach(function(item) {
+                let contentHTML = `
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                      <button 
+                        class="artsy-button w-100 text-start content-title content-button" 
+                        data-id="${item.id}" data-name="${item.name}">
+                        <div class="d-flex align-items-center">
+                          <div class="folder-icon me-3"></div>
+                          <div>
+                            <div class="fs-5 fw-semibold">${item.name}</div>
+                            <div class="tiny-hint text-muted">
+                              <span>${item.subcategory_type_count} item${item.subcategory_type_count == 1 ? '' : 's'}</span> · 
+                              <span class="text-decoration-underline">View details</span>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+
+                `;
+                $('#product-and-services-contents').append(contentHTML);
+              });
+            }
+          });
+
+          goTo('#productAndServices');
+        });
+
+        // Subtype Level
+        $('body').on('click', '.content-button', function () {
+          const id = $(this).data('id');
+          const name = $(this).data('name');
+          navigationStack.push({ id, name });
+          fetchSubType(id);
+        });
+
+        function fetchSubType(parent_id) {
+          $.ajax({
+            url: `/api/cms/v1/app-sub-content-type`,
+            type: 'GET',
+            dataType: 'json',
+            data: { parent_id },
+            success: function(response) {
+          
+              const container = $('#product-and-services-contents');
+
+              // Fade out the container before emptying
+              container.fadeOut(150, function () {
+                container.empty();
+                updateBreadcrumbs();
+
+                if (response.data.length === 0) {
+                  fetchPosts(navigationStack[navigationStack.length - 2]?.id || null, parent_id);
+                  container.fadeIn(150); // fade back in even if it's empty
+                  return;
+                }
+
+                response.data.forEach(function(item, index) {
+                  const contentHTML = `
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4 fade-in" style="animation-delay: ${index * 50}ms">
+                      <button 
+                        class="artsy-button w-100 text-start content-title content-button" 
+                        data-id="${item.id}" data-name="${item.name}">
+                        <div class="d-flex align-items-center">
+                          <div class="folder-icon me-3"></div>
+                          <div>
+                            <div class="fs-5 fw-semibold">${item.name}</div>
+                            <div class="tiny-hint text-muted">
+                              <span>${item.content_count} item${item.content_count == 1 ? '' : 's'}</span> · 
+                              <span class="text-decoration-underline">View details</span>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  `;
+
+                  container.append(contentHTML);
+                });
+
+                container.fadeIn(150); // Fade in the new content
+              });
+            
+
+            }
+          });
+        }
+
+        function fetchPosts(parentId, subtypeId) {
+
+          $.ajax({
+            url: '/api/cms/v1/app-posts',
+            type: 'GET',
+            dataType: 'json',
+          data: {
+              parent_id: parentId,
+              subtypeId: subtypeId
+            },
+            success: function(response) {
+              $('#product-and-services-contents').empty();
+              updateBreadcrumbs();
+
+              if (response.data && Array.isArray(response.data)) {
+                response.data.forEach(function(item) {
+                  let contentBody = decodeHTML(item.body);
+
+                  contentBody = contentBody.replace(/src="(\/uploads\/[^"]+)"/g, (match, p1) =>
+                    `src="http://srv-webapp01:3023${p1}" class="modal-image" style="max-width: 100%; height: auto;"`);
+
+                  contentBody = contentBody.replace(/<oembed[^>]*url="(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))"[^>]*><\/oembed>/g,
+                    (match, fullUrl, videoId) =>
+                      `<div class="ratio ratio-16x9 mb-2"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`);
+
+                  let postHTML = `
+                  <div class="col-md-4 mb-4">
+                    <button class="w-100 text-start border-0 bg-transparent p-0 preview-trigger" data-id="${item.id}" style="all: unset; display: block;">
+                      <div class="card border-0 rounded-4 shadow-sm p-3 clickable-card">
+                        <div class="card-body">
+                          <h5 class="mb-2 fw-medium" style="font-size: 1.1rem; color: #111;">
+                            ${item.title}
+                          </h5>
+                          <div class="text-muted" style="font-size: 0.95rem; line-height: 1.5;">
+                            ${contentBody}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+
+                  <style>
+                    .clickable-card {
+                      background-color: #f9f9f9;
+                      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+                      cursor: pointer;
+                    }
+
+                    .clickable-card:hover {
+                      background-color: #f0f0f0;
+                      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+                      transform: translateY(-2px);
+                    }
+
+                    .clickable-card:active {
+                      background-color: #eaeaea;
+                      transform: scale(0.98);
+                      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                    }
+                  </style>
+
+
+                  `;
+                  $('#product-and-services-contents').append(postHTML);
+                });
+              }
+            }
+          });
+        }
+
+        // Preview modal (post detail)
+        $('body').on('click', '.preview-trigger', function () {
+          const postId = $(this).data('id');
+
+          $.ajax({
+            url: `/api/cms/v1/app-preview`,
+            type: 'GET',
+            dataType: 'json',
+            data: { content_id: postId },
+            success: function(response) {
+              const item = response.data[0];
+              let content = decodeHTML(item.body || '');
+
+              content = content.replace(/src="(\/uploads\/[^"]+)"/g, (match, p1) =>
+                `src="http://srv-webapp01:3023${p1}" class="modal-image" style="max-width: 100%; height: auto;"`);
+
+              content = content.replace(/<oembed[^>]*url="(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))"[^>]*><\/oembed>/g,
+                (match, fullUrl, videoId) =>
+                  `<div class="ratio ratio-16x9 mb-2"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`);
+
+              $('#previewModalLabel').html(item.title);
+              $('#previewModalBody').html(content);
+              $('#previewModal').modal('show');
+            }
+          });
+        });
+
+        function decodeHTML(html) {
+          const txt = document.createElement('textarea');
+          txt.innerHTML = html;
+          return txt.value;
+        }
+
+        // Breadcrumb rendering
+        function updateBreadcrumbs() {
+          let breadcrumbHTML = '';
+          if (navigationStack.length > 0) {
+            breadcrumbHTML += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="goBack()">⬅ Back</button>`;
+          }
+
+          navigationStack.forEach((item, index) => {
+            breadcrumbHTML += `<span class="small text-muted">${item.name}</span>`;
+            if (index < navigationStack.length - 1) breadcrumbHTML += ' &raquo; ';
+          });
+
+          $('#breadcrumbs').html(breadcrumbHTML);
+        }
+
+        // Go back button
+        function goBack() {
+          navigationStack.pop();
+          const previous = navigationStack[navigationStack.length - 1];
+          if (previous) {
+            fetchSubType(previous.id);
+          } else {
+            $('#product-and-services-link').click(); // Reset to top level
+          }
+        }
+
+            
+
+    // END PRODUCTS AND SERVICES
 
     function resetWhenHome(){
         // event.preventDefault();
@@ -299,3 +540,12 @@ history.pushState(null, null, document.URL);
           }
       }
   }, { passive: false });
+
+  document.querySelectorAll('.artsy-button').forEach(button => {
+    button.addEventListener('touchstart', () => {
+      button.classList.add('tapped');
+    });
+    button.addEventListener('touchend', () => {
+      setTimeout(() => button.classList.remove('tapped'), 300); // Give ripple time to finish
+    });
+  });

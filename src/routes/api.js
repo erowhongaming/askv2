@@ -270,9 +270,92 @@ router.get('/api/check-doctors', async (req, res) => {
     }
 });
 
+// CMS API's  Retrieves the application preview from the CMS.
+
+router.get('/api/cms/v1/app-preview', async (req, res) => {
+    const contentId = req.query.content_id || req.body.content_id;
+    try {
+       console.log(contentId);
+      
+           const response = await axios.get('http://localhost:3023/CMS/content/app-preview', {
+        //const response = await axios.get('http://srv-dashboard:3034/vital-signs', {  
+       params: {
+                    content_id :contentId,
+                    connected_app_name: "Assistance Service Kiosk",
+                  } 
+            }); 
+            res.json({data:response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
 
 
 
 
+router.get('/api/cms/v1/app-posts', async (req, res) => {
+    //TODO: get the content type id from requests
+    console.log(req.query);
+    
+    try {
 
+             const params = {
+                subcategory_type_id: req.query.subtypeId,
+                content_type_id: req.query.parent_id ,
+                connected_app_name: "Assistance Service Kiosk",
+                };
+
+            const response = await axios.get('http://localhost:3023/CMS/content/app-posts',{
+                params: params
+                });
+            res.json({data:response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
+
+
+router.get('/api/cms/v1/app-content-type', async (req, res) => {
+    //TODO: get the content type id lits for making tabs 
+    try {
+            const response = await axios.get('http://localhost:3023/CMS/content/list-of-content-types',{
+                params: {
+                    connected_app_name: "Assistance Service Kiosk",
+                  }
+            }); 
+            res.json({data:response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
+
+  
+router.get('/api/cms/v1/app-sub-content-type', async (req, res) => {
+    //TODO: get the content type id lits for making tabs 
+    try {
+       const params = {
+                id: req.query.parent_id || req.body.parent_id,
+                };
+
+                const response = await axios.get('http://localhost:3023/CMS/content/list-of-sub-content-types', {
+                params: params
+                });
+
+                res.json({ data: response.data.data });
+        } catch (error) {
+        console.error('Error details:', error.response ? error.response.data : error.message);
+
+        // Send a response indicating the error occurred
+        res.status(500).json({ message: 'Failed to fetch content', error: error.message });
+        }
+  });
 module.exports = router;

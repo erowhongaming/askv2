@@ -71,6 +71,9 @@ function activityLog(module){
       }else if(target == '#landingPage'){
           home(target);
           activityLog('home');
+      }else if(target == '#productAndServices'){
+        productAndServices(target);
+        activityLog('productAndServices');
       }
 
     } 
@@ -91,6 +94,13 @@ function activityLog(module){
           scrollTop: $(target).offset().top
       }, 200, 'easeInOutCubic');
     }
+
+       function productAndServices(target){
+      $('html, body').animate({
+          scrollTop: $(target).offset().top
+      }, 200, 'easeInOutCubic');
+    }
+
 
 
 
