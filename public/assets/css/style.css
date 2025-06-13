@@ -621,8 +621,24 @@ margin-right: 10px;
    display: none; /*Hide the checkbox */
 }
 
-/*
-.checkbox-btn span::before {
+
+
+.checked_checkbox{
+  color: #cc0700;
+}
+
+
+.dynamic-checkbox-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #ddd;
+  transition: 0.2s;
+  margin-bottom:10px;
+}
+.dynamic-checkbox-btn span::before {
   content: '';
   display: inline-block;
   width: 12px;
@@ -634,31 +650,24 @@ margin-right: 10px;
   bottom: 1px;
   transition: 0.2s;
 }
-  */
 
-/* .checkbox-btn input { */
- /* Display the checkbox for debugging */
- /* display: none;
- opacity: 1;
- position: static; Adjust positioning if necessary */
- /* Reset any custom styles that might hide the checkbox */
-/* } */
-
-
-.checked_checkbox{
-  color: #cc0700;
-}
-/*
-.checkbox-btn input:checked ~ span {
+.dynamic-checkbox-btn input:checked + span {
   background-color: #cc0700;
-  
 }
 
-.checkbox-btn input:checked ~ span::before {
+.dynamic-checkbox-btn input:checked + span::before {
   transform: scale(1) rotate(-45deg);
 }
-  
-*/
+
+.dynamic-checkbox-btn input {
+   display: none; /*Hide the checkbox */
+}
+
+
+
+.dynamic-checked_checkbox{
+  color: #cc0700;
+}
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/

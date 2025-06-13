@@ -301,13 +301,20 @@ router.get('/api/cms/v1/app-posts', async (req, res) => {
     console.log(req.query);
     
     try {
-
-             const params = {
-                subcategory_type_id: req.query.subtypeId,
-                content_type_id: req.query.parent_id ,
+            const params = {
                 connected_app_name: "Assistance Service Kiosk",
-                };
+            };
 
+
+            if (req.query.parent_id) {
+                params.content_type_id = req.query.parent_id;
+            }
+
+
+           
+            if (req.query.subtypeId) {
+                params.subcategory_type_id = req.query.subtypeId; // when it's a single value
+            }
             const response = await axios.get('http://localhost:3023/CMS/content/app-posts',{
                 params: params
                 });

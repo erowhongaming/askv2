@@ -68,7 +68,87 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
            ' >
-   
+           <style>
+   .card-services {
+      width: 250px;
+      height: auto;
+    }
+    .mySwiper {
+      width: 100%;
+      padding: 10px 0;
+    }
+
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 180px; /* adjust as needed */
+      background: transparent;
+      margin: 0 10px;
+      background-image: url('/assets/img/bg14.jpg'); background-size: cover; background-position: center;
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Drop shadow */
+      overflow: hidden;
+    }
+
+    .icon-box {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .iconbox-blue {
+      background: transparent;
+      color: #333; /* Dark gray text */
+      padding: 20px;
+      border-radius: 8px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3); /* Light shadow for contrast */
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 0;
+      color: #333; /* Dark gray */
+    }
+
+.mySwiper {
+  position: relative;
+  overflow: hidden;
+}
+
+.mySwiper::before,
+.mySwiper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mySwiper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+}
+
+.mySwiper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.05), transparent);
+}
+
+
+
+
+</style>
     <div class="container position-relative " data-aos="fade-up" data-aos-delay="100"  >
       <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-9 text-center">          
@@ -76,108 +156,28 @@
         </div>
       </div>
      
-      <div class="portfolio-details-slider swiper">
-        <div class="swiper-wrapper align-items-center">
-
-          <div class="swiper-slide"> 
-            <div class="container services" data-aos="fade-up">   
-              <div class="row icon-boxes cards">  
+     
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper cards"> <!-- Keep this class for appending cards -->
+          <!-- Dynamic swiper-slides go here -->
+              <div class="swiper-slide card-services" 
+              
+                  id="doctorDir-link" >
+                <div class="icon-box iconbox-blue">
+                
+                  <h4 class="title">Doctors Directory</h4>
+                </div>
+              </div>
+              <div id="runnginBill-link" class="swiper-slide card-services" 
+                    id="doctorDir-link" >
+                  <div class="icon-box iconbox-blue">
                     
-
-                  <div id="doctorDir-link" class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box iconbox-blue">
-                      <div class="icon">
-                        <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
-                        </svg>
-                        <i class="ri-team-line"></i>
-                      </div>
-                      <h4 class="title">Doctors Directory</h4>
-                      <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                    </div>
+                   <h4 class="title">Running Bill</h4>
                   </div>
-
-
-                    <div  id="runnginBill-link" class="col-lg-3 col-md-6 align-items-stretch card-services " data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon-box iconbox-blue">
-                        <div class="icon">
-                          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
-                          </svg>
-                          <i class="ri-list-check"></i>
-                        </div>
-                        <h4 class="title">Running Bill</h4>
-                        <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                      </div>
-                    </div>
-                
-                 <div id="product-and-services-link" class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon-box iconbox-blue">
-                        <div class="icon">
-                          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
-                          </svg>
-                          <i class="ri-service-fill"></i>
-                        </div>
-                        <h4 class="title">Products & Services</h4>
-                        <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                      </div>
-                    </div>
-
-
-                    <div class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon-box iconbox-teal"  >
-                        <div class="icon">
-                          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
-                          </svg>
-                          <i class="ri-map-fill"></i>
-                        </div>
-                        <h4 class="title-coming-soon"  >Coming Soon </h4>
-                        <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                      </div>
-                    </div>
-                  
-                  
-
-                    
-                    
               </div>
-            </div>
-          </div>
-
-
-          <div class="swiper-slide"> 
-            <div class="container services" data-aos="fade-up">   
-              <div class="row icon-boxes cards">  
-                    
-                    <div  class="col-lg-3 col-md-6 align-items-stretch card-services" data-aos="zoom-in" data-aos-delay="100">
-                      <div class="icon-box iconbox-teal">
-                        <div class="icon">
-                          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
-                          </svg>
-                          <i class="ri-settings-2-line"></i>
-                        </div>
-                        <h4 class="title-coming-soon">Coming Soon</h4>
-                        <!-- <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p> -->
-                      </div>
-                    </div>
-                
-                    
-              </div>
-
-            
-            </div>
-          </div>
-
-      
-
         </div>
-        <br>
-        <br>
-        <div class="swiper-pagination"></div>
       </div>
+
     </div>
   </section><!-- End Hero -->
 
@@ -505,115 +505,138 @@
 
 
   </section><!-- End Running ill Section -->
-<style>
-  .artsy-button {
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px 25px;
-    color: maroon;
-    height: 100px;
-    transition: transform 0.15s ease, background-color 0.15s ease;
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    user-select: none;
-    touch-action: manipulation;
-  }
 
-  /* Press or tap feedback */
-  .artsy-button:active {
-    background-color: #d6d6d6;
-    transform: scale(0.98);
-  }
 
-  .folder-icon {
-    font-size: 2rem;
-    color: maroon;
-  }
 
-  .tiny-hint {
-    font-size: 0.7rem;
-    color: gray;
-    margin-top: 2px;
-  }
 
-  .artsy-button.tapped {
-    background-color: #d6d6d6 !important;
-    transform: scale(0.98);
-  }
-#breadcrumbs {
-  display: block;
-  color: black;
-  font-size: 0.9rem;
-  margin-bottom: 15px;
-}
 
-  #previewModalBody {
-    min-height: 300px;
-    max-height: 70vh;
-    overflow-y: auto;
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 0.5rem;
-  }
-</style>
+
 
 
 
  
   
     <!-- ======= Products and Services ======= -->
-  <section id="productAndServices" class="services" style='margin-top: 20px;margin-bottom: 30px;background:transparent top center;height:100vh'>
+  <section id="dynamicPage" class="services" style='margin-top: 20px;margin-bottom: 30px;background:transparent top center;height:100vh'>
     
-
-<!-- Preview Modal -->
-<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="previewModalLabel">Preview</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="previewModalBody">
-        <!-- Dynamic preview content goes here -->
-      </div>
-    </div>
-  </div>
-</div>
-
-
-    <div class="container" data-aos="fade-up">
-        
-      <div class="modal fade modal-lg" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-           
-            <div class="modal-body">
-              <div class="card-body p-lg-17">
-                <!-- Dynamic Content Goes Here -->
-                <div  id="preview-content-app" style="padding:30px">
-
-                </div>
-            </div>   
-            </div>
-       
+    
+     
+      <!-- Preview Modal -->
+      <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow-lg border-0">
+          <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title fw-semibold" id="previewModalLabel" style="font-size: 1.25rem;">🔍 Preview</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="previewModalBody" style="font-size: 1rem; color: #333; line-height: 1.6;">
+            <!-- Dynamic preview content goes here -->
+            <div class="text-center text-muted py-5">Loading content...</div>
           </div>
         </div>
+        </div>
       </div>
-    
-      
-      <div class="section-title">
-        <h2>Products and Services</h2>
+
+      <style>
+
+      /* 
+      #previewModalBody {
+      min-height: 300px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 1px #e0e0e0;
+      } */
+      #previewModal .modal-content {
+      background-color: #fefefe;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+
+      #previewModal .modal-header {
+      padding: 1rem 1.5rem 0 1.5rem;
+      }
+
+      #previewModal .modal-body {
+      padding: 1.5rem;
+      max-height: 75vh;
+      overflow-y: auto;
+      }
+
+      #previewModal.show .modal-content {
+      transform: scale(1.02);
+      }
+
+      .modal-backdrop.show {
+      background-color: rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(3px);
+      }
+      </style>
+
+
+
+      <div class="container-fluid" data-aos="fade-up">
+          
+        <div class="modal fade modal-lg" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              
+              <div class="modal-body">
+                <div class="card-body p-lg-17">
+                  <!-- Dynamic Content Goes Here -->
+                  <div  id="preview-content-app" style="padding:30px">
+
+                  </div>
+              </div>   
+              </div>
+          
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="section-title">
+          <h2 id = "dynamicPage-title"></h2>
+        </div>
+        
+        <div class="row" id="dynamicPage-contents" style="height:70vh;">
+          <div class="container-fluid"  data-aos="fade-up">
+            <div class="row">
+              <div class="col-md-2">
+                <h5>Categories   &nbsp; 
+                    
+                  <button id="eventDynamicCheck" class="btn-transparent " onclick="eventDynamicCheck()"  >
+                    <i class="ri-filter-off-fill"></i>
+                  </button>
+              </h5>
+              <form id="sideSubType">
+                <div class="side-subType" style="overflow:auto;height:70vh;">
+                  <button id="search-icon" type="button">
+                    <i class="ri-search-2-line"></i> 
+                  </button>
+                
+                </div>
+              </form>
+              </div>
+              <div class="col-md-9" >
+                <div class='row dynamicPage-container'  style="overflow:auto;height:70vh;">
+                
+              
+                
+
+                </div>
+              </div>
+              <div  class="col-md-1"> 
+
+              </div>
+            </div>
+          </div>
+          
+
+        </div>
+
       </div>
-      <div id="breadcrumbs" class="mb-3"></div>
-      <div class="row" id="product-and-services-contents" style="overflow:auto;height:70vh;">
-  
-       
-  
-      </div>
-  
-    </div>
     
   </section><!-- End Products and Services Section -->
    
@@ -670,11 +693,7 @@
 
 
 <script>    
-$(document).on('click', '.artsy-button', function() {
-  const btn = $(this);
-  btn.addClass('tapped');
-  setTimeout(() => btn.removeClass('tapped'), 150); // flash effect
-});
+
 
   $(document).ready(function () {
 
@@ -758,15 +777,62 @@ $(document).on('click', '.artsy-button', function() {
       })
 
 
-         // hide billing table
-         $('#runningBillTable').css('display', 'none');
+      // hide billing table
+      $('#runningBillTable').css('display', 'none');
    
+      $.ajax({
+          url: '/api/cms/v1/app-content-type',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            $('#dynamic-tab').empty();
+          
+
+           response.data.forEach(function(item) {
+             let contentHTML = `
+                <div class="swiper-slide card-services dynamicPage-link"
+                    data-id="${item.id}" 
+                    data-name="${item.name}">
+                  <div class="icon-box iconbox-blue">
+                    <h4 class="title">${item.name}</h4>
+                  </div>
+                </div>
+              `;
+              $('.cards').append(contentHTML);
+            });
+
+
+             // Re-initialize Swiper after dynamic content is added
+           new Swiper('.mySwiper', {
+              slidesPerView: 'auto',
+              spaceBetween: 20,
+              freeMode: true,
+              simulateTouch: true,      // Enable touch control
+              touchRatio: 1,            // Normal swipe sensitivity
+              allowTouchMove: true,     // Allow touch dragging
+
+              // Disable mouse dragging/swiping
+              simulateTouch: true,
+              touchStartPreventDefault: true,
+              grabCursor: false,
+              cssMode: false,           // Important: disable CSS mode to allow touch-only
+
+              // Optional: disable navigation buttons if you only want finger swipe
+              navigation: false,
+              pagination: false,
+            });
+
+          },
+          
+        });
+
+      
     
   });
 
   
 
-  
+                
 </script>
 </body>
 

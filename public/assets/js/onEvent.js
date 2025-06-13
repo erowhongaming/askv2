@@ -78,120 +78,65 @@ var request;
 
     //START PRDUCTS AND SERVICES
         // Track navigation for breadcrumbs and back
-        let navigationStack = [];
+        function eventDynamicCheck(){
+          $('input[name="subType"]:checked').prop('checked', false);
+     
+               const checkedValues = $('.dynamic-checkbox-btn input[type="checkbox"]:checked')
+                .map(function () {
+                  return $(this).val();
+                }).get();
 
-        // First Level: Main Types
-        $('body').on("click", "#product-and-services-link", () => {
-          navigationStack = []; // Reset stack
-          $.ajax({
-            url: '/api/cms/v1/app-content-type',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-              $('#product-and-services-contents').empty();
-              $('#breadcrumbs').html('');
-
-              response.data.forEach(function(item) {
-                let contentHTML = `
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                      <button 
-                        class="artsy-button w-100 text-start content-title content-button" 
-                        data-id="${item.id}" data-name="${item.name}">
-                        <div class="d-flex align-items-center">
-                          <div class="folder-icon me-3"></div>
-                          <div>
-                            <div class="fs-5 fw-semibold">${item.name}</div>
-                            <div class="tiny-hint text-muted">
-                              <span>${item.subcategory_type_count} item${item.subcategory_type_count == 1 ? '' : 's'}</span> · 
-                              <span class="text-decoration-underline">View details</span>
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-
-                `;
-                $('#product-and-services-contents').append(contentHTML);
-              });
-            }
-          });
-
-          goTo('#productAndServices');
-        });
-
-        // Subtype Level
-        $('body').on('click', '.content-button', function () {
-          const id = $(this).data('id');
-          const name = $(this).data('name');
-          navigationStack.push({ id, name });
-          fetchSubType(id);
-        });
-
-        function fetchSubType(parent_id) {
-          $.ajax({
-            url: `/api/cms/v1/app-sub-content-type`,
-            type: 'GET',
-            dataType: 'json',
-            data: { parent_id },
-            success: function(response) {
-          
-              const container = $('#product-and-services-contents');
-
-              // Fade out the container before emptying
-              container.fadeOut(150, function () {
-                container.empty();
-                updateBreadcrumbs();
-
-                if (response.data.length === 0) {
-                  fetchPosts(navigationStack[navigationStack.length - 2]?.id || null, parent_id);
-                  container.fadeIn(150); // fade back in even if it's empty
-                  return;
-                }
-
-                response.data.forEach(function(item, index) {
-                  const contentHTML = `
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4 fade-in" style="animation-delay: ${index * 50}ms">
-                      <button 
-                        class="artsy-button w-100 text-start content-title content-button" 
-                        data-id="${item.id}" data-name="${item.name}">
-                        <div class="d-flex align-items-center">
-                          <div class="folder-icon me-3"></div>
-                          <div>
-                            <div class="fs-5 fw-semibold">${item.name}</div>
-                            <div class="tiny-hint text-muted">
-                              <span>${item.content_count} item${item.content_count == 1 ? '' : 's'}</span> · 
-                              <span class="text-decoration-underline">View details</span>
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  `;
-
-                  container.append(contentHTML);
-                });
-
-                container.fadeIn(150); // Fade in the new content
-              });
-            
-
-            }
-          });
+                 const type_id = $(this).data('id'); // Corrected this line
+        
+              displayPosts(type_id,checkedValues);
         }
 
-        function fetchPosts(parentId, subtypeId) {
+        // First Level: Main Types
+       $('body').on('change', '.dynamic-checkbox-btn input[type="checkbox"]', function () {
+          const checkedValues = $('.dynamic-checkbox-btn input[type="checkbox"]:checked')
+            .map(function () {
+              return $(this).val();
+            }).get();
 
-          $.ajax({
-            url: '/api/cms/v1/app-posts',
-            type: 'GET',
-            dataType: 'json',
-          data: {
-              parent_id: parentId,
-              subtypeId: subtypeId
-            },
-            success: function(response) {
-              $('#product-and-services-contents').empty();
-              updateBreadcrumbs();
+          const type_id = $(this).data('id'); // Corrected this line
+          
+          displayPosts(type_id,checkedValues);
+
+        });
+      
+   
+        $('body').on("click", ".dynamicPage-link", function ()  {
+          const type_id = $(this).data('id');
+          const type_name = $(this).data('name');
+          console.log(type_id, type_name);
+          $('#dynamicPage-title').text(type_name);
+
+            // Clear previous content 
+            $('.side-subType').empty();
+            $('.dynamicPage-container').empty();
+
+            fetchSubType(type_id).then(function (response) {
+              let subtype = '';
+
+              $.each(response.data, function (index, item) {
+                
+                subtype += `
+                  <label class="dynamic-checkbox-btn">
+                    <input type="checkbox" name="subType" value="${item.id}" data-id=${type_id} />
+                    <span></span>
+                    ${item.name}
+                  </label><br>
+                `;
+              });
+
+              $('.side-subType').html(subtype); // Inject the HTML into your container
+            }).catch(function (err) {
+              console.error('Error fetching subtype:', err);
+            });
+ 
+
+            fetchPosts(type_id).then(function (response) {
+              let fetchposts = '';
 
               if (response.data && Array.isArray(response.data)) {
                 response.data.forEach(function(item) {
@@ -204,50 +149,138 @@ var request;
                     (match, fullUrl, videoId) =>
                       `<div class="ratio ratio-16x9 mb-2"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`);
 
-                  let postHTML = `
-                  <div class="col-md-4 mb-4">
-                    <button class="w-100 text-start border-0 bg-transparent p-0 preview-trigger" data-id="${item.id}" style="all: unset; display: block;">
-                      <div class="card border-0 rounded-4 shadow-sm p-3 clickable-card">
-                        <div class="card-body">
-                          <h5 class="mb-2 fw-medium" style="font-size: 1.1rem; color: #111;">
-                            ${item.title}
-                          </h5>
-                          <div class="text-muted" style="font-size: 0.95rem; line-height: 1.5;">
-                            ${contentBody}
+                  fetchposts += `
+                    <div class="col-md-4 mb-4">
+                      <button class="w-100 text-start border-0 bg-transparent p-0 preview-trigger" data-id="${item.id}" style="all: unset; display: block;">
+                        <div class="card border-0 rounded-4 shadow-sm p-3 clickable-card">
+                          <div class="card-body">
+                            <h5 class="mb-2 fw-medium" style="font-size: 1.1rem; color: #111;">
+                              ${item.title}
+                            </h5>
+                            <div class="text-muted" style="font-size: 0.95rem; line-height: 1.5;">
+                              ${contentBody}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </button>
-                  </div>
-
-                  <style>
-                    .clickable-card {
-                      background-color: #f9f9f9;
-                      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-                      cursor: pointer;
-                    }
-
-                    .clickable-card:hover {
-                      background-color: #f0f0f0;
-                      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-                      transform: translateY(-2px);
-                    }
-
-                    .clickable-card:active {
-                      background-color: #eaeaea;
-                      transform: scale(0.98);
-                      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-                    }
-                  </style>
-
-
+                      </button>
+                    </div>
                   `;
-                  $('#product-and-services-contents').append(postHTML);
                 });
+
+                $('.dynamicPage-container').append(fetchposts); // Append once after loop
               }
+            }).catch(function (err) {
+              let fetchposts = ` 
+               <div class=" col-lg-12 col-md-6 portfolio-item align-items-stretch filter-app" >
+                    <div class="spinner-container">
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                      <div class="spinner-grow text-dark" role="status">
+                        <span class="sr-only"></span>
+                      </div>
+                    </div>
+                  </div>`;
+                $('.dynamicPage-container').html(fetchposts); // Inject the HTML into your container
+              console.error('Error fetching subtype:', err);
+            });
+
+
+          goTo('#dynamicPage');
+        });
+
+
+       function fetchSubType(parent_id) {
+        return $.ajax({
+          url: `/api/cms/v1/app-sub-content-type`,
+          type: 'GET',
+          dataType: 'json',
+          data: { parent_id }
+        });
+      }
+
+
+        function fetchPosts(parentId, subtypeId) {
+          return $.ajax({
+            url: '/api/cms/v1/app-posts',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+              parent_id: parentId,
+              subtypeId: subtypeId
             }
+
           });
         }
+
+
+       function displayPosts(type_id, subtypeId) {
+          return fetchPosts(type_id, subtypeId)
+            .then(function (response) {
+              let fetchposts = '';
+
+              if (response.data && Array.isArray(response.data)) {
+                response.data.forEach(function (item) {
+                  let contentBody = decodeHTML(item.body || '');
+
+                  contentBody = contentBody.replace(/src="(\/uploads\/[^"]+)"/g, (match, p1) =>
+                    `src="http://srv-webapp01:3023${p1}" class="modal-image" style="max-width: 100%; height: auto;"`);
+
+                  contentBody = contentBody.replace(
+                    /<oembed[^>]*url="(https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))"[^>]*><\/oembed>/g,
+                    (match, fullUrl, videoId) =>
+                      `<div class="ratio ratio-16x9 mb-2"><iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`
+                  );
+
+                  fetchposts += `
+                    <div class="col-md-4 mb-4">
+                      <button class="w-100 text-start border-0 bg-transparent p-0 preview-trigger" data-id="${item.id}" style="all: unset; display: block;">
+                        <div class="card border-0 rounded-4 shadow-sm p-3 clickable-card">
+                          <div class="card-body">
+                            <h5 class="mb-2 fw-medium" style="font-size: 1.1rem; color: #111;">
+                              ${item.title}
+                            </h5>
+                            <div class="text-muted" style="font-size: 0.95rem; line-height: 1.5;">
+                              ${contentBody}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  `;
+                });
+
+                $('.dynamicPage-container').html(fetchposts); // Replace content instead of append
+              } else {
+                $('.dynamicPage-container').html('<p>No posts found.</p>');
+              }
+            })
+            .catch(function (err) {
+              const fetchposts = `
+                <div class="col-lg-12 col-md-6 portfolio-item align-items-stretch filter-app">
+                  <div class="spinner-container">
+                    <div class="spinner-grow text-dark" role="status"></div>
+                    <div class="spinner-grow text-dark" role="status"></div>
+                    <div class="spinner-grow text-dark" role="status"></div>
+                    <div class="spinner-grow text-dark" role="status"></div>
+                    <div class="spinner-grow text-dark" role="status"></div>
+                  </div>
+                </div>
+              `;
+              $('.dynamicPage-container').html(fetchposts);
+              console.error('Error fetching subtype:', err);
+            });
+        }
+
 
         // Preview modal (post detail)
         $('body').on('click', '.preview-trigger', function () {
@@ -276,39 +309,11 @@ var request;
           });
         });
 
-        function decodeHTML(html) {
-          const txt = document.createElement('textarea');
-          txt.innerHTML = html;
-          return txt.value;
-        }
-
-        // Breadcrumb rendering
-        function updateBreadcrumbs() {
-          let breadcrumbHTML = '';
-          if (navigationStack.length > 0) {
-            breadcrumbHTML += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="goBack()">⬅ Back</button>`;
-          }
-
-          navigationStack.forEach((item, index) => {
-            breadcrumbHTML += `<span class="small text-muted">${item.name}</span>`;
-            if (index < navigationStack.length - 1) breadcrumbHTML += ' &raquo; ';
-          });
-
-          $('#breadcrumbs').html(breadcrumbHTML);
-        }
-
-        // Go back button
-        function goBack() {
-          navigationStack.pop();
-          const previous = navigationStack[navigationStack.length - 1];
-          if (previous) {
-            fetchSubType(previous.id);
-          } else {
-            $('#product-and-services-link').click(); // Reset to top level
-          }
-        }
-
-            
+    function decodeHTML(html) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    }
 
     // END PRODUCTS AND SERVICES
 

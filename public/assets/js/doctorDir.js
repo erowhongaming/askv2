@@ -71,9 +71,9 @@ function activityLog(module){
       }else if(target == '#landingPage'){
           home(target);
           activityLog('home');
-      }else if(target == '#productAndServices'){
-        productAndServices(target);
-        activityLog('productAndServices');
+      }else if(target == '#dynamicPage'){
+        dynamicPage(target);
+        activityLog('dynamicPage');
       }
 
     } 
@@ -95,7 +95,7 @@ function activityLog(module){
       }, 200, 'easeInOutCubic');
     }
 
-       function productAndServices(target){
+    function dynamicPage(target){
       $('html, body').animate({
           scrollTop: $(target).offset().top
       }, 200, 'easeInOutCubic');
@@ -629,6 +629,7 @@ function eventUnCheckHMO(){
   // Log the imploded values
   search(hmos);
 }
+
 
 function eventCheckHMO(){
    
