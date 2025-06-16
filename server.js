@@ -21,9 +21,9 @@ app.use(routes);
 
 app.use('/assets', express.static(path.join(__dirname, 'public','/assets')));
 app.use(cors({
-    origin: 'http://localhost:3023', // Allow requests from frontend (localhost:3034)f
+    origin: 'http://srv-webapp01:3023', // Allow requests from frontend (localhost:3034)f
     methods: ['GET', 'POST'],       // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed he`aders
   }));
 
 

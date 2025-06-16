@@ -84,7 +84,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      height: 180px; /* adjust as needed */
+      height: 160px; /* adjust as needed */
       background: transparent;
       margin: 0 10px;
       background-image: url('/assets/img/bg14.jpg'); background-size: cover; background-position: center;
@@ -143,9 +143,37 @@
 .mySwiper::after {
   right: 0;
   background: linear-gradient(to left, rgba(0,0,0,0.05), transparent);
+  z-index: 1;
 }
 
-
+/* New styles for transparent navigation buttons */
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  border-radius: 50%;
+  color: #333; /* Dark gray for contrast */
+  transition: background-color 0.3s ease;
+  z-index: 15; /* Above slides */
+  pointer-events: auto;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(255, 255, 255, 0.4); /* Slightly more opaque on hover */
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px; /* Smaller arrow size */
+  font-weight: bold;
+  color: #333; /* Dark gray arrows */
+}
+.swiper-button-prev {
+  left: 10px; /* Position left button */
+}
+.swiper-button-next {
+  right: 10px; /* Position right button */
+}
 
 
 </style>
@@ -157,7 +185,7 @@
       </div>
      
      
-      <div class="swiper mySwiper">
+      <div class="swiper mySwiper" style="margin-top: 20px;">
         <div class="swiper-wrapper cards"> <!-- Keep this class for appending cards -->
           <!-- Dynamic swiper-slides go here -->
               <div class="swiper-slide card-services" 
@@ -175,7 +203,12 @@
                    <h4 class="title">Running Bill</h4>
                   </div>
               </div>
+
+
         </div>
+      <!-- Navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
 
     </div>
@@ -197,6 +230,7 @@
           </div>
         </div>
     </div>
+
     <div class="container-fluid" data-aos="fade-up" style="overflow:auto">
 
       <div class="section-title">
@@ -818,7 +852,10 @@
               cssMode: false,           // Important: disable CSS mode to allow touch-only
 
               // Optional: disable navigation buttons if you only want finger swipe
-              navigation: false,
+              nnavigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
               pagination: false,
             });
 

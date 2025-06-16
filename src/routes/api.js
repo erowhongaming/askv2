@@ -315,7 +315,7 @@ router.get('/api/cms/v1/app-posts', async (req, res) => {
             if (req.query.subtypeId) {
                 params.subcategory_type_id = req.query.subtypeId; // when it's a single value
             }
-            const response = await axios.get('http://localhost:3023/CMS/content/app-posts',{
+            const response = await axios.get('http://srv-webapp01:3023/CMS/content/app-posts',{
                 params: params
                 });
             res.json({data:response.data.data });
@@ -331,7 +331,7 @@ router.get('/api/cms/v1/app-posts', async (req, res) => {
 router.get('/api/cms/v1/app-content-type', async (req, res) => {
     //TODO: get the content type id lits for making tabs 
     try {
-            const response = await axios.get('http://localhost:3023/CMS/content/list-of-content-types',{
+            const response = await axios.get('http://srv-webapp01:3023/CMS/content/list-of-content-types',{
                 params: {
                     connected_app_name: "Assistance Service Kiosk",
                   }
@@ -353,7 +353,7 @@ router.get('/api/cms/v1/app-sub-content-type', async (req, res) => {
                 id: req.query.parent_id || req.body.parent_id,
                 };
 
-                const response = await axios.get('http://localhost:3023/CMS/content/list-of-sub-content-types', {
+                const response = await axios.get('http://srv-webapp01:3023/CMS/content/list-of-sub-content-types', {
                 params: params
                 });
 
